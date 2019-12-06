@@ -7,7 +7,7 @@ const authorSchema = new mongoose.Schema({
         unique: true,
     },
     born: {
-        type: Date,
+        type: Date, // "YYYY-mm-dd"
         required: true,
     },
     died: Date,
