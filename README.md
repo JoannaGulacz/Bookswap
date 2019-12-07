@@ -2,25 +2,30 @@
 
 ### Opis projektu
 
-Aplikacja zrzeszaj¹ca fascynatów ksi¹¿ek, która umo¿liwia wyszukiwanie ocen oraz recenzji ksi¹¿ek znajduj¹cych siê w bazie. 
-Zarejestrowani u¿ytkownicy, poza mo¿liwoœci¹ wystawiania ocen zyskuj¹ dostêp do w³asnej biblioteki ksi¹¿ek. Pochwal siê swoj¹ kolekcj¹ lub wymieniaj ksi¹¿kami z innymi u¿ytkownikami!
+Aplikacja zrzeszajï¿½ca fascynatï¿½w ksiï¿½ï¿½ek, ktï¿½ra umoï¿½liwia wyszukiwanie ocen oraz recenzji ksiï¿½ï¿½ek znajdujï¿½cych siï¿½ w bazie.
+Zarejestrowani uï¿½ytkownicy, poza moï¿½liwoï¿½ciï¿½ wystawiania ocen zyskujï¿½ dostï¿½p do wï¿½asnej biblioteki ksiï¿½ï¿½ek. Pochwal siï¿½ swojï¿½ kolekcjï¿½ lub wymieniaj ksiï¿½ï¿½kami z innymi uï¿½ytkownikami!
 
-### Funkcjonalnoœci
+### Funkcjonalnoï¿½ci
 
-- baza ksi¹¿ek: zbiór tytu³ów 
-- baza gatunków: zbiór kategorii literackich
-- baza autorów: zbiór pisarzy
-- baza wydawnictw: zbiór przedsiêbiorstw
-- system oceniania ksi¹¿ek: ocena ksi¹¿ki w skali gwiazdkowej, wyœwietlanie œredniej oceny u¿ytkowników
-- system recencji u¿ytkowników: dodawanie recenzji wed³ug okreœlonego schematu, recenzje wyró¿nione (konto Recenzenta)
-- zak³adanie konta u¿ytkownika
-- biblioteka ksi¹¿ek: kolekcja przeczytanych ksi¹¿ek (odnoœnik do recenzji/oceny u¿ytkownika)
-- system wymiany ksi¹¿ek: zaoferowanie ksi¹¿ek z biblioteki do wymiany, okreœlenie poszukiwanych ksi¹¿ek (gatunek, autor lub tytu³), szukanie ofert wymiany w okolicy
+-   baza ksiï¿½ï¿½ek: zbiï¿½r tytuï¿½ï¿½w
+-   baza gatunkï¿½w: zbiï¿½r kategorii literackich
+-   baza autorï¿½w: zbiï¿½r pisarzy
+-   baza wydawnictw: zbiï¿½r przedsiï¿½biorstw
+-   system oceniania ksiï¿½ï¿½ek: ocena ksiï¿½ï¿½ki w skali gwiazdkowej, wyï¿½wietlanie ï¿½redniej oceny uï¿½ytkownikï¿½w
+-   system recencji uï¿½ytkownikï¿½w: dodawanie recenzji wedï¿½ug okreï¿½lonego schematu, recenzje wyrï¿½nione (konto Recenzenta)
+-   zakï¿½adanie konta uï¿½ytkownika
+-   biblioteka ksiï¿½ï¿½ek: kolekcja przeczytanych ksiï¿½ï¿½ek (odnoï¿½nik do recenzji/oceny uï¿½ytkownika)
+-   system wymiany ksiï¿½ï¿½ek: zaoferowanie ksiï¿½ï¿½ek z biblioteki do wymiany, okreï¿½lenie poszukiwanych ksiï¿½ï¿½ek (gatunek, autor lub tytuï¿½), szukanie ofert wymiany w okolicy
 
-### Info dla zespo³u
+### Info dla zespoï¿½u
 
-Info dla osoby zak³adaj¹cej repo: 
+Info dla osoby zakï¿½adajï¿½cej repo:
 
 ```
-przed wykonaniem polecenia yarn || npm install konieczenie git init, bez tego husky nie zadzia³a
+przed wykonaniem polecenia yarn || npm install konieczenie git init, bez tego husky nie zadziaï¿½a
+```
+
+```
+node seeder.js -i // import danych
+node seeder.js -d // usuwanie danych
 ```
