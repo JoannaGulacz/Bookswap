@@ -3,6 +3,9 @@ const asyncHandler = require('../middleware/async');
 const Author = require('../models/Author');
 const router = express.Router();
 
+// @desc    Get all authors
+// @route   GET /api/authors
+// @access  Public
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
@@ -15,6 +18,9 @@ router.get(
     })
 );
 
+// @desc    Get a single author
+// @route   GET /api/authors/:id
+// @access  Public
 router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
@@ -31,6 +37,9 @@ router.get(
     })
 );
 
+// @desc    Add new author
+// @route   POST /api/authors
+// @access  Private
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
@@ -43,22 +52,17 @@ router.post(
     })
 );
 
+// @desc    Update author info
+// @route   PUT /api/authors/:id
+// @access  Private
 router.put(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const author = await Author.findByIdAndUpdate(
-                req.params.id,
-                {
-                    $set: {
-                        name: req.body.name,
-                        born: req.body.born,
-                        died: req.body.died,
-                        books: req.body.books,
-                    },
-                },
-                { new: true }
-            );
+            const author = await Author.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+                runValidators: true, // run middleware validation (PUT do not validate by default)
+            });
 
             res.status(200).json({
                 success: true,
@@ -70,6 +74,9 @@ router.put(
     })
 );
 
+// @desc    Delete author
+// @route   DELETE /api/authors/:id
+// @access  Private
 router.delete(
     '/:id',
     asyncHandler(async (req, res, next) => {
