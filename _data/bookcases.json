@@ -1,0 +1,25 @@
+[{
+    "owner": "Anna Kowalska",
+    "change": true,
+    "title": "Mężczyźni, którzy nienawidzą kobiet",
+    "author": "Stieg Larsson",
+    "publisher": "Czarna Owca",
+    "category": "kryminał"
+  },
+  {
+    "owner": "Jan Nowak",
+    "change": false,
+    "title": "Harry Potter i Kamień Filozoficzny",
+    "author": "J.K. Rowling",
+    "publisher": "Media Rodzina",
+    "category": "literatura młodzieżowa"
+  },
+  {
+    "owner": "Aleksandra Nowicka",
+    "change": true,
+    "title": "Harry Potter i Komnata Tajemnic",
+    "author": "J.K. Rowling",
+    "publisher": "Media Rodzina",
+    "category": "literatura młodzieżowa"
+  }
+]
