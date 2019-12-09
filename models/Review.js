@@ -55,3 +55,5 @@ function validateReview(review) {
 
     return Joi.vaidate(review, schema);
 }
+
+module.exports = mongoose.model('Review', reviewSchema);
