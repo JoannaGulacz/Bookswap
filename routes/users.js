@@ -2,6 +2,7 @@ const User = require('../models/User');
 const validate = require('../models/User');
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
@@ -18,6 +19,8 @@ router.post('/', async (req, res) => {
             email: req.body.email,
             password: req.body.password,
         });
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
         await user.save();
         res.send(user);
     }
