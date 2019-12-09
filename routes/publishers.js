@@ -33,8 +33,11 @@ router.get(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
+        const { error } = Publisher.validatePublisher(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
         const publisher = await Publisher.create(req.body);
-
         res.status(201).json({
             success: true,
             data: publisher,
@@ -46,9 +49,12 @@ router.put(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
+            const { error } = Publisher.validatePublisher(req.body);
+            if (error) {
+                return res.status(400).send(error.details[0].message);
+            }
             const publisher = await Publisher.findByIdAndUpdate(req.params.id, req.body, {
                 new: true,
-                // {$set: {name: req.body.name}},
                 runValidators: true,
             });
 

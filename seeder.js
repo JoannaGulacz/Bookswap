@@ -9,6 +9,7 @@ dotenv.config({
 
 // Load models
 const Test = require('./models/Test');
+const Publisher = require('./models/Publisher');
 
 // Connect to DB
 mongoose.connect(process.env.DB_URI, {
@@ -20,11 +21,13 @@ mongoose.connect(process.env.DB_URI, {
 
 // Read JSON files
 const tests = JSON.parse(fs.readFileSync(`${__dirname}/_data/tests.json`, 'utf-8'));
+const publishers = JSON.parse(fs.readFileSync(`${__dirname}/_data/publishers.json`, 'utf-8'));
 
 // Import into DB
 const importData = async () => {
     try {
         await Test.create(tests);
+        await Publisher.create(publishers);
         console.log('Data Imported...');
         process.exit();
     } catch (err) {
@@ -36,6 +39,7 @@ const importData = async () => {
 const deleteData = async () => {
     try {
         await Test.deleteMany();
+        await Publisher.deleteMany();
         console.log('Data Destroyed...');
         process.exit();
     } catch (err) {

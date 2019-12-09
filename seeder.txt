@@ -1,0 +1,7 @@
+seeder - dane do pobierania
+obiekt jason w data
+node seeder.js -d delete dane z bazy danych
+               -i import
+opisaæ w seeder.js
+walidacja joi string 255
+
