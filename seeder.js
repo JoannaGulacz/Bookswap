@@ -9,6 +9,7 @@ dotenv.config({
 
 // Load models
 const Test = require('./models/Test');
+const Publisher = require('./models/Publisher');
 const Book = require('./models/Book');
 const Bookcase = require('./models/Bookcase');
 
@@ -22,6 +23,7 @@ mongoose.connect(process.env.DB_URI, {
 
 // Read JSON files
 const tests = JSON.parse(fs.readFileSync(`${__dirname}/_data/tests.json`, 'utf-8'));
+const publishers = JSON.parse(fs.readFileSync(`${__dirname}/_data/publishers.json`, 'utf-8'));
 const books = JSON.parse(fs.readFileSync(`${__dirname}/_data/books.json`, 'utf-8'));
 const bookcases = JSON.parse(fs.readFileSync(`${__dirname}/_data/bookcases.json`, 'utf-8'));
 
@@ -29,6 +31,7 @@ const bookcases = JSON.parse(fs.readFileSync(`${__dirname}/_data/bookcases.json`
 const importData = async () => {
     try {
         await Test.create(tests);
+        await Publisher.create(publishers);
         await Book.create(books);
         await Bookcase.create(bookcases);
         console.log('Data Imported...');
@@ -42,6 +45,7 @@ const importData = async () => {
 const deleteData = async () => {
     try {
         await Test.deleteMany();
+        await Publisher.deleteMany();
         await Book.deleteMany();
         await Bookcase.deleteMany();
         console.log('Data Destroyed...');
