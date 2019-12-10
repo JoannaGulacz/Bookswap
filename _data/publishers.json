@@ -1,20 +1,21 @@
 [{
-    "name": "Czarne",
-    "books": ["Białe", "Bukareszt"]
+  "_id": "5df002a32f49b02c8c841526",  
+  "name": "Czarne"
   },
   {
-    "name": "Literackie",
-    "books": ["Bieguni"]
+    "_id": "5df002a32f49b02c8c841527",
+    "name": "Literackie"
   },
   {
-    "name": "Zysk i S-ka",
-    "books": ["Autostopem przez galaktykę"]
+    "_id": "5df002a32f49b02c8c841528",
+    "name": "Zysk i S-ka"
   },
   {
-    "name": "Fabryka słów",
-    "books": ["Virion"]
+    "_id": "5df002a32f49b02c8c841529",
+    "name": "Fabryka słów"
   },
   {
+    "_id": "5df002a32f49b02c8c84152a",
     "name": "Prószyński i S-ka"
   }
 ]
