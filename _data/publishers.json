@@ -1,0 +1,20 @@
+[{
+    "name": "Czarne",
+    "books": ["Białe", "Bukareszt"]
+  },
+  {
+    "name": "Literackie",
+    "books": ["Bieguni"]
+  },
+  {
+    "name": "Zysk i S-ka",
+    "books": ["Autostopem przez galaktykę"]
+  },
+  {
+    "name": "Fabryka słów",
+    "books": ["Virion"]
+  },
+  {
+    "name": "Prószyński i S-ka"
+  }
+]
