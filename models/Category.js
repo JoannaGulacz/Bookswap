@@ -1,25 +1,29 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 
-const categorySchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
+const categorySchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            unique: true,
+        },
     },
-    books: [String],
-});
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        toObject: {
+            virtuals: true,
+        },
+    }
+);
 
 function validateCategory(category) {
     const schema = Joi.object({
         name: Joi.string()
             .min(3)
-            .max(45),
-        books: Joi.array().items(
-            Joi.string()
-                .min(1)
-                .max(150)
-        ),
+            .max(45)
+            .required(),
     });
     return schema.validate(category);
 }
@@ -28,6 +32,13 @@ function validateCategory(category) {
 //     this.category = this.category.toLowerCase()
 //     next();
 // });
+
+categorySchema.virtual('books', {
+    ref: 'Book',
+    localField: '_id',
+    foreignField: 'category',
+    justOne: false,
+});
 
 module.exports = mongoose.model('Category', categorySchema);
 module.exports.validateCategory = validateCategory;
