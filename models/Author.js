@@ -12,7 +12,12 @@ const authorSchema = new mongoose.Schema({
         required: true,
     },
     died: Date,
-    books: [String], // refs to books documents
+    books: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Book',
+        },
+    ],
     rating: Number, // avarage users ratings (stars or nums)
 });
 
