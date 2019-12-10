@@ -1,25 +1,30 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 
-const publisherSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
+const publisherSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            unique: true,
+        },
     },
-    books: [String],
-});
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        toObject: {
+            virtuals: true,
+        },
+    }
+);
 
 function validatePublisher(publisher) {
     const schema = Joi.object({
         name: Joi.string()
             .min(1)
-            .max(255),
-        books: Joi.array().items(
-            Joi.string()
-                .min(1)
-                .max(255)
-        ),
+            .max(255)
+            .required(),
     });
     return schema.validate(publisher);
 }
@@ -28,6 +33,13 @@ function validatePublisher(publisher) {
 //     this.publisher = this.publisher.toLowerCase()
 //     next();
 // });
+
+publisherSchema.virtual('books', {
+    ref: 'Book',
+    localField: '_id',
+    foreignField: 'publisher',
+    justOne: false,
+});
 
 module.exports = mongoose.model('Publisher', publisherSchema);
 module.exports.validatePublisher = validatePublisher;

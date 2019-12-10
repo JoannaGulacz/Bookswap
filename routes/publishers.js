@@ -18,14 +18,14 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const publisher = await Publisher.find({ _id: req.params.id });
+            const publisher = await Publisher.findById(req.params.id).populate('books');
 
             res.status(200).json({
                 success: true,
                 data: publisher,
             });
         } catch {
-            res.status(404).send('Not found');
+            res.status(404).send('The publisher with the given id was not found.');
         }
     })
 );
@@ -63,7 +63,7 @@ router.put(
                 data: publisher,
             });
         } catch {
-            res.status(404).send('Not found');
+            res.status(404).send('The publisher with the given id was not found.');
         }
     })
 );
