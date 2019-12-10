@@ -42,7 +42,7 @@ async function createReview(title, content, rating, author) {
 }
 
 function validateReview(review) {
-    const schema = {
+    const schema = Joi.object({
         title: Joi.string()
             .min(5)
             .max(20)
@@ -51,7 +51,9 @@ function validateReview(review) {
             .max(200)
             .required(),
         rating: Joi.number().required(),
-    };
+    });
 
-    return Joi.vaidate(review, schema);
+    return schema.validate(review);
 }
+
+module.exports = mongoose.model('Review', reviewSchema);
