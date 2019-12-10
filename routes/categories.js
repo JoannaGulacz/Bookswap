@@ -19,14 +19,14 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const category = await Category.findById(req.params._id);
+            const category = await Category.findById(req.params.id);
 
             res.status(200).json({
                 success: true,
                 data: category,
             });
         } catch {
-            res.status(404).send('Category not found.');
+            res.status(404).send('Category with the given ID not found.');
         }
     })
 );
@@ -34,6 +34,10 @@ router.get(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
+        const { error } = Category.validateCategory(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
         const category = await Category.create(req.body);
 
         res.status(201).json({
@@ -44,14 +48,25 @@ router.post(
 );
 
 router.put(
-    '/',
+    '/:id',
     asyncHandler(async (req, res, next) => {
-        const category = await Category.findByIdAndUpdate(req.params._id, req.body, { new: true, runValidators: true });
+        try {
+            const { error } = Category.validateCategory(req.body);
+            if (error) {
+                return res.status(400).send(error.details[0].message);
+            }
+            const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+                runValidators: true,
+            });
 
-        res.status(201).json({
-            success: true,
-            data: category,
-        });
+            res.status(200).json({
+                success: true,
+                data: category,
+            });
+        } catch {
+            res.status(404).send('Category with the given ID not found.');
+        }
     })
 );
 
@@ -59,14 +74,14 @@ router.delete(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const category = await Category.findByIdAndDelete(req.params._id);
+            const category = await Category.findByIdAndDelete(req.params.id);
 
             res.status(200).json({
                 success: true,
                 data: category,
             });
         } catch {
-            res.status(404).send('Category not found.');
+            res.status(404).send('Category with the given ID not found.');
         }
     })
 );
