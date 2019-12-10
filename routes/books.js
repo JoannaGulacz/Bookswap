@@ -19,8 +19,8 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const book = await Book.findById(_id);
-
+            const book = await Book.findById(req.params.id).populate('bookcases');
+            console.log(book);
             res.status(200).json({
                 success: true,
                 data: book,
@@ -66,7 +66,9 @@ router.delete(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const result = await Book.deleteOne({ _id: req.params.id });
+            const result = await Book.deleteOne({
+                _id: req.params.id,
+            });
 
             res.status(200).json({
                 success: true,
