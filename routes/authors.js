@@ -1,7 +1,8 @@
 const express = require('express');
-const asyncHandler = require('../middleware/async');
-const Author = require('../models/Author');
 const router = express.Router();
+
+const asyncHandler = require('../middleware/async');
+const { Author, validateAuthor } = require('../models/Author');
 
 // @desc    Get all authors
 // @route   GET /api/authors
@@ -25,6 +26,7 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
+            validateAuthor(req, res, next);
             const author = await Author.find({ _id: req.params.id });
 
             res.status(200).json({
@@ -43,6 +45,10 @@ router.get(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
+        // Validate request with Joi
+        const { error } = validateAuthor(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
+
         const author = await Author.create(req.body);
 
         res.status(201).json({
@@ -59,9 +65,13 @@ router.put(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
+            // Validate request with Joi
+            const { error } = validateAuthor(req.body);
+            if (error) return res.status(400).send(error.details[0].message);
+
             const author = await Author.findByIdAndUpdate(req.params.id, req.body, {
                 new: true,
-                runValidators: true, // run middleware validation (PUT do not validate by default)
+                runValidators: true, // (PUT doesn't validate by default)
             });
 
             res.status(200).json({
