@@ -1,21 +1,21 @@
 [{
-    "name": "Fantastyka/S.F.",
-    "books": ["Władca Pierścieni: Drużyna Pierścienia", "Władca Pierścieni: Dwie Wieże", "Władca Pierścieni: Powrót Króla"]
+    "_id": "5deff118c426854752e9b61d",
+    "name": "Fantastyka/S.F."
   },
   {
-    "name": "Kryminał/Thriller",
-    "books": ["Mistyfikacja", "Zaginiona", "Mężczyźni, którzy nie nawidzą kobiet"]
+    "_id": "5deff118c426854752e9b62d",
+    "name": "Kryminał/Thriller"
   },
   {
-    "name": "Horror",
-    "books": ["To", "Smętarz dla zwierzaków", "Władca Pierścieni: Powrót Króla"]
+    "_id": "5deff118c426854752e9b63d",
+    "name": "Horror"
   },
   {
-    "name": "Literatura młodzieżowa",
-    "books": ["Harry Potter i Kamień Filozoficzny", "Igrzyska Śmierci", "W Pierścieniu Ognia"]
+    "_id": "5deff118c426854752e9b64d",
+    "name": "Literatura młodzieżowa"
   },
   {
-    "name": "Powieść Historyczna",
-    "books": ["Ogniem i Mieczem"]
+    "_id": "5deff118c426854752e9b65d",
+    "name": "Powieść Historyczna"
   }
 ]

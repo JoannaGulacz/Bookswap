@@ -19,8 +19,13 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const book = await Book.findById(req.params.id).populate('bookcases');
-            console.log(book);
+            const book = await Book.findById(req.params.id)
+                .populate('bookcases')
+                .populate({
+                    path: 'category',
+                    select: 'name -_id',
+                });
+            //console.log(book);
             res.status(200).json({
                 success: true,
                 data: book,

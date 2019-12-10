@@ -19,7 +19,7 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const category = await Category.findById(req.params.id);
+            const category = await Category.findById(req.params.id).populate('books');
 
             res.status(200).json({
                 success: true,

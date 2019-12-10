@@ -15,10 +15,6 @@ const bookSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        category: {
-            type: [String],
-            required: true,
-        },
         rating: {
             type: Number,
             default: 0,
@@ -26,6 +22,11 @@ const bookSchema = new mongoose.Schema(
         numberRates: {
             type: Number,
             default: 0,
+        },
+        category: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Category',
+            required: true,
         },
     },
     {
