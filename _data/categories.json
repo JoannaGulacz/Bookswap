@@ -1,0 +1,21 @@
+[{
+    "name": "Fantastyka/S.F.",
+    "books": ["Władca Pierścieni: Drużyna Pierścienia", "Władca Pierścieni: Dwie Wieże", "Władca Pierścieni: Powrót Króla"]
+  },
+  {
+    "name": "Kryminał/Thriller",
+    "books": ["Mistyfikacja", "Zaginiona", "Mężczyźni, którzy nie nawidzą kobiet"]
+  },
+  {
+    "name": "Horror",
+    "books": ["To", "Smętarz dla zwierzaków", "Władca Pierścieni: Powrót Króla"]
+  },
+  {
+    "name": "Literatura młodzieżowa",
+    "books": ["Harry Potter i Kamień Filozoficzny", "Igrzyska Śmierci", "W Pierścieniu Ognia"]
+  },
+  {
+    "name": "Powieść Historyczna",
+    "books": ["Ogniem i Mieczem"]
+  }
+]

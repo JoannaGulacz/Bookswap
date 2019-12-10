@@ -9,8 +9,10 @@ dotenv.config({
 
 // Load models
 const Test = require('./models/Test');
+const Publisher = require('./models/Publisher');
 const Book = require('./models/Book');
 const Bookcase = require('./models/Bookcase');
+const Category = require('./models/Category');
 
 // Connect to DB
 mongoose.connect(process.env.DB_URI, {
@@ -22,15 +24,19 @@ mongoose.connect(process.env.DB_URI, {
 
 // Read JSON files
 const tests = JSON.parse(fs.readFileSync(`${__dirname}/_data/tests.json`, 'utf-8'));
+const publishers = JSON.parse(fs.readFileSync(`${__dirname}/_data/publishers.json`, 'utf-8'));
 const books = JSON.parse(fs.readFileSync(`${__dirname}/_data/books.json`, 'utf-8'));
 const bookcases = JSON.parse(fs.readFileSync(`${__dirname}/_data/bookcases.json`, 'utf-8'));
+const categories = JSON.parse(fs.readFileSync(`${__dirname}/_data/categories.json`, 'utf-8'));
 
 // Import into DB
 const importData = async () => {
     try {
         await Test.create(tests);
+        await Publisher.create(publishers);
         await Book.create(books);
         await Bookcase.create(bookcases);
+        await Category.create(categories);
         console.log('Data Imported...');
         process.exit();
     } catch (err) {
@@ -42,8 +48,10 @@ const importData = async () => {
 const deleteData = async () => {
     try {
         await Test.deleteMany();
+        await Publisher.deleteMany();
         await Book.deleteMany();
         await Bookcase.deleteMany();
+        await Category.deleteMany();
         console.log('Data Destroyed...');
         process.exit();
     } catch (err) {
