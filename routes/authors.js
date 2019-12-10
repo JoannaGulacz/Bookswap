@@ -1,7 +1,9 @@
 const express = require('express');
+const router = express.Router();
+
 const asyncHandler = require('../middleware/async');
 const Author = require('../models/Author');
-const router = express.Router();
+const validateAuthor = require('../middleware/validateAuthor');
 
 // @desc    Get all authors
 // @route   GET /api/authors
@@ -42,6 +44,7 @@ router.get(
 // @access  Private
 router.post(
     '/',
+    validateAuthor,
     asyncHandler(async (req, res, next) => {
         const author = await Author.create(req.body);
 
@@ -61,7 +64,7 @@ router.put(
         try {
             const author = await Author.findByIdAndUpdate(req.params.id, req.body, {
                 new: true,
-                runValidators: true, // run middleware validation (PUT do not validate by default)
+                runValidators: true, // run middleware validation (PUT doesn't validate by default)
             });
 
             res.status(200).json({
