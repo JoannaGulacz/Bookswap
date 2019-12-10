@@ -4,7 +4,6 @@ const bookcaseSchema = new mongoose.Schema({
     owner: {
         type: String,
         required: true,
-        unique: true,
     },
     change: {
         type: Boolean,
@@ -13,18 +12,10 @@ const bookcaseSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        unique: true,
     },
-    author: {
-        type: String,
-        required: true,
-    },
-    publisher: {
-        type: String,
-        required: true,
-    },
-    category: {
-        type: [String],
+    parentBook: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Book',
         required: true,
     },
 });

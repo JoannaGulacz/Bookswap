@@ -19,7 +19,10 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const bookcase = await Bookcase.findById(_id);
+            const bookcase = await Bookcase.findById(req.params.id).populate({
+                path: 'parentBook',
+                select: 'title author',
+            });
 
             res.status(200).json({
                 success: true,
@@ -66,7 +69,9 @@ router.delete(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const result = await Bookcase.deleteOne({ _id: req.params.id });
+            const result = await Bookcase.deleteOne({
+                _id: req.params.id,
+            });
 
             res.status(200).json({
                 success: true,
