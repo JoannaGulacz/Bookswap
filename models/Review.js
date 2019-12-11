@@ -15,12 +15,12 @@ const reviewSchema = new mongoose.Schema({
         required: true,
         enum: [1, 2, 3, 4, 5],
     },
-    //TODO poprawnie wcisnać powiązany model użytownika
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
+    //TODO DODAĆ POWIĄZANIE Z AUTORAMI
+    // author: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: true,
+    // },
     book: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book',
@@ -35,7 +35,7 @@ async function createReview(title, content, rating, author) {
         title,
         content,
         rating,
-        author,
+        // author,
         book,
     });
 
