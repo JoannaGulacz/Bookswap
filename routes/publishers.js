@@ -18,7 +18,10 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const publisher = await Publisher.findById(req.params.id).populate('books');
+            const publisher = await Publisher.findById(req.params.id).populate({
+                path: 'books',
+                select: 'title -_id',
+            });
 
             res.status(200).json({
                 success: true,
