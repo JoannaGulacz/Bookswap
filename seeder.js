@@ -31,7 +31,7 @@ const books = JSON.parse(fs.readFileSync(`${__dirname}/_data/books.json`, 'utf-8
 const bookcases = JSON.parse(fs.readFileSync(`${__dirname}/_data/bookcases.json`, 'utf-8'));
 const authors = JSON.parse(fs.readFileSync(`${__dirname}/_data/authors.json`, 'utf-8'));
 const categories = JSON.parse(fs.readFileSync(`${__dirname}/_data/categories.json`, 'utf-8'));
-const reviews = JSON.parse(fs.readFileSync(`${__dirname}/_data/reviews.json`, ' utf-8'));
+const reviews = JSON.parse(fs.readFileSync(`${__dirname}/_data/reviews.json`, 'utf-8'));
 
 // Import into DB
 const importData = async () => {
