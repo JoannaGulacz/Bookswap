@@ -1,28 +1,33 @@
 [
   {
-  "name": "J.K. Rowling",
-  "born": "1965-07-31",
-  "rating": 7.5
+    "_id": "5df02aa60fad54186ceff878",
+    "name": "J.K. Rowling",
+    "born": "1965-07-31",
+    "rating": 7.5
   },
   {
+    "_id": "5df02aa60fad54186ceff879",
     "name": "J.R.R. Tolkien",
     "born": "1892-01-03",
     "died": "1973-09-02",
     "rating": 9.3
   },
   {
+    "_id": "5df02aa60fad54186ceff87a",
     "name": "Stieg Larsson",
     "born": "1954-08-15",
     "died": "2004-11-09",
     "rating": 5.9
   },
   {
+    "_id": "5df02aa60fad54186ceff87b",
     "name": "Terry Pratchett",
     "born": "1948-04-28",
     "died": "2015-03-12",
     "rating": 9.8
   },
   {
+    "_id": "5df02aa60fad54186ceff87c",
     "name": "Stephen King",
     "born": "1947-09-21",
     "rating": 7.8
