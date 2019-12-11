@@ -14,6 +14,7 @@ const Book = require('./models/Book');
 const Bookcase = require('./models/Bookcase');
 const { Author } = require('./models/Author');
 const Category = require('./models/Category');
+const Review = require('./models/Review');
 
 // Connect to DB
 mongoose.connect(process.env.DB_URI, {
@@ -30,6 +31,7 @@ const books = JSON.parse(fs.readFileSync(`${__dirname}/_data/books.json`, 'utf-8
 const bookcases = JSON.parse(fs.readFileSync(`${__dirname}/_data/bookcases.json`, 'utf-8'));
 const authors = JSON.parse(fs.readFileSync(`${__dirname}/_data/authors.json`, 'utf-8'));
 const categories = JSON.parse(fs.readFileSync(`${__dirname}/_data/categories.json`, 'utf-8'));
+const reviews = JSON.parse(fs.readFileSync(`${__dirname}/_data/reviews.json`, ' utf-8'));
 
 // Import into DB
 const importData = async () => {
@@ -40,6 +42,7 @@ const importData = async () => {
         await Bookcase.create(bookcases);
         await Author.create(authors);
         await Category.create(categories);
+        await Review.create(reviews);
         console.log('Data Imported...');
         process.exit();
     } catch (err) {
@@ -56,6 +59,7 @@ const deleteData = async () => {
         await Bookcase.deleteMany();
         await Author.deleteMany();
         await Category.deleteMany();
+        await Review.deleteMany();
         console.log('Data Destroyed...');
         process.exit();
     } catch (err) {

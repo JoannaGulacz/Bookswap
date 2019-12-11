@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 
 const reviewSchema = new mongoose.Schema({
-    _id: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     title: {
         type: String,
         required: true,
@@ -24,6 +19,12 @@ const reviewSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
+    },
+    book: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book',
+        required: true,
     },
 });
 
@@ -35,6 +36,7 @@ async function createReview(title, content, rating, author) {
         content,
         rating,
         author,
+        book,
     });
 
     const result = await review.save();
