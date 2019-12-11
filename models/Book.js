@@ -12,8 +12,9 @@ const bookSchema = new mongoose.Schema(
             required: true,
         },
         publisher: {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Publisher',
+            // type: mongoose.Schema.ObjectId,
+            // ref: 'Publisher',
+            type: String,
             required: true,
         },
         rating: {
