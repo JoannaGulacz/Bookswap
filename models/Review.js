@@ -30,7 +30,7 @@ const reviewSchema = new mongoose.Schema({
 
 const Review = mongoose.model('Review', reviewSchema);
 
-async function createReview(title, content, rating, author) {
+async function createReview(title, content, rating) {
     const review = new Review({
         title,
         content,
