@@ -20,9 +20,16 @@ router.get(
     asyncHandler(async (req, res, next) => {
         try {
             const book = await Book.findById(req.params.id)
-                .populate('bookcases')
+                .populate({
+                    path: 'bookcases',
+                    select: 'owner change -_id',
+                })
                 .populate({
                     path: 'category',
+                    select: 'name -_id',
+                })
+                .populate({
+                    path: 'publisher',
                     select: 'name -_id',
                 });
             //console.log(book);
