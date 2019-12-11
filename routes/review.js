@@ -4,9 +4,9 @@ const Review = require('../models/Review');
 const router = express.Router();
 
 router.get(
-    '/reviews',
+    '/',
     asyncHandler(async (req, res, next) => {
-        const reviews = await Review.find().sort({ title: asc });
+        const reviews = await Review.find().sort({ title: 1 });
 
         res.status(200).json({
             success: true,
@@ -16,9 +16,12 @@ router.get(
 );
 
 router.get(
-    '/review/:id',
+    '/:id',
     asyncHandler(async (req, res, next) => {
-        const review = await Review.findById(_id);
+        const review = await Review.findById(req.params.id).populate({
+            path: 'author',
+            select: 'title',
+        });
 
         if (!review) return res.status(404).send('There is no review with given ID in databse');
 
@@ -30,7 +33,7 @@ router.get(
 );
 
 router.delete(
-    '/review/:id',
+    '/:id',
     asyncHandler(async (req, res, next) => {
         const review = await Review.findByIdAndDelete(req.params.id);
 
@@ -42,7 +45,7 @@ router.delete(
 );
 
 router.post(
-    '/review',
+    '/',
     asyncHandler(async (req, res, next) => {
         const { error } = validateReview(req.body);
         if (error) return res.status(400).send(error.details[0].message);
@@ -64,7 +67,7 @@ router.post(
 );
 
 router.put(
-    '/review/:id',
+    '/:id',
     asyncHandler(async (req, res, next) => {
         const { error } = validateReview(req.body);
         if (error) return res.status(400).send(error.details[0].message);
