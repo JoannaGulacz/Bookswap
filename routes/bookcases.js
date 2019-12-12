@@ -19,10 +19,15 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const bookcase = await Bookcase.findById(req.params.id).populate({
-                path: 'parentBook',
-                select: 'title author',
-            });
+            const bookcase = await Bookcase.findById(req.params.id)
+                .populate({
+                    path: 'parentBook',
+                    select: 'title author -_id',
+                })
+                .populate({
+                    path: 'owner',
+                    select: 'name email -_id',
+                });
 
             res.status(200).json({
                 success: true,

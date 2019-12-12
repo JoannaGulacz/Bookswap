@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('@hapi/joi');
 
 const bookSchema = new mongoose.Schema(
     {
@@ -18,7 +19,7 @@ const bookSchema = new mongoose.Schema(
         },
         rating: {
             type: Number,
-            default: 0,
+            default: 1,
         },
         numberRates: {
             type: Number,
@@ -39,6 +40,35 @@ const bookSchema = new mongoose.Schema(
         },
     }
 );
+
+function validateBook(bookData) {
+    const schema = Joi.object({
+        title: Joi.string()
+            .min(3)
+            .max(250)
+            .required(),
+        author: Joi.string()
+            .min(3)
+            .max(250)
+            .required(),
+        publisher: Joi.string()
+            .min(3)
+            .max(250)
+            .required(),
+        rating: Joi.number()
+            .min(1)
+            .max(5),
+        numberRates: Joi.number().min(0),
+        category: Joi.array().items(
+            Joi.string()
+                .min(3)
+                .max(250)
+        ),
+    });
+
+    return schema.validate(bookData);
+}
+
 /*
 testSchema.pre('save', function(next) {
     this.test = this.test.toLowerCase()
@@ -54,3 +84,4 @@ bookSchema.virtual('bookcases', {
 });
 
 module.exports = mongoose.model('Book', bookSchema);
+module.exports.validateBook = validateBook;
