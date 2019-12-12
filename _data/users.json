@@ -1,0 +1,31 @@
+[
+    {
+        "_id": "5d7a514b5d2c12c7449be125",
+        "name": "Bjorn Parker",
+        "email": "bparker@example.com",
+        "password": "asdf123",
+        "review": "5df11db8cad51e0f78793278"
+
+    },
+    {
+        "_id": "5d7a514b5d2c12c7449be124",
+        "name": "Berry Maddox",
+        "email": "berrymaddox12@example.com",
+        "password": "berry1993",
+        "review": "5df11db8cad51e0f78793279"
+    },
+    {
+        "_id": "5d7a514b5d2c12c7449be123",
+        "name": "Brad Jensen",
+        "email": "jensenb@example.com",
+        "password": "mybooks2019",
+        "review": "5df11db8cad51e0f7879327a"
+    },
+    {
+        "_id":"5d7a514b5d2c12c7449be122",
+        "name": "Alex Schneider",
+        "email": "alexs@example.com",
+        "password": "A1ex5",
+        "review": "5df11db8cad51e0f7879327b"
+    }
+]

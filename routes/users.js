@@ -3,6 +3,7 @@ const validate = require('../models/User');
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const asyncHandler = require('../middleware/async');
 
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
@@ -25,6 +26,72 @@ router.post('/', async (req, res) => {
         res.send(user);
     }
 });
+
+router.get(
+    '/',
+    asyncHandler(async (req, res, next) => {
+        const users = await User.find();
+
+        res.status(200).json({
+            success: true,
+            data: users,
+        });
+    })
+);
+
+router.get(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        try {
+            const user = await User.findById(req.params.id).populate({
+                path: 'review',
+                select: 'title content rating -_id',
+            });
+
+            res.status(200).json({
+                success: true,
+                data: user,
+            });
+        } catch {
+            res.status(404).send('The user with the given id was not found.');
+        }
+    })
+);
+
+router.put(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        try {
+            const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+                runValidators: true,
+            });
+
+            res.status(200).json({
+                success: true,
+                data: user,
+            });
+        } catch {
+            res.status(404).send('The user with the given id was not found.');
+        }
+    })
+);
+
+router.delete(
+    '/:id',
+    asyncHandler(async (req, res, next) => {
+        try {
+            const user = await User.findByIdAndRemove(req.params.id);
+
+            res.status(200).json({
+                success: true,
+                data: user,
+            });
+        } catch {
+            res.status(404).send('Not found');
+        }
+    })
+);
 
 /*
 // W router.get('/:id' ...) trzeba dodać:
