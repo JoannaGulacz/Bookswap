@@ -31,6 +31,10 @@ router.get(
                 .populate({
                     path: 'publisher',
                     select: 'name -_id',
+                })
+                .populate({
+                    path: 'author',
+                    select: 'name -_id',
                 });
             //console.log(book);
             res.status(200).json({

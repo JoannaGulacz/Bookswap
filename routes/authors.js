@@ -10,7 +10,14 @@ const { Author, validateAuthor } = require('../models/Author');
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const authors = await Author.find().populate('books', 'title category -_id');
+        const authors = await Author.find().populate({
+            path: 'books',
+            select: 'title category -_id',
+            populate: {
+                path: 'category',
+                select: 'name -_id',
+            },
+        });
 
         res.status(200).json({
             success: true,
@@ -27,7 +34,14 @@ router.get(
     asyncHandler(async (req, res, next) => {
         try {
             validateAuthor(req, res, next);
-            const author = await Author.find({ _id: req.params.id }).populate('books', 'title category -_id');
+            const author = await Author.find({ _id: req.params.id }).populate({
+                path: 'books',
+                select: 'title category -_id',
+                populate: {
+                    path: 'category',
+                    select: 'name -_id',
+                },
+            });
 
             res.status(200).json({
                 success: true,

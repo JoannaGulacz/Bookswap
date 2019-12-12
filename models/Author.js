@@ -1,25 +1,35 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 
-const authorSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    born: {
-        type: Date, // "YYYY-mm-dd"
-        required: true,
-    },
-    died: Date,
-    books: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Book',
+const authorSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            unique: true,
         },
-    ],
-    rating: Number, // avarage users ratings (stars or nums)
-});
+        born: {
+            type: Date, // "YYYY-mm-dd"
+            required: true,
+        },
+        died: Date,
+        books: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Book',
+            },
+        ],
+        rating: Number, // avarage users ratings (stars or nums)
+    },
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        toObject: {
+            virtuals: true,
+        },
+    }
+);
 
 function validate(authorData) {
     const schema = Joi.object({
@@ -47,6 +57,20 @@ testSchema.pre('save', function(next) {
     this.test = this.test.toLowerCase()
     next();
 });
+
+  {
+    "_id": "5df02aa60fad54186ceff87b",
+    "name": "Terry Pratchett",
+    "born": "1948-04-28",
+    "died": "2015-03-12",
+    "rating": 9.8
+  },
+  {
+    "_id": "5df02aa60fad54186ceff87c",
+    "name": "Stephen King",
+    "born": "1947-09-21",
+    "rating": 7.8
+  }
 */
 
 module.exports.Author = mongoose.model('Author', authorSchema);

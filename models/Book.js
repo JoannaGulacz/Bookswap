@@ -9,7 +9,8 @@ const bookSchema = new mongoose.Schema(
             unique: true,
         },
         author: {
-            type: String,
+            type: mongoose.Schema.ObjectId,
+            ref: 'Author',
             required: true,
         },
         publisher: {
@@ -80,6 +81,13 @@ bookSchema.virtual('bookcases', {
     ref: 'Bookcase',
     localField: '_id',
     foreignField: 'parentBook',
+    justOne: false,
+});
+
+bookSchema.virtual('authors', {
+    ref: 'Author',
+    localField: '_id',
+    foreignField: 'books',
     justOne: false,
 });
 
