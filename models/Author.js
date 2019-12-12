@@ -52,6 +52,13 @@ function validate(authorData) {
     return schema.validate(authorData);
 }
 
+authorSchema.virtual('nooks', {
+    ref: 'Book',
+    localField: '_id',
+    foreignField: 'authors',
+    justOne: false,
+});
+
 /*
 testSchema.pre('save', function(next) {
     this.test = this.test.toLowerCase()
