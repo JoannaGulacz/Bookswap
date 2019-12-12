@@ -10,6 +10,7 @@ const bookcaseSchema = new mongoose.Schema({
     change: {
         type: Boolean,
         required: true,
+        deafult: false,
     },
     title: {
         type: String,

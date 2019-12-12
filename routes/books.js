@@ -50,7 +50,36 @@ router.get(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        const book = await Book.create(req.body);
+        // Sprawdzenie publishera, !poglądowe!
+        // szukamy publishera
+        // let publisher = await Publisher.find({
+        //     name: req.body.publisherName
+        // })
+
+        //jeśli nie znajdujemy to tworzymy
+        // if (!publisher) {
+        //     publisher = await Publisher.create({
+        //         name: req.body.publisherName
+        //     });
+        // }
+
+        // Sprawdzenie Authora TODO
+        //......
+        // Sprawdzenie Category TODO
+        //......
+
+        // Bierzemy niezbędne dane do stworzenia book z req.body
+        // const {title, ..., ...} = req.body;
+
+        // i w końcu tworzymy naszą book
+        // const book = await Book.create({
+        //     title,
+        //     publisher: publisher._id,
+        //     author: author._id,
+        //     category: category._id
+        // });
+
+        const Book = await Book.create(req.body);
 
         res.status(201).json({
             success: true,

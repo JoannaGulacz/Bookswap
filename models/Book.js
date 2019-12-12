@@ -13,10 +13,12 @@ const bookSchema = new mongoose.Schema(
             ref: 'Author',
             required: true,
         },
+        publisherName: {
+            type: String,
+        },
         publisher: {
             type: mongoose.Schema.ObjectId,
             ref: 'Publisher',
-            required: true,
         },
         rating: {
             type: Number,

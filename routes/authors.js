@@ -34,7 +34,9 @@ router.get(
     asyncHandler(async (req, res, next) => {
         try {
             validateAuthor(req, res, next);
-            const author = await Author.find({ _id: req.params.id }).populate({
+            const author = await Author.find({
+                _id: req.params.id,
+            }).populate({
                 path: 'books',
                 select: 'title category -_id',
                 populate: {
@@ -105,7 +107,9 @@ router.delete(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const result = await Author.deleteOne({ _id: req.params.id });
+            const result = await Author.deleteOne({
+                _id: req.params.id,
+            });
 
             res.status(200).json({
                 success: true,
