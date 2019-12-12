@@ -26,4 +26,13 @@ router.post('/', async (req, res) => {
     }
 });
 
+/*
+// W router.get('/:id' ...) trzeba dodać:
+
+.populate({
+    path: 'bookcases',
+    select: 'title change -_id',
+})
+
+*/
 module.exports = router;
