@@ -3,11 +3,38 @@ const asyncHandler = require('../middleware/async');
 const Book = require('../models/Book');
 const router = express.Router();
 const Category = require('../models/Category');
+const Review = require('../models/Review');
 
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const books = await Book.find();
+        const books = await Book.find()
+            .populate({
+                path: 'bookcases',
+                select: 'owner change -_id',
+            })
+            .populate({
+                path: 'category',
+                select: 'name -_id',
+            })
+            .populate({
+                path: 'publisher',
+                select: 'name -_id',
+            })
+            .populate({
+                path: 'author',
+                select: 'name -_id',
+            })
+            .populate({
+                path: 'reviews',
+                select: 'rating title -_id',
+            });
+
+        for (let i = 0; i < books.length; i++) {
+            const rates = await Review.find({ book: books[i].id });
+            books[i]._rating = await Book.getAverageRating(rates);
+            books[i]._numberOfRates = rates.length;
+        }
 
         res.status(200).json({
             success: true,
@@ -36,8 +63,16 @@ router.get(
                 .populate({
                     path: 'author',
                     select: 'name -_id',
+                })
+                .populate({
+                    path: 'reviews',
+                    select: 'rating title -_id',
                 });
-            //console.log(book);
+
+            const rates = await Review.find({ book: book.id });
+            book._rating = await Book.getAverageRating(rates);
+            book._numberOfRates = rates.length;
+
             res.status(200).json({
                 success: true,
                 data: book,
@@ -51,6 +86,9 @@ router.get(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
+        const { error } = validateBook(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
+
         let category = await Category.find({
             name: req.body.category,
         });
@@ -63,8 +101,8 @@ router.post(
 
         const book = await Book.create({
             title: req.body.title,
-            //author: author._id,
-            //publisher: publisher._id,
+            author: req.body.author._id,
+            publisher: req.body.publisher._id,
             category: category._id,
         });
 
