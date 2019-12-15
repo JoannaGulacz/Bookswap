@@ -18,11 +18,11 @@ const bookSchema = new mongoose.Schema(
             ref: 'Publisher',
             required: true,
         },
-        rating: {
+        _rating: {
             type: Number,
-            default: 1,
+            default: 0,
         },
-        numberRates: {
+        _numberOfRates: {
             type: Number,
             default: 0,
         },
@@ -56,19 +56,27 @@ function validateBook(bookData) {
             .min(3)
             .max(250)
             .required(),
-        rating: Joi.number()
-            .min(1)
-            .max(5),
-        numberRates: Joi.number().min(0),
-        category: Joi.array().items(
-            Joi.string()
-                .min(3)
-                .max(250)
-                .required()
-        ),
+        category: Joi.string()
+            .min(3)
+            .max(250)
+            .required(),
+        // category: Joi.array().items(
+        //     Joi.string()
+        //         .min(3)
+        //         .max(250)
+        //         .required()
+        // ),
     });
 
     return schema.validate(bookData);
+}
+
+function getAverageRating(arrayOfReviewObjects) {
+    let sumOfRatings = 0;
+    for (let i = 0; i < arrayOfReviewObjects.length; i++) {
+        sumOfRatings += arrayOfReviewObjects[i].rating;
+    }
+    return sumOfRatings / arrayOfReviewObjects.length;
 }
 
 /*
@@ -85,12 +93,13 @@ bookSchema.virtual('bookcases', {
     justOne: false,
 });
 
-bookSchema.virtual('authors', {
-    ref: 'Author',
+bookSchema.virtual('reviews', {
+    ref: 'Review',
     localField: '_id',
-    foreignField: 'books',
+    foreignField: 'book',
     justOne: false,
 });
 
 module.exports = mongoose.model('Book', bookSchema);
 module.exports.validateBook = validateBook;
+module.exports.getAverageRating = getAverageRating;

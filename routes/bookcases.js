@@ -6,7 +6,29 @@ const router = express.Router();
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const bookcases = await Bookcase.find();
+        const bookcases = await Bookcase.find()
+            .populate({
+                path: 'parentBook',
+                select: '-title -_id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'category',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'publisher',
+                        select: 'name -_id',
+                    },
+                ],
+            })
+            .populate({
+                path: 'owner',
+                select: 'name email -_id',
+            });
 
         res.status(200).json({
             success: true,
@@ -22,7 +44,21 @@ router.get(
             const bookcase = await Bookcase.findById(req.params.id)
                 .populate({
                     path: 'parentBook',
-                    select: 'title author -_id',
+                    select: '-title -_id',
+                    populate: [
+                        {
+                            path: 'author',
+                            select: 'name -_id',
+                        },
+                        {
+                            path: 'category',
+                            select: 'name -_id',
+                        },
+                        {
+                            path: 'publisher',
+                            select: 'name -_id',
+                        },
+                    ],
                 })
                 .populate({
                     path: 'owner',
@@ -42,6 +78,9 @@ router.get(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
+        const { error } = Bookcase.validateBookcase(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
+
         const bookcase = await Bookcase.create(req.body);
 
         res.status(201).json({

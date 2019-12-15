@@ -3,7 +3,6 @@
     "_id": "5df02aa60fad54186ceff878",
     "name": "J.K. Rowling",
     "born": "1965-07-31",
-    "books": ["5d713a66ec8f2b88b8f830b8", "5d725a037b292f5f8ceff787"],
     "rating": 7.5
   },
   {
@@ -11,7 +10,6 @@
     "name": "J.R.R. Tolkien",
     "born": "1892-01-03",
     "died": "1973-09-02",
-    "books": ["5d725a1b7b292f5f8ceff788"],
     "rating": 9.3
   },
   {
@@ -19,7 +17,6 @@
     "name": "Stieg Larsson",
     "born": "1954-08-15",
     "died": "2004-11-09",
-    "books": ["5d713995b721c3bb38c1f5d0"],
     "rating": 5.9
   }
 ]

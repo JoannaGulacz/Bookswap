@@ -6,7 +6,20 @@ const router = express.Router();
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const category = await Category.find();
+        const category = await Category.find().populate({
+            path: 'books',
+            select: 'author publisher -_id',
+            populate: [
+                {
+                    path: 'author',
+                    select: 'name -_id',
+                },
+                {
+                    path: 'publisher',
+                    select: 'name -_id',
+                },
+            ],
+        });
 
         res.status(200).json({
             success: true,
@@ -19,7 +32,20 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const category = await Category.findById(req.params.id).populate('books');
+            const category = await Category.findById(req.params.id).populate({
+                path: 'books',
+                select: 'author publisher -_id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'publisher',
+                        select: 'name -_id',
+                    },
+                ],
+            });
 
             res.status(200).json({
                 success: true,

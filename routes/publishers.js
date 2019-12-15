@@ -6,7 +6,20 @@ const router = express.Router();
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const publishers = await Publisher.find();
+        const publishers = await Publisher.find().populate({
+            path: 'books',
+            select: 'title author category -_id',
+            populate: [
+                {
+                    path: 'author',
+                    select: 'name -_id',
+                },
+                {
+                    path: 'category',
+                    select: 'name -_id',
+                },
+            ],
+        });
 
         res.status(200).json({
             success: true,
@@ -20,7 +33,17 @@ router.get(
         try {
             const publisher = await Publisher.findById(req.params.id).populate({
                 path: 'books',
-                select: 'title -_id',
+                select: 'title author category -_id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'category',
+                        select: 'name -_id',
+                    },
+                ],
             });
 
             res.status(200).json({
