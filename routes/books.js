@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Book = require('../models/Book');
 const router = express.Router();
+const Category = require('../models/Category');
 
 router.get(
     '/',
@@ -50,7 +51,22 @@ router.get(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        const book = await Book.create(req.body);
+        let category = await Category.find({
+            name: req.body.category,
+        });
+
+        if (!category.length) {
+            category = await Category.create({
+                name: req.body.category,
+            });
+        }
+
+        const book = await Book.create({
+            title: req.body.title,
+            //author: author._id,
+            //publisher: publisher._id,
+            category: category._id,
+        });
 
         res.status(201).json({
             success: true,

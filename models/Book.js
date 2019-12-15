@@ -64,6 +64,7 @@ function validateBook(bookData) {
             Joi.string()
                 .min(3)
                 .max(250)
+                .required()
         ),
     });
 
