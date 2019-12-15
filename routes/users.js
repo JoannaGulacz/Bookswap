@@ -1,12 +1,12 @@
 const User = require('../models/User');
-const validate = require('../models/User');
+//const validate = require('../models/User');
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const asyncHandler = require('../middleware/async');
 
 router.post('/', async (req, res) => {
-    const { error } = validate(req.body);
+    const { error } = User.validateUser(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
@@ -30,7 +30,41 @@ router.post('/', async (req, res) => {
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const users = await User.find();
+        const users = await User.find()
+            .populate({
+                path: 'reviews',
+                select: 'title content rating -_id',
+                populate: {
+                    path: 'book',
+                    select: 'title author -_id',
+                    populate: {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                },
+            })
+            .populate({
+                path: 'bookcases',
+                select: 'title change -_id',
+                populate: {
+                    path: 'parentBook',
+                    select: '-title -_id',
+                    populate: [
+                        {
+                            path: 'author',
+                            select: 'name -_id',
+                        },
+                        {
+                            path: 'category',
+                            select: 'name -_id',
+                        },
+                        {
+                            path: 'publisher',
+                            select: 'name -_id',
+                        },
+                    ],
+                },
+            });
 
         res.status(200).json({
             success: true,

@@ -22,12 +22,13 @@ const userSchema = new mongoose.Schema(
             required: true,
             minlength: 5,
             maxlength: 1024,
+            select: false,
         },
-        review: {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Review',
-            required: true,
-        },
+        //JAK ROBIMY VIRTUALA NIE TRZEBA DODAWAĆ POZYCJI W SCHEMIE
+        // review: {
+        //     type: mongoose.Schema.ObjectId,
+        //     ref: 'Review',
+        // },
     },
     {
         toJSON: {
@@ -65,6 +66,12 @@ userSchema.virtual('bookcases', {
     foreignField: 'owner',
     justOne: false,
 });
+userSchema.virtual('reviews', {
+    ref: 'Review',
+    localField: '_id',
+    foreignField: 'author',
+    justOne: false,
+});
 
 module.exports = mongoose.model('User', userSchema);
-exports.validate = validateUser;
+module.exports.validateUser = validateUser;

@@ -6,7 +6,20 @@ const router = express.Router();
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
-        const reviews = await Review.find().sort({ title: 1 });
+        const reviews = await Review.find()
+            .sort({ title: 1 })
+            .populate({
+                path: 'author',
+                select: 'name -_id',
+            })
+            .populate({
+                path: 'book',
+                select: 'title author -_id',
+                populate: {
+                    path: 'author',
+                    select: 'name -_id',
+                },
+            });
 
         res.status(200).json({
             success: true,
@@ -18,12 +31,21 @@ router.get(
 router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
-        const review = await Review.findById(req.params.id).populate({
-            path: 'author',
-            select: 'title',
-        });
+        const review = await Review.findById(req.params.id)
+            .populate({
+                path: 'author',
+                select: 'name -_id',
+            })
+            .populate({
+                path: 'book',
+                select: 'title author -_id',
+                populate: {
+                    path: 'author',
+                    select: 'name -_id',
+                },
+            });
 
-        if (!review) return res.status(404).send('There is no review with given ID in databse');
+        if (!review) return res.status(404).send('There is no review with given ID in database');
 
         res.status(200).json({
             success: true,
@@ -47,7 +69,7 @@ router.delete(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { error } = validateReview(req.body);
+        const { error } = Review.validateReview(req.body);
         if (error) return res.status(400).send(error.details[0].message);
 
         let review = new Review({
@@ -79,7 +101,7 @@ router.put(
             author: req.body.author,
         });
 
-        if (!review) return res.status(404).send('There is no review with given ID in databse');
+        if (!review) return res.status(404).send('There is no review with given ID in database');
 
         res.status(200).json({
             success: true,

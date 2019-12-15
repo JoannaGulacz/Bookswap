@@ -15,12 +15,11 @@ const reviewSchema = new mongoose.Schema({
         required: true,
         enum: [1, 2, 3, 4, 5],
     },
-    //TODO DODAĆ POWIĄZANIE Z AUTORAMI
-    // author: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     required: true,
-    // },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
     book: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book',
@@ -28,20 +27,20 @@ const reviewSchema = new mongoose.Schema({
     },
 });
 
-const Review = mongoose.model('Review', reviewSchema);
+// const Review = mongoose.model('Review', reviewSchema);
 
-async function createReview(title, content, rating) {
-    const review = new Review({
-        title,
-        content,
-        rating,
-        // author,
-        book,
-    });
+// async function createReview(title, content, rating) {
+//     const review = new Review({
+//         title,
+//         content,
+//         rating,
+//         author,
+//         book,
+//     });
 
-    const result = await review.save();
-    console.log(result);
-}
+//     const result = await review.save();
+//     console.log(result);
+// }
 
 function validateReview(review) {
     const schema = Joi.object({
@@ -59,3 +58,4 @@ function validateReview(review) {
 }
 
 module.exports = mongoose.model('Review', reviewSchema);
+module.exports.validateReview = validateReview;
