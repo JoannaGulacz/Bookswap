@@ -136,10 +136,33 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            const user = await User.findById(req.params.id).populate({
-                path: 'review',
-                select: 'title content rating -_id',
-            });
+            const user = await User.findById(req.params.id)
+                .populate({
+                    path: 'review',
+                    select: 'title content rating -_id',
+                })
+                .populate({
+                    path: 'bookcases',
+                    select: 'title change -_id',
+                    populate: {
+                        path: 'parentBook',
+                        select: '-title -_id',
+                        populate: [
+                            {
+                                path: 'author',
+                                select: 'name -_id',
+                            },
+                            {
+                                path: 'category',
+                                select: 'name -_id',
+                            },
+                            {
+                                path: 'publisher',
+                                select: 'name -_id',
+                            },
+                        ],
+                    },
+                });
 
             res.status(200).json({
                 success: true,
@@ -185,16 +208,6 @@ router.delete(
         }
     })
 );
-
-/*
-// W router.get('/:id' ...) trzeba dodać:
-
-.populate({
-    path: 'bookcases',
-    select: 'title change -_id',
-})
-
-*/
 
 // Get token from model, create and send response
 const sendTokenResponse = (user, statusCode, res) => {
