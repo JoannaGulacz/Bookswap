@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const asyncHandler = require('../middleware/async');
+const { protect, authorize } = require('../middleware/auth');
+
 const { Author, validateAuthor } = require('../models/Author');
 
 // @desc    Get all authors
@@ -55,9 +57,10 @@ router.get(
 
 // @desc    Add new author
 // @route   POST /api/authors
-// @access  Private
+// @access  Private (user)
 router.post(
     '/',
+    protect,
     asyncHandler(async (req, res, next) => {
         // Validate request with Joi
         const { error } = validateAuthor(req.body);
@@ -74,9 +77,11 @@ router.post(
 
 // @desc    Update author info
 // @route   PUT /api/authors/:id
-// @access  Private
+// @access  Private (admin)
 router.put(
     '/:id',
+    protect,
+    authorize('admin'), // || 'moderator'
     asyncHandler(async (req, res, next) => {
         try {
             // Validate request with Joi
@@ -100,9 +105,11 @@ router.put(
 
 // @desc    Delete author
 // @route   DELETE /api/authors/:id
-// @access  Private
+// @access  Private (admin)
 router.delete(
     '/:id',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const result = await Author.deleteOne({ _id: req.params.id });
