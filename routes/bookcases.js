@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Bookcase = require('../models/Bookcase');
 const router = express.Router();
+const { protect, authorize } = require('../middleware/auth');
 
 router.get(
     '/',
@@ -77,6 +78,7 @@ router.get(
 
 router.post(
     '/',
+    protect,
     asyncHandler(async (req, res, next) => {
         const { error } = Bookcase.validateBookcase(req.body);
         if (error) return res.status(400).send(error.details[0].message);
@@ -92,6 +94,7 @@ router.post(
 
 router.put(
     '/:id',
+    protect,
     asyncHandler(async (req, res, next) => {
         try {
             const bookcase = await Bookcase.findByIdAndUpdate(req.params.id, req.body, {
@@ -111,6 +114,7 @@ router.put(
 
 router.delete(
     '/:id',
+    protect,
     asyncHandler(async (req, res, next) => {
         try {
             const result = await Bookcase.deleteOne({

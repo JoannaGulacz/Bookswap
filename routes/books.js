@@ -4,6 +4,8 @@ const Book = require('../models/Book');
 const router = express.Router();
 const Category = require('../models/Category');
 const Review = require('../models/Review');
+const Author = require('../models/Author');
+const { protect, authorize } = require('../middleware/auth');
 
 router.get(
     '/',
@@ -85,6 +87,8 @@ router.get(
 
 router.post(
     '/',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         const { error } = validateBook(req.body);
         if (error) return res.status(400).send(error.details[0].message);
@@ -96,6 +100,16 @@ router.post(
         if (!category.length) {
             category = await Category.create({
                 name: req.body.category,
+            });
+        }
+
+        let author = await Author.find({
+            name: req.body.author,
+        });
+
+        if (!author.length) {
+            author = await Author.create({
+                name: req.body.author,
             });
         }
 
@@ -115,6 +129,8 @@ router.post(
 
 router.put(
     '/:id',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
@@ -134,6 +150,8 @@ router.put(
 
 router.delete(
     '/:id',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const result = await Book.deleteOne({
