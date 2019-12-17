@@ -42,6 +42,13 @@ function validateBookcase(bookcaseData) {
     return schema.validate(bookcaseData);
 }
 
+bookcaseSchema.virtual('exchanges', {
+    ref: 'Exchange',
+    localField: '_id',
+    foreignField: 'bookToGet',
+    justOne: false,
+});
+
 /*
 testSchema.pre('save', function(next) {
     this.test = this.test.toLowerCase()
