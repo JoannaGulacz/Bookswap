@@ -86,7 +86,7 @@ router.get(
 router.post(
     '/',
     asyncHandler(async (req, res, next) => {
-        const { error } = validateBook(req.body);
+        const { error } = Book.validateBook(req.body);
         if (error) return res.status(400).send(error.details[0].message);
 
         let category = await Category.find({
@@ -97,12 +97,14 @@ router.post(
             category = await Category.create({
                 name: req.body.category,
             });
+        } else {
+            category = category[0];
         }
 
         const book = await Book.create({
             title: req.body.title,
-            author: req.body.author._id,
-            publisher: req.body.publisher._id,
+            author: req.body.author,
+            publisher: req.body.publisher,
             category: category._id,
         });
 
