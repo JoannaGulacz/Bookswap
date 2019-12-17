@@ -98,6 +98,8 @@ router.post(
             category = await Category.create({
                 name: req.body.category,
             });
+        } else {
+            category = category[0];
         }
 
         let publisher = await Publisher.findOne({
@@ -113,7 +115,6 @@ router.post(
             title: req.body.title,
             author: req.body.author,
             publisherName: publisher.name,
-            publisher: publisher._id,
             category: category._id,
         });
 
