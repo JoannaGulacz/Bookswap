@@ -28,6 +28,6 @@
         "name": "John Smith",
         "email": "admin@admin.com",
         "password": "12345",
-        "role": "user"
+        "role": "admin"
     }
 ]
