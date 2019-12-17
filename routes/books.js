@@ -3,6 +3,7 @@ const asyncHandler = require('../middleware/async');
 const Book = require('../models/Book');
 const router = express.Router();
 const Category = require('../models/Category');
+const Publisher = require('../models/Publisher');
 const Review = require('../models/Review');
 
 router.get(
@@ -101,10 +102,19 @@ router.post(
             category = category[0];
         }
 
+        let publisher = await Publisher.findOne({
+            name: req.body.publisherName,
+        });
+
+        if (!publisher) {
+            publisher = await Publisher.create({
+                name: req.body.publisherName,
+            });
+        }
         const book = await Book.create({
             title: req.body.title,
             author: req.body.author,
-            publisher: req.body.publisher,
+            publisherName: publisher.name,
             category: category._id,
         });
 

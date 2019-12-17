@@ -33,9 +33,10 @@ function validateBookcase(bookcaseData) {
             .min(3)
             .max(250)
             .required(),
-        parentBook: Joi.number()
-            .min(24)
-            .max(24),
+        parentBook: Joi.string()
+            .min(3)
+            .max(250)
+            .required(),
     });
 
     return schema.validate(bookcaseData);
