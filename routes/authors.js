@@ -85,8 +85,8 @@ router.put(
     asyncHandler(async (req, res, next) => {
         try {
             // Validate request with Joi
-            //const { error } = validateAuthor(req.body);
-            //if (error) return res.status(400).send(error.details[0].message);
+            const { error } = validateAuthor(req.body);
+            if (error) return res.status(400).send(error.details[0].message);
 
             const author = await Author.findByIdAndUpdate(req.params.id, req.body, {
                 new: true,

@@ -108,23 +108,27 @@ router.post(
         // Sign logged in user id to req.body.user
         req.body.user = req.user.id;
 
-        // TODO Check if bookcase that we want to get is found && if bookcase.change === true
-        req.body.bookToGet = req.params.id;
+        // Check if bookcase that we want to get is available (exists and is for swap)
+        const getBook = await Bookcase.findById(req.params.id);
+        if (getBook && getBook.change === true) {
+            const offerBook = await Bookcase.findById(req.body.bookToOffer);
 
-        // TODO check if bookToOffer belongs to logged in user
-        // const bookcase = await Bookcase.findById(req.body.bookToOffer))
-        // bookcase.owner.toString() === req.user.id
+            // Check if offered book is user's property
+            if (offerBook.owner.toString() === req.user.id) {
+                req.body.bookToGet = req.params.id;
 
-        // Validate whole req.body - TODO validateExchange function!
-        //const { error } = Bookcase.validateBookcase(req.body);
-        //if (error) return res.status(400).send(error.details[0].message);
+                const swap = await Swap.create(req.body);
 
-        const swap = await Swap.create(req.body);
-
-        res.status(201).json({
-            success: true,
-            data: swap,
-        });
+                res.status(201).json({
+                    success: true,
+                    data: swap,
+                });
+            } else {
+                res.status(403).send('Offered book does not belong to your account.');
+            }
+        } else {
+            res.status(404).send('Book of the given id is not available.');
+        }
     })
 );
 
