@@ -115,7 +115,7 @@ router.post(
                 name: req.body.author,
             });
         } else {
-          author = author[0];
+            author = author[0];
         }
 
         let publisher = await Publisher.findOne({
@@ -131,6 +131,7 @@ router.post(
             title: req.body.title,
             author: req.body.author,
             publisherName: publisher.name,
+            publisher: publisher._id,
             category: category._id,
         });
 
