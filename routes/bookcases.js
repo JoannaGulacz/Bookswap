@@ -99,6 +99,17 @@ router.post(
     '/:id/exchange',
     protect,
     asyncHandler(async (req, res, next) => {
+        // Sign logged in user id to req.body.user
+        req.body.user = req.user.id;
+
+        // TODO Check if bookcase that we want to get is found && if bookcase.change === true
+        req.body.bookToGet = req.params.id;
+
+        // TODO check if bookToOffer belongs to logged in user
+        // const bookcase = await Bookcase.findById(req.body.bookToOffer))
+        // bookcase.owner.toString() === req.user.id
+
+        // Validate whole req.body - TODO validateExchange function!
         //const { error } = Bookcase.validateBookcase(req.body);
         //if (error) return res.status(400).send(error.details[0].message);
 
