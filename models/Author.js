@@ -13,13 +13,6 @@ const authorSchema = new mongoose.Schema(
             required: true,
         },
         died: Date,
-        //JAK ROBIMY VIRTUALA NIE TRZEBA DODAWAĆ POZYCJI W SCHEMIE
-        // books: [
-        //     {
-        //         type: mongoose.Schema.Types.ObjectId,
-        //         ref: 'Book',
-        //     },
-        // ],
         rating: Number, // avarage users ratings (stars or nums)
     },
     {
@@ -40,11 +33,6 @@ function validate(authorData) {
             .required(),
         born: Joi.date().required(),
         died: Joi.date(),
-        // books: Joi.array().items(
-        //     Joi.string()
-        //         .min(24)
-        //         .max(24)
-        // ),
         rating: Joi.number()
             .min(0)
             .max(10),
@@ -61,11 +49,6 @@ authorSchema.virtual('books', {
 });
 
 /*
-testSchema.pre('save', function(next) {
-    this.test = this.test.toLowerCase()
-    next();
-});
-
   {
     "_id": "5df02aa60fad54186ceff87b",
     "name": "Terry Pratchett",

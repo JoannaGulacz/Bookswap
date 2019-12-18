@@ -1,6 +1,7 @@
 const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Bookcase = require('../models/Bookcase');
+const Swap = require('../models/Swap');
 const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
 
@@ -29,6 +30,9 @@ router.get(
             .populate({
                 path: 'owner',
                 select: 'name email -_id',
+            })
+            .populate({
+                path: 'swaps',
             });
 
         res.status(200).json({
@@ -64,6 +68,9 @@ router.get(
                 .populate({
                     path: 'owner',
                     select: 'name email -_id',
+                })
+                .populate({
+                    path: 'swaps',
                 });
 
             res.status(200).json({
@@ -89,6 +96,40 @@ router.post(
             success: true,
             data: bookcase,
         });
+    })
+);
+
+// @desc    Swap book
+// @route   POST /api/bookcases/:id/swaps
+// @access  Private (user)
+router.post(
+    '/:id/swaps',
+    protect,
+    asyncHandler(async (req, res, next) => {
+        // Sign logged in user id to req.body.user
+        req.body.user = req.user.id;
+
+        // Check if bookcase that we want to get is available (exists and is for swap)
+        const getBook = await Bookcase.findById(req.params.id);
+        if (getBook && getBook.change === true) {
+            const offerBook = await Bookcase.findById(req.body.bookToOffer);
+
+            // Check if offered book is user's property
+            if (offerBook.owner.toString() === req.user.id) {
+                req.body.bookToGet = req.params.id;
+
+                const swap = await Swap.create(req.body);
+
+                res.status(201).json({
+                    success: true,
+                    data: swap,
+                });
+            } else {
+                res.status(403).send('Offered book does not belong to your account.');
+            }
+        } else {
+            res.status(404).send('Book of the given id is not available.');
+        }
     })
 );
 

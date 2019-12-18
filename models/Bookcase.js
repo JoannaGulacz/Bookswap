@@ -1,26 +1,36 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 
-const bookcaseSchema = new mongoose.Schema({
-    owner: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-        required: true,
+const bookcaseSchema = new mongoose.Schema(
+    {
+        owner: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+            required: true,
+        },
+        change: {
+            type: Boolean,
+            required: true,
+        },
+        title: {
+            type: String,
+            required: true,
+        },
+        parentBook: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Book',
+            required: true,
+        },
     },
-    change: {
-        type: Boolean,
-        required: true,
-    },
-    title: {
-        type: String,
-        required: true,
-    },
-    parentBook: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Book',
-        required: true,
-    },
-});
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        toObject: {
+            virtuals: true,
+        },
+    }
+);
 
 function validateBookcase(bookcaseData) {
     const schema = Joi.object({
@@ -41,6 +51,13 @@ function validateBookcase(bookcaseData) {
 
     return schema.validate(bookcaseData);
 }
+
+bookcaseSchema.virtual('swaps', {
+    ref: 'Swap',
+    localField: '_id',
+    foreignField: 'bookToGet',
+    justOne: false,
+});
 
 /*
 testSchema.pre('save', function(next) {
