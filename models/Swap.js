@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const exchangeSchema = new mongoose.Schema(
+const swapSchema = new mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
@@ -29,4 +29,4 @@ const exchangeSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('Exchange', exchangeSchema);
+module.exports = mongoose.model('Swap', swapSchema);

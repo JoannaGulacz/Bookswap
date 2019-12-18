@@ -1,7 +1,7 @@
 const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Bookcase = require('../models/Bookcase');
-const Exchange = require('../models/Exchange');
+const Swap = require('../models/Swap');
 const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
 
@@ -92,11 +92,11 @@ router.post(
     })
 );
 
-// @desc    Exhcnage book
-// @route   POST /api/bookcases/:id/exchange
+// @desc    Swap book
+// @route   POST /api/bookcases/:id/swaps
 // @access  Private (user)
 router.post(
-    '/:id/exchange',
+    '/:id/swaps',
     protect,
     asyncHandler(async (req, res, next) => {
         // Sign logged in user id to req.body.user
@@ -113,11 +113,11 @@ router.post(
         //const { error } = Bookcase.validateBookcase(req.body);
         //if (error) return res.status(400).send(error.details[0].message);
 
-        const exchange = await Exchange.create(req.body);
+        const swap = await Swap.create(req.body);
 
         res.status(201).json({
             success: true,
-            data: exchange,
+            data: swap,
         });
     })
 );
