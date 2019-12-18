@@ -1,11 +1,14 @@
 const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Bookcase = require('../models/Bookcase');
+const Book = require('../models/Book');
 const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
 
 router.get(
     '/',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         const bookcases = await Bookcase.find()
             .populate({
@@ -39,32 +42,33 @@ router.get(
 );
 
 router.get(
-    '/:id',
+    '/me',
+    protect,
     asyncHandler(async (req, res, next) => {
         try {
-            const bookcase = await Bookcase.findById(req.params.id)
-                .populate({
-                    path: 'parentBook',
-                    select: '-title -_id',
-                    populate: [
-                        {
-                            path: 'author',
-                            select: 'name -_id',
-                        },
-                        {
-                            path: 'category',
-                            select: 'name -_id',
-                        },
-                        {
-                            path: 'publisher',
-                            select: 'name -_id',
-                        },
-                    ],
-                })
-                .populate({
-                    path: 'owner',
-                    select: 'name email -_id',
-                });
+            // const bookcase = await Bookcase.findById(req.params.id)
+            const bookcase = await Bookcase.find({ owner: req.user.id }, { change: 1, title: 1 }).populate({
+                path: 'parentBook',
+                select: '-title -_id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'category',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'publisher',
+                        select: 'name -_id',
+                    },
+                ],
+            });
+            // .populate({
+            //     path: 'owner',
+            //     select: '-name -email -_id',
+            // });
 
             res.status(200).json({
                 success: true,
@@ -80,10 +84,33 @@ router.post(
     '/',
     protect,
     asyncHandler(async (req, res, next) => {
-        const { error } = Bookcase.validateBookcase(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+        console.log(Bookcase);
+        // const { error } = Bookcase.validateBookcase(req.body);
+        // if (error) return res.status(400).send(error);
 
-        const bookcase = await Bookcase.create(req.body);
+        let parentBook = await Book.find({
+            title: req.body.title,
+        });
+
+        if (parentBook) {
+            req.body.parentBook = parentBook._id;
+        } else {
+            return res.status(404).send('Parent book not found');
+        }
+        // if (!parentBook.length) {
+        //     return res.status(400).send(error.details[0].message)
+        // } else {
+        //     parentBook = parentBook[0];
+        // }
+
+        const bookcase = await Bookcase.create({
+            owner: req.user.id,
+            change: req.body.change,
+            title: req.body.title,
+            parentBook: parentBook,
+        });
+        // console.log(req.body._id)
+        // console.log(parentBook)
 
         res.status(201).json({
             success: true,
