@@ -47,7 +47,15 @@ router.get(
     asyncHandler(async (req, res, next) => {
         try {
             // const bookcase = await Bookcase.findById(req.params.id)
-            const bookcase = await Bookcase.find({ owner: req.user.id }, { change: 1, title: 1 }).populate({
+            const bookcase = await Bookcase.find(
+                {
+                    owner: req.user.id,
+                },
+                {
+                    change: 1,
+                    title: 1,
+                }
+            ).populate({
                 path: 'parentBook',
                 select: '-title -_id',
                 populate: [
@@ -84,33 +92,34 @@ router.post(
     '/',
     protect,
     asyncHandler(async (req, res, next) => {
-        console.log(Bookcase);
-        // const { error } = Bookcase.validateBookcase(req.body);
-        // if (error) return res.status(400).send(error);
+        let bookcase;
+        console.log('post bookcase...');
+        const { error } = Bookcase.validateBookcase(req.body);
 
-        let parentBook = await Book.find({
+        if (error) {
+            return res.status(400).send(error);
+        }
+
+        let parentBook = await Book.findOne({
             title: req.body.title,
         });
 
-        if (parentBook) {
-            req.body.parentBook = parentBook._id;
-        } else {
-            return res.status(404).send('Parent book not found');
+        if (!parentBook) {
+            console.log('Create parent book first....');
+            parentBook = await Book.create({
+                title: req.body.title,
+                author: req.body.author,
+                publisher: req.body.publisher,
+                category: req.body.category,
+            });
         }
-        // if (!parentBook.length) {
-        //     return res.status(400).send(error.details[0].message)
-        // } else {
-        //     parentBook = parentBook[0];
-        // }
-
-        const bookcase = await Bookcase.create({
+        console.log('Create bookcase....');
+        bookcase = await Bookcase.create({
             owner: req.user.id,
             change: req.body.change,
             title: req.body.title,
             parentBook: parentBook,
         });
-        // console.log(req.body._id)
-        // console.log(parentBook)
 
         res.status(201).json({
             success: true,

@@ -10,7 +10,6 @@ const authorSchema = new mongoose.Schema(
         },
         born: {
             type: Date, // "YYYY-mm-dd"
-            required: true,
         },
         died: Date,
         //JAK ROBIMY VIRTUALA NIE TRZEBA DODAWAĆ POZYCJI W SCHEMIE
@@ -81,5 +80,5 @@ testSchema.pre('save', function(next) {
   }
 */
 
-module.exports.Author = mongoose.model('Author', authorSchema);
+module.exports = mongoose.model('Author', authorSchema);
 module.exports.validateAuthor = validate;

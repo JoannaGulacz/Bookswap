@@ -34,7 +34,9 @@ router.get(
             });
 
         for (let i = 0; i < books.length; i++) {
-            const rates = await Review.find({ book: books[i].id });
+            const rates = await Review.find({
+                book: books[i].id,
+            });
             books[i]._rating = await Book.getAverageRating(rates);
             books[i]._numberOfRates = rates.length;
         }
@@ -72,7 +74,9 @@ router.get(
                     select: 'rating title -_id',
                 });
 
-            const rates = await Review.find({ book: book.id });
+            const rates = await Review.find({
+                book: book.id,
+            });
             book._rating = await Book.getAverageRating(rates);
             book._numberOfRates = rates.length;
 
@@ -102,8 +106,10 @@ router.post(
             category = await Category.create({
                 name: req.body.category,
             });
+
+            category = category._id;
         } else {
-            category = category[0];
+            category = category[0]._id;
         }
 
         let author = await Author.find({
@@ -114,24 +120,29 @@ router.post(
             author = await Author.create({
                 name: req.body.author,
             });
+
+            author = author._id;
         } else {
-          author = author[0];
+            author = author[0]._id;
         }
 
         let publisher = await Publisher.findOne({
-            name: req.body.publisherName,
+            name: req.body.publisher,
         });
 
         if (!publisher) {
             publisher = await Publisher.create({
-                name: req.body.publisherName,
+                name: req.body.publisher,
             });
         }
+
+        publisher = publisher._id;
+
         const book = await Book.create({
             title: req.body.title,
-            author: req.body.author,
-            publisherName: publisher.name,
-            category: category._id,
+            author: author,
+            publisher: publisher,
+            category: category,
         });
 
         res.status(201).json({

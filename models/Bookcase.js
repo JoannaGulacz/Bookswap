@@ -9,7 +9,7 @@ const bookcaseSchema = new mongoose.Schema({
     },
     change: {
         type: Boolean,
-        required: true,
+        default: false,
     },
     title: {
         type: String,
@@ -18,25 +18,28 @@ const bookcaseSchema = new mongoose.Schema({
     parentBook: {
         type: mongoose.Schema.ObjectId,
         ref: 'Book',
-        required: true,
     },
 });
 
 function validateBookcase(bookcaseData) {
     const schema = Joi.object({
-        owner: Joi.string()
-            .min(3)
-            .max(250)
-            .required(),
         change: Joi.boolean(),
         title: Joi.string()
             .min(3)
             .max(250)
             .required(),
-        // parentBook: Joi.string()
-        //     .min(3)
-        //     .max(250)
-        //     .required(),
+        author: Joi.string()
+            .min(3)
+            .max(250)
+            .required(),
+        publisher: Joi.string()
+            .min(3)
+            .max(250)
+            .required(),
+        category: Joi.string()
+            .min(3)
+            .max(250)
+            .required(),
     });
 
     return schema.validate(bookcaseData);
