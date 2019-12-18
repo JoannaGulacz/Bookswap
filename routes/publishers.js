@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Publisher = require('../models/Publisher');
 const router = express.Router();
+const { protect, authorize } = require('../middleware/auth');
 
 router.get(
     '/',
@@ -58,6 +59,8 @@ router.get(
 
 router.post(
     '/',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         const { error } = Publisher.validatePublisher(req.body);
         if (error) {
@@ -73,6 +76,8 @@ router.post(
 
 router.put(
     '/:id',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const { error } = Publisher.validatePublisher(req.body);
@@ -96,6 +101,8 @@ router.put(
 
 router.delete(
     '/:id',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const publisher = await Publisher.findByIdAndRemove(req.params.id);
