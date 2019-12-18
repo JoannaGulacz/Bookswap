@@ -30,6 +30,9 @@ router.get(
             .populate({
                 path: 'owner',
                 select: 'name email -_id',
+            })
+            .populate({
+                path: 'swaps',
             });
 
         res.status(200).json({
@@ -65,6 +68,9 @@ router.get(
                 .populate({
                     path: 'owner',
                     select: 'name email -_id',
+                })
+                .populate({
+                    path: 'swaps',
                 });
 
             res.status(200).json({
