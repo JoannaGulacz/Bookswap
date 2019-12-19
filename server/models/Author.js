@@ -10,7 +10,6 @@ const authorSchema = new mongoose.Schema(
         },
         born: {
             type: Date, // "YYYY-mm-dd"
-            required: true,
         },
         died: Date,
         rating: Number, // avarage users ratings (stars or nums)
@@ -64,5 +63,5 @@ authorSchema.virtual('books', {
   }
 */
 
-module.exports.Author = mongoose.model('Author', authorSchema);
+module.exports = mongoose.model('Author', authorSchema);
 module.exports.validateAuthor = validate;

@@ -73,7 +73,7 @@ router.get(
             },
             {
                 path: 'bookcases',
-                select: 'title change -_id',
+                select: 'title change _id',
             },
         ]);
 

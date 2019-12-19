@@ -105,6 +105,7 @@ router.post(
         } else {
             category = category[0];
         }
+        category=category._id
 
         let author = await Author.find({
             name: req.body.author,
@@ -117,22 +118,24 @@ router.post(
         } else {
             author = author[0];
         }
+        author = author._id;
 
         let publisher = await Publisher.findOne({
-            name: req.body.publisherName,
+            name: req.body.publisher,
         });
 
         if (!publisher) {
             publisher = await Publisher.create({
-                name: req.body.publisherName,
+                name: req.body.publisher,
             });
         }
+        publisher = publisher._id
+
         const book = await Book.create({
             title: req.body.title,
-            author: req.body.author,
-            publisherName: publisher.name,
-            publisher: publisher._id,
-            category: category._id,
+            author: author,
+            publisher: publisher,
+            category: category,
         });
 
         res.status(201).json({
@@ -169,13 +172,13 @@ router.delete(
     authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
-            const result = await Book.deleteOne({
+            await Book.deleteOne({
                 _id: req.params.id,
             });
 
             res.status(200).json({
                 success: true,
-                data: result,
+                // data: result,
             });
         } catch {
             res.status(404).send('The book with the given id was not found.');
