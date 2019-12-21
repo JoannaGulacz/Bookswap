@@ -52,7 +52,7 @@ function validateBook(bookData) {
             .min(3)
             .max(250)
             .required(),
-        publisherName: Joi.string()
+        publisher: Joi.string()
             .min(3)
             .max(250)
             .required(),
