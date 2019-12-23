@@ -1,23 +1,22 @@
 {
-    "name": "bookswap",
-    "version": "1.0.0",
-    "description": "",
-    "author": "DreamTeam",
-    "scripts": {
-      "pretty:server": "prettier --write \"server/**/*.js\"",
-      "pretty:client": "prettier --write \"client/**/*.*(js|jsx)\"",
-      "pretty:check": "prettier --check \"**/*.*(js|jsx)\""
-    },
-    "husky": {
-      "hooks": {
-        "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js|jsx)\""
-      }
-    },
-    "license": "ISC",
-    "dependencies": {
-      "husky": "^3.1.0",
-      "prettier": "^1.19.1",
-      "pretty-quick": "^2.0.1"
+  "name": "bookswap",
+  "version": "1.0.0",
+  "description": "",
+  "author": "DreamTeam",
+  "scripts": {
+    "pretty:server": "prettier --write \"server/**/*.js\"",
+    "pretty:client": "prettier --write \"client/**/*.*(js|jsx)\"",
+    "pretty:check": "prettier --check \"**/*.*(js|jsx)\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js|jsx)\""
     }
+  },
+  "license": "ISC",
+  "dependencies": {
+    "husky": "^3.1.0",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1"
   }
-  
+}
