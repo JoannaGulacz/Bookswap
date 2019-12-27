@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import React from 'react';
+import { MDBContainer, MDBRow } from 'mdbreact';
 
 const FormCard = props => {
     return (

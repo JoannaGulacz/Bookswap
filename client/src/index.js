@@ -17,6 +17,7 @@ import * as serviceWorker from './serviceWorker';
 //ReactDOM.render(<DropdownButton />, document.getElementById('root'));
 //ReactDOM.render(<Menu><DropdownButton /></Menu>, document.getElementById('root'));
 
+//formularze rejestracji i logowania
 import FormCard from './components/FormCard';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';

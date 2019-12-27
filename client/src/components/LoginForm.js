@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-
+import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+//zmienić formularz używając formika
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -9,15 +9,48 @@ export default class LoginForm extends Component {
             password: '',
         };
     }
-    handleInputChange = event => {
-        const { value, name } = event.target;
+    handleEmailChange = event => {
+        const value = event.target.value;
         this.setState({
-            [name]: value,
+            email: value,
+        });
+    };
+    handlePasswordChange = event => {
+        const value = event.target.value;
+        this.setState({
+            password: value,
         });
     };
     onSubmit = event => {
         event.preventDefault();
+        //check if data is correct comparing to database data if not, display: "Incorrect email and/or password"
+        fetch('/api/users/login', {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    console.log('Logged in successfully');
+                    const token = res.token;
+                    localStorage.setItem('token', token);
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error logging in please try again');
+            });
     };
+    componentDidMount() {
+        if (localStorage.getItem('token')) {
+            //zaloguj automatycznie
+        }
+    }
     render() {
         return (
             <MDBCol md="6">
@@ -32,7 +65,7 @@ export default class LoginForm extends Component {
                                 type="email"
                                 id="defaultFormLoginEmailEx"
                                 className="form-control"
-                                onChange={this.handleInputChange}
+                                onChange={this.handleEmailChange}
                                 required
                             />
                             <br />
@@ -43,7 +76,7 @@ export default class LoginForm extends Component {
                                 type="password"
                                 id="defaultFormLoginPasswordEx"
                                 className="form-control"
-                                onChange={this.handleInputChange}
+                                onChange={this.handlePasswordChange}
                                 required
                             />
                             <div className="text-center mt-4">
