@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Review = require('../models/Review');
 const router = express.Router();
+const { protect, authorize } = require('../middleware/auth');
 
 router.get(
     '/',
@@ -56,6 +57,8 @@ router.get(
 
 router.delete(
     '/:id',
+    protect,
+    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         const review = await Review.findByIdAndDelete(req.params.id);
 
@@ -68,6 +71,7 @@ router.delete(
 
 router.post(
     '/',
+    protect,
     asyncHandler(async (req, res, next) => {
         const { error } = Review.validateReview(req.body);
         if (error) return res.status(400).send(error.details[0].message);
@@ -90,6 +94,7 @@ router.post(
 
 router.put(
     '/:id',
+    protect,
     asyncHandler(async (req, res, next) => {
         const { error } = validateReview(req.body);
         if (error) return res.status(400).send(error.details[0].message);

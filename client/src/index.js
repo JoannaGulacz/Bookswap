@@ -9,12 +9,24 @@ import Root from './pages/root';
 import * as serviceWorker from './serviceWorker';
 
 //ReactDOM.render(<App />, document.getElementById('root'));
-ReactDOM.render(<Root />, document.getElementById('root'));
+//ReactDOM.render(<Root />, document.getElementById('root'));
 
 // TESTING Menu component [Adam] - don't remove these comments:
 //import DropdownButton from './components/DropdownButton';
 //import Menu from './components/Menu';
 //ReactDOM.render(<DropdownButton />, document.getElementById('root'));
 //ReactDOM.render(<Menu><DropdownButton /></Menu>, document.getElementById('root'));
+
+//formularze rejestracji i logowania
+import FormCard from './components/FormCard';
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
+ReactDOM.render(
+    <FormCard>
+        <LoginForm />
+        <RegisterForm />
+    </FormCard>,
+    document.getElementById('root')
+);
 
 serviceWorker.unregister();
