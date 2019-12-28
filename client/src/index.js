@@ -13,6 +13,7 @@ import * as serviceWorker from './serviceWorker';
 // TESTING Menu component [Adam] - don't remove these comments:
 import DropdownButton from './components/DropdownButton';
 import Menu from './components/Menu';
+import NavMenu from './components/NavMenu';
 //ReactDOM.render(<DropdownButton />, document.getElementById('root'));
 //ReactDOM.render(<Menu><DropdownButton /></Menu>, document.getElementById('root'));
 
@@ -35,6 +36,7 @@ ReactDOM.render(
         <Menu>
             <DropdownButton />
         </Menu>
+        <NavMenu />
         <FormCard>
             <LoginForm />
             <RegisterForm />

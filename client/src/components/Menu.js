@@ -7,11 +7,11 @@ const Menu = props => {
         <div>
             <MDBContainer>
                 <MDBRow>
-                    <MDBCol md="10">
+                    <MDBCol sm="10">
                         <h1 className="my-2 text-center">BOOKSWAP</h1>
                     </MDBCol>
-                    <MDBCol md="2">
-                        <div className="my-2">{props.children}</div>
+                    <MDBCol sm="2">
+                        <div className="my-2 text-center">{props.children}</div>
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
@@ -20,18 +20,3 @@ const Menu = props => {
 };
 
 export default Menu;
-
-/* code for Axios task:
-
-import axios from 'axios';
-
-axios.default.baseURL = "http://localhost:5000/api/"
-axios.interceptors.request.use( req => {
-  const token = localStorage.getItem("token"); // token???
-  if (token) req.headers[Authorization] = `Bearer ${token}`;
-  return req;
-})
-
-export default axios;
-
-*/
