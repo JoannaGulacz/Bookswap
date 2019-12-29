@@ -2,7 +2,7 @@ import React from 'react';
 
 // TO DO: links => router links
 // links types (classes): active, disabled, (none)
-const NavMenu = () => {
+const Nav = () => {
     return (
         <ul class="nav justify-content-center grey lighten-4 py-2 mb-4">
             <li class="nav-item">
@@ -29,4 +29,4 @@ const NavMenu = () => {
     );
 };
 
-export default NavMenu;
+export default Nav;

@@ -1,17 +1,23 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow } from 'mdbreact';
-//import DropdowanButton from './DropdownButton';
+import Nav from './Nav';
 
 const Menu = props => {
     return (
         <div>
             <MDBContainer>
-                <MDBRow>
-                    <MDBCol sm="10">
-                        <h1 className="my-2 text-center">BOOKSWAP</h1>
+                <MDBRow className="align-items-center mt-2">
+                    <MDBCol md="10">
+                        <h1 className="text-center">BOOKSWAP</h1>
                     </MDBCol>
-                    <MDBCol sm="2">
-                        <div className="my-2 text-center">{props.children}</div>
+                    <MDBCol md="2">
+                        <div className="text-center">{props.username}</div>
+                        <div className="text-center">{props.children}</div>
+                    </MDBCol>
+                </MDBRow>
+                <MDBRow className="my-1">
+                    <MDBCol size="12">
+                        <Nav />
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
