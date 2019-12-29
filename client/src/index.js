@@ -20,6 +20,7 @@ import Menu from './components/Menu';
 import FormCard from './components/FormCard';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
+import NewBook from './pages/NewBook';
 /*
 ReactDOM.render(
     <FormCard>
@@ -39,6 +40,7 @@ ReactDOM.render(
             <LoginForm />
             <RegisterForm />
         </FormCard>
+        <NewBook />
     </>,
     document.getElementById('root')
 );
