@@ -4,6 +4,9 @@ const Bookcase = require('../models/Bookcase');
 const Book = require('../models/Book');
 const Swap = require('../models/Swap');
 const router = express.Router();
+const Category = require('../models/Category');
+const Publisher = require('../models/Publisher');
+const Author = require('../models/Author');
 const { protect, authorize } = require('../middleware/auth');
 
 router.get(
@@ -59,27 +62,28 @@ router.get(
                     change: 1,
                     title: 1,
                 }
-            ).populate({
-                path: 'parentBook',
-                select: '-title -_id',
-                populate: [
-                    {
-                        path: 'author',
-                        select: 'name -_id',
-                    },
-                    {
-                        path: 'category',
-                        select: 'name -_id',
-                    },
-                    {
-                        path: 'publisher',
-                        select: 'name -_id',
-                    },
-                ],
-            })
-            .populate({
-                path: 'swaps',
-            });
+            )
+                .populate({
+                    path: 'parentBook',
+                    select: '-title -_id',
+                    populate: [
+                        {
+                            path: 'author',
+                            select: 'name -_id',
+                        },
+                        {
+                            path: 'category',
+                            select: 'name -_id',
+                        },
+                        {
+                            path: 'publisher',
+                            select: 'name -_id',
+                        },
+                    ],
+                })
+                .populate({
+                    path: 'swaps',
+                });
 
             res.status(200).json({
                 success: true,
@@ -109,16 +113,53 @@ router.post(
 
         if (!parentBook) {
             console.log('Create parent book first....');
-            const error_book = Book.validateBook(req.body);
+            const { error_book } = Book.validateBook(req.body);
             if (error_book) {
-                return res.status(400).send("Title, author, publisher and category required");
+                return res.status(400).send('Title, author, publisher and category required');
             }
+
+            let category = await Category.find({
+                name: req.body.category,
+            });
+
+            if (!category.length) {
+                category = await Category.create({
+                    name: req.body.category,
+                });
+            } else {
+                category = category[0];
+            }
+            category = category._id;
+
+            let author = await Author.find({
+                name: req.body.author,
+            });
+
+            if (!author.length) {
+                author = await Author.create({
+                    name: req.body.author,
+                });
+            } else {
+                author = author[0];
+            }
+            author = author._id;
+
+            let publisher = await Publisher.findOne({
+                name: req.body.publisher,
+            });
+
+            if (!publisher) {
+                publisher = await Publisher.create({
+                    name: req.body.publisher,
+                });
+            }
+            publisher = publisher._id;
 
             parentBook = await Book.create({
                 title: req.body.title,
-                author: req.body.author,
-                publisher: req.body.publisher,
-                category: req.body.category,
+                author: author,
+                publisher: publisher,
+                category: category,
             });
         }
         console.log('Create bookcase....');
@@ -135,7 +176,6 @@ router.post(
         });
     })
 );
-
 
 // @desc    Swap book
 // @route   POST /api/bookcases/:id/swaps
@@ -177,10 +217,10 @@ router.put(
     asyncHandler(async (req, res, next) => {
         try {
             const bookcase = await Bookcase.findById(req.params.id);
-            console.log(bookcase)
-            if(bookcase.owner==req.user.id) {
-                bookcase.owner=req.user.id;
-                bookcase.change=req.body.change
+            console.log(bookcase);
+            if (bookcase.owner == req.user.id) {
+                bookcase.owner = req.user.id;
+                bookcase.change = req.body.change;
                 const bookcase_update = await Bookcase.findByIdAndUpdate(req.params.id, bookcase, {
                     new: true,
                     runValidators: true,
@@ -189,11 +229,9 @@ router.put(
                     success: true,
                     data: bookcase_update,
                 });
-            }
-            else {
+            } else {
                 res.status(401).send("You don't have permission");
             }
-            
         } catch {
             res.status(404).send('The book with the given id was not found.');
         }
@@ -206,16 +244,15 @@ router.delete(
     asyncHandler(async (req, res, next) => {
         try {
             const bookcase = await Bookcase.findById(req.params.id);
-            console.log(bookcase)
-            if (bookcase.owner==req.user.id) {
+            console.log(bookcase);
+            if (bookcase.owner == req.user.id) {
                 const result = await Bookcase.deleteOne({
                     _id: req.params.id,
                 });
                 res.status(200).json({
                     success: true,
                 });
-            }
-            else {
+            } else {
                 return res.status(401).send("You don't have permission");
             }
         } catch {

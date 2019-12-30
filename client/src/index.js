@@ -38,6 +38,7 @@ ReactDOM.render(
             <LoginForm />
             <RegisterForm />
         </FormCard>
+        <NewBook />
     </>,
     document.getElementById('root')
 );
