@@ -10,11 +10,9 @@ import * as serviceWorker from './serviceWorker';
 
 //ReactDOM.render(<App />, document.getElementById('root'));
 
-// TESTING Menu component [Adam] - don't remove these comments:
-import DropdownButton from './components/DropdownButton';
+//menu oraz nawigacja
+import UserMenu from './components/UserMenu';
 import Menu from './components/Menu';
-//ReactDOM.render(<DropdownButton />, document.getElementById('root'));
-//ReactDOM.render(<Menu><DropdownButton /></Menu>, document.getElementById('root'));
 
 //formularze rejestracji i logowania
 import FormCard from './components/FormCard';
@@ -32,8 +30,8 @@ ReactDOM.render(
 
 ReactDOM.render(
     <>
-        <Menu>
-            <DropdownButton />
+        <Menu username="User_Name">
+            <UserMenu />
         </Menu>
         <FormCard>
             <LoginForm />

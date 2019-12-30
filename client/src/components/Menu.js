@@ -1,17 +1,23 @@
 import React from 'react';
 import { MDBCol, MDBContainer, MDBRow } from 'mdbreact';
-//import DropdowanButton from './DropdownButton';
+import Nav from './Nav';
 
 const Menu = props => {
     return (
         <div>
             <MDBContainer>
-                <MDBRow>
+                <MDBRow className="align-items-center mt-2">
                     <MDBCol md="10">
-                        <h1 className="my-2 text-center">BOOKSWAP</h1>
+                        <h1 className="text-center">BOOKSWAP</h1>
                     </MDBCol>
                     <MDBCol md="2">
-                        <div className="my-2">{props.children}</div>
+                        <div className="text-center">{props.username}</div>
+                        <div className="text-center">{props.children}</div>
+                    </MDBCol>
+                </MDBRow>
+                <MDBRow className="my-1">
+                    <MDBCol size="12">
+                        <Nav />
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
@@ -20,18 +26,3 @@ const Menu = props => {
 };
 
 export default Menu;
-
-/* code for Axios task:
-
-import axios from 'axios';
-
-axios.default.baseURL = "http://localhost:5000/api/"
-axios.interceptors.request.use( req => {
-  const token = localStorage.getItem("token"); // token???
-  if (token) req.headers[Authorization] = `Bearer ${token}`;
-  return req;
-})
-
-export default axios;
-
-*/
