@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 
 const Nav = () => {
     return (
-        <ul class="nav justify-content-center grey lighten-4 py-2 mb-4">
+        <ul className="nav justify-content-center grey lighten-4 py-2 mb-4">
             <Link to="/">
-                <li class="nav-item">
+                <li className="nav-item">
                     <span className="nav-link">Home</span>
                 </li>
             </Link>
             <Link to="/test">
-                <li class="nav-item">
+                <li className="nav-item">
                     <span className="nav-link">Test</span>
                 </li>
             </Link>
             <Link to="/login">
-                <li class="nav-item">
+                <li className="nav-item">
                     <span className="nav-link">Login</span>
                 </li>
             </Link>
