@@ -5,7 +5,7 @@ const DropdownPage = () => {
     return (
         <MDBDropdown>
             <MDBDropdownToggle caret color="primary">
-                PROFILE
+                <i class="fas fa-user"></i>
             </MDBDropdownToggle>
             <MDBDropdownMenu basic>
                 <MDBDropdownItem>Change your password</MDBDropdownItem>
