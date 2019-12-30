@@ -13,7 +13,7 @@ const NewBook = () => {
         },
         onSubmit: values => {
             // alert(JSON.stringify(values, null, 2));
-            alert(formik.values.title);
+            // alert(formik.values.title);
             axios
                 .post('bookcases', {
                     title: formik.values.title,

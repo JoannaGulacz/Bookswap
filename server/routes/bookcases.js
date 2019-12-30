@@ -164,7 +164,7 @@ router.post(
         }
         console.log('Create bookcase....');
         bookcase = await Bookcase.create({
-            owner: '5d7a514b5d2c12c7449be999',
+            owner: req.user.id,
             change: req.body.change,
             title: req.body.title,
             parentBook: parentBook,
