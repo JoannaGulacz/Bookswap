@@ -1,6 +1,7 @@
 const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Review = require('../models/Review');
+const Book = require('../models/Book');
 const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
 
@@ -76,11 +77,16 @@ router.post(
         const { error } = Review.validateReview(req.body);
         if (error) return res.status(400).send(error.details[0].message);
 
-        let review = new Review({
+        let book = await Book.findOne({
             title: req.body.title,
+        });
+
+        let review = new Review({
+            title: book.title,
+            author: book.author,
             content: req.body.content,
-            raiting: req.body.raiting,
-            author: req.body.author,
+            rating: req.body.rating,
+            book: book,
         });
 
         review = await review.save();
@@ -102,7 +108,7 @@ router.put(
         let review = await Review.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
             content: req.body.content,
-            raiting: req.body.raiting,
+            rating: req.body.rating,
             author: req.body.author,
         });
 

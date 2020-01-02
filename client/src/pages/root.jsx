@@ -12,6 +12,10 @@ import Login from './routerTestLogin';
 import RouterTest from './routerTest';
 import Home from './routerTestHome';
 
+// your Bookcases
+import NewBook from './NewBook';
+import Reviews from './Reviews';
+
 // <Switch> powoduje że renderowany jest tylko jeden komonent (pierwszy który pasuje do ścieżki)
 
 // exact wymusza dokładne porównanie ścieżek (domyślnie jest wyłączone)
@@ -29,6 +33,8 @@ const Root = () => {
                     <Route path="/" exact component={Home} />
                     <Route path="/test" component={RouterTest} />
                     <Route path="/login" component={Login} />
+                    <Route path="/bookcases" component={NewBook} />
+                    <Route path="/reviews" component={Reviews} />
                 </Switch>
             </>
         </Router>
