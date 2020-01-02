@@ -18,13 +18,17 @@ const reviewSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
     },
     book: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book',
-        required: true,
     },
+    // toJSON: {
+    //     virtuals: true,
+    // },
+    // toObject: {
+    //     virtuals: true,
+    // },
 });
 
 // const Review = mongoose.model('Review', reviewSchema);
@@ -46,10 +50,10 @@ function validateReview(review) {
     const schema = Joi.object({
         title: Joi.string()
             .min(5)
-            .max(20)
+            .max(255)
             .required(),
         content: Joi.string()
-            .max(200)
+            .max(500)
             .required(),
         rating: Joi.number().required(),
     });
