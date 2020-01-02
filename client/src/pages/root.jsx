@@ -10,7 +10,8 @@ import Login from './routerTestLogin';
 
 //testowe routy
 import RouterTest from './routerTest';
-import Home from './routerTestHome';
+//import Home from './routerTestHome';
+import Main from './Home/Main';
 
 // your Bookcases
 import NewBook from './NewBook';
@@ -30,7 +31,7 @@ const Root = () => {
                 </Menu>
 
                 <Switch>
-                    <Route path="/" exact component={Home} />
+                    <Route path="/" exact component={Main} />
                     <Route path="/test" component={RouterTest} />
                     <Route path="/login" component={Login} />
                     <Route path="/bookcases" component={NewBook} />
