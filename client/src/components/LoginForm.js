@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { Link } from 'react-router-dom';
+
 //zmienić formularz używając formika
 export default class LoginForm extends Component {
     constructor(props) {
@@ -24,7 +26,8 @@ export default class LoginForm extends Component {
     onSubmit = event => {
         event.preventDefault();
         //check if data is correct comparing to database data if not, display: "Incorrect email and/or password"
-        fetch('/api/users/login', {
+        /*
+        fetch('api/users/login', {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
@@ -40,6 +43,32 @@ export default class LoginForm extends Component {
                     const error = new Error(res.error);
                     throw error;
                 }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error logging in please try again');
+            });
+    
+    */
+        fetch('http://localhost:5000/api/users/login', {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    console.log('Logged in successfully');
+                    return res.json();
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .then(data => {
+                const token = data.token;
+                localStorage.setItem('token', token);
             })
             .catch(err => {
                 console.error(err);
@@ -80,9 +109,11 @@ export default class LoginForm extends Component {
                                 required
                             />
                             <div className="text-center mt-4">
-                                <MDBBtn color="indigo" type="submit">
-                                    Login
-                                </MDBBtn>
+                                <Link to="/">
+                                    <MDBBtn color="indigo" type="submit">
+                                        Login
+                                    </MDBBtn>
+                                </Link>
                             </div>
                         </form>
                     </MDBCardBody>
