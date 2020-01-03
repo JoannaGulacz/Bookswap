@@ -24,7 +24,9 @@ class DropdownPage extends React.Component {
     };
 
     componentDidMount() {
-        this.getUserName();
+        if (this.state.token) {
+            this.getUserName();
+        }
     }
 
     render() {
