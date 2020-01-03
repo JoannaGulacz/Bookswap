@@ -3,7 +3,7 @@ import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from '../utils/axios';
 import { useFormik } from 'formik';
 
-const LoginForm = () => {
+const LoginForm = props => {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -19,6 +19,8 @@ const LoginForm = () => {
                     console.log('Logged in successfully');
                     const token = response.data.token;
                     localStorage.setItem('token', token);
+                    props.history.push('/');
+                    window.location.reload(true); // to do: reload component zamiast całaj strony
                 })
                 .catch(function(error) {
                     console.log(error.response.data);

@@ -3,11 +3,11 @@ import FormCard from '../components/FormCard';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 
-const Login = () => {
+const Login = props => {
     return (
         <>
             <FormCard>
-                <LoginForm />
+                <LoginForm {...props} />
                 <RegisterForm />
             </FormCard>
         </>

@@ -30,7 +30,7 @@ const Root = () => {
     return (
         <Router>
             <>
-                <Menu username="User_Name">
+                <Menu>
                     <UserMenu />
                 </Menu>
 
