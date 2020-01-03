@@ -5,11 +5,12 @@ import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 
 // Komponent na potrzeby testów routera - DO USUNIĘCIA
-const Login = () => {
+const Login = props => {
+    console.log(props.history);
     return (
         <>
             <FormCard>
-                <LoginForm />
+                <LoginForm {...props} />
                 <RegisterForm />
             </FormCard>
         </>

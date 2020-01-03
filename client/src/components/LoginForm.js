@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-import { Link } from 'react-router-dom';
+// import { Link, Redirect } from 'react-router-dom';
 
 //zmienić formularz używając formika
 export default class LoginForm extends Component {
@@ -57,18 +57,12 @@ export default class LoginForm extends Component {
                 'Content-Type': 'application/json',
             },
         })
-            .then(res => {
-                if (res.status === 200) {
-                    console.log('Logged in successfully');
-                    return res.json();
-                } else {
-                    const error = new Error(res.error);
-                    throw error;
-                }
-            })
+            .then(res => res.json())
             .then(data => {
                 const token = data.token;
                 localStorage.setItem('token', token);
+                console.log('Logged in successfully');
+                this.props.history.push('/');
             })
             .catch(err => {
                 console.error(err);
@@ -109,11 +103,9 @@ export default class LoginForm extends Component {
                                 required
                             />
                             <div className="text-center mt-4">
-                                <Link to="/">
-                                    <MDBBtn color="indigo" type="submit">
-                                        Login
-                                    </MDBBtn>
-                                </Link>
+                                <MDBBtn color="indigo" type="submit">
+                                    Login
+                                </MDBBtn>
                             </div>
                         </form>
                     </MDBCardBody>
