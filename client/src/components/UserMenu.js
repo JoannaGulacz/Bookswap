@@ -66,7 +66,7 @@ class DropdownPage extends React.Component {
         }
         return (
             <Link to="/login" style={{ color: 'white' }}>
-                <button type="button" class="btn btn-primary">
+                <button type="button" className="btn btn-primary">
                     Log in
                 </button>
             </Link>
