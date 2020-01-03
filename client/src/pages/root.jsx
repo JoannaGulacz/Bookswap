@@ -9,9 +9,9 @@ import Menu from '../components/Menu';
 import Login from './Login';
 
 //zbiór ksiązek
-import Books from './routerBooks';
-import Book from './routerBook';
-import AddBook from './routerAddBook';
+import Books from './Books';
+import Book from './Book';
+import AddBook from './AddBook';
 
 import Swap from './Swap';
 
@@ -27,12 +27,12 @@ import Reviews from './Reviews';
 // exact wymusza dokładne porównanie ścieżek (domyślnie jest wyłączone)
 // brak exact w testowym home roucie sprawiłby, że route /test odnosiłby się do obu komponentów (zawiera zaróno / jak i /test)
 
-const Root = props => {
+const Root = () => {
     return (
         <Router>
             <>
                 <Menu>
-                    <UserMenu {...props} />
+                    <UserMenu />
                 </Menu>
 
                 <Switch>
