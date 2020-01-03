@@ -59,7 +59,7 @@ const BooksToSwap = () => {
             </MDBCard>
             <MDBCard>
                 <MDBCardBody>
-                    <MDBCardTitle>{formik.books}</MDBCardTitle>
+                    
                 </MDBCardBody>
             </MDBCard>
         </MDBCol>
