@@ -8,6 +8,10 @@ import Menu from '../components/Menu';
 //formularze rejestracji i logowania
 import Login from './routerTestLogin';
 
+//zbiór ksiązek
+import Books from './routerBooks';
+import Book from './routerBook';
+
 //testowe routy
 import RouterTest from './routerTest';
 //import Home from './routerTestHome';
@@ -34,6 +38,8 @@ const Root = () => {
                     <Route path="/" exact component={Main} />
                     <Route path="/test" component={RouterTest} />
                     <Route path="/login" component={Login} />
+                    <Route path="/books" component={Books} />
+                    <Route path="/book/:_id" component={Book} />
                     <Route path="/bookcases" component={NewBook} />
                     <Route path="/reviews" component={Reviews} />
                 </Switch>

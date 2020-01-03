@@ -11,7 +11,7 @@ dotenv.config({
 const Publisher = require('./models/Publisher');
 const Book = require('./models/Book');
 const Bookcase = require('./models/Bookcase');
-const { Author } = require('./models/Author');
+const Author = require('./models/Author');
 const Category = require('./models/Category');
 const Review = require('./models/Review');
 const User = require('./models/User');

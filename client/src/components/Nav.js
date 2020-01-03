@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MDBNavItem, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
 
 // links types (classes): active, disabled, (none)          [span]
 
@@ -21,6 +22,20 @@ const Nav = () => {
                     <span className="nav-link">Login</span>
                 </li>
             </Link>
+
+            <MDBNavItem>
+                <MDBDropdown>
+                    <MDBDropdownToggle nav caret>
+                        <span className="mr-2">Search</span>
+                    </MDBDropdownToggle>
+                    <MDBDropdownMenu>
+                        <MDBDropdownItem href="/books">Books</MDBDropdownItem>
+                        <MDBDropdownItem href="/#!">Another Action</MDBDropdownItem>
+                        <MDBDropdownItem href="/#!">Something else here</MDBDropdownItem>
+                        <MDBDropdownItem href="/#!">Something else here</MDBDropdownItem>
+                    </MDBDropdownMenu>
+                </MDBDropdown>
+            </MDBNavItem>
         </ul>
     );
 };

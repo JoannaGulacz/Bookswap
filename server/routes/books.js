@@ -1,6 +1,7 @@
 const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Book = require('../models/Book');
+const Bookcase = require('../models/Bookcase');
 const router = express.Router();
 const Category = require('../models/Category');
 const Publisher = require('../models/Publisher');
@@ -86,6 +87,41 @@ router.get(
     })
 );
 
+router.get(
+    '/search/:title',
+    asyncHandler(async (req, res, next) => {
+        try {
+            const book = await Book.find({ title: new RegExp(`.*${req.params.title}.*`, 'i') })
+                .populate({
+                    path: 'bookcases',
+                    select: 'owner change -_id',
+                })
+                .populate({
+                    path: 'category',
+                    select: 'name -_id',
+                })
+                .populate({
+                    path: 'publisher',
+                    select: 'name -_id',
+                })
+                .populate({
+                    path: 'author',
+                    select: 'name -_id',
+                })
+                .populate({
+                    path: 'reviews',
+                    select: 'rating title -_id',
+                });
+            res.status(200).json({
+                success: true,
+                data: book,
+            });
+        } catch {
+            res.status(404).send('The book with the given id was not found.');
+        }
+    })
+);
+
 router.post(
     '/',
     protect,
@@ -105,7 +141,7 @@ router.post(
         } else {
             category = category[0];
         }
-        category=category._id
+        category = category._id;
 
         let author = await Author.find({
             name: req.body.author,
@@ -129,7 +165,7 @@ router.post(
                 name: req.body.publisher,
             });
         }
-        publisher = publisher._id
+        publisher = publisher._id;
 
         const book = await Book.create({
             title: req.body.title,
@@ -168,18 +204,26 @@ router.put(
 
 router.delete(
     '/:id',
-    protect,
-    authorize('admin'),
+    // protect,
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
-            await Book.deleteOne({
-                _id: req.params.id,
+            let bookcase = await Bookcase.findOne({
+                parentBook: req.params.id,
             });
+            if (!bookcase) {
+                await Book.deleteOne({
+                    _id: req.params.id,
+                });
 
-            res.status(200).json({
-                success: true,
-                // data: result,
-            });
+                res.status(200).json({
+                    success: true,
+                });
+            } else {
+                res.status(200).json({
+                    success: false,
+                });
+            }
         } catch {
             res.status(404).send('The book with the given id was not found.');
         }
