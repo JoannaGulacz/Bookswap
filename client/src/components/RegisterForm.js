@@ -1,120 +1,109 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-//zmienić formularz używając formika
-export default class RegisterForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+import axios from '../utils/axios';
+import { useFormik } from 'formik';
+
+const RegisterForm = () => {
+    const formik = useFormik({
+        initialValues: {
             name: '',
             email: '',
             password: '',
             confirmPassword: '',
-        };
-    }
-    handleNameChange = event => {
-        const value = event.target.value;
-        this.setState({
-            name: value,
-        });
-    };
-    handleEmailChange = event => {
-        const value = event.target.value;
-        this.setState({
-            email: value,
-        });
-    };
-    handlePasswordChange = event => {
-        //TODO: Password validation
-        const value = event.target.value;
-        this.setState({
-            password: value,
-        });
-    };
-    handleConfirmPasswordChange = event => {
-        const value = event.target.value;
-        this.setState({
-            confirmPassword: value,
-        });
-    };
-    onSubmit = event => {
-        event.preventDefault();
-
-        if (this.state.password === this.state.confirmPassword) {
+        },
+        onSubmit: () => {
+            //if (formik.values.password === formik.values.confirmPassword) {
             document.getElementById('validationIcon').innerHTML = '<i class="ml-1 far fa-check-circle text-success">';
-            console.log(`Account for ${this.state.name} created`);
-            const newUser = {
-                name: this.state.name,
-                email: this.state.email,
-                password: this.state.password,
-                role: 'user',
-            };
-        }
-        //post newUser at /register and redirect to account page
-        else {
-            document.getElementById('validationIcon').innerHTML =
-                '<i class="ml-1 far fa-times-circle text-danger"></i>';
-        }
-    };
-    render() {
-        return (
-            <MDBCol md="6">
-                <MDBCard>
-                    <MDBCardBody>
-                        <form onSubmit={this.onSubmit}>
-                            <p className="h4 text-center mb-4">Sign up</p>
-                            <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
-                                Your name
-                            </label>
-                            <input
-                                type="text"
-                                id="defaultFormRegisterNameEx"
-                                className="form-control"
-                                onChange={this.handleNameChange}
-                                required
-                            />
-                            <br />
-                            <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
-                                Your email
-                            </label>
-                            <input
-                                type="email"
-                                id="defaultFormRegisterEmailEx"
-                                className="form-control"
-                                onChange={this.handleEmailChange}
-                                required
-                            />
-                            <br />
-                            <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">
-                                Your password
-                            </label>
-                            <input
-                                type="password"
-                                id="defaultFormRegisterPasswordEx"
-                                className="form-control"
-                                onChange={this.handlePasswordChange}
-                                required
-                            />
-                            <br />
-                            <label htmlFor="defaultFormRegisterConfirmEx" className="grey-text">
-                                Confirm your password
-                                <span id="validationIcon"></span>
-                            </label>
-                            <input
-                                type="password"
-                                id="defaultFormRegisterConfirmEx"
-                                className="form-control"
-                                onChange={this.handleConfirmPasswordChange}
-                                required
-                            />
-                            <div className="text-center mt-4">
-                                <MDBBtn color="indigo" type="submit">
-                                    Register
-                                </MDBBtn>
-                            </div>
-                        </form>
-                    </MDBCardBody>
-                </MDBCard>
-            </MDBCol>
-        );
-    }
-}
+            axios
+                .post('users/register', {
+                    name: formik.values.name,
+                    email: formik.values.email,
+                    password: formik.values.password,
+                    role: 'user',
+                })
+                .then(function(response) {
+                    const token = response.data.token;
+                    localStorage.setItem('token', token);
+                })
+                .catch(function(error) {
+                    console.log(error.response.data);
+                });
+
+            //DODAĆ PRZEJŚCIE DO STRONY O MNIE
+            // }
+            // else {
+            //     document.getElementById('validationIcon').innerHTML =
+            //         '<i class="ml-1 far fa-times-circle text-danger"></i>';
+            // }
+        },
+    });
+    return (
+        <MDBCol md="6">
+            <MDBCard>
+                <MDBCardBody>
+                    <form onSubmit={formik.handleSubmit}>
+                        <p className="h4 text-center mb-4">Sign up</p>
+                        <label htmlFor="name" className="grey-text">
+                            Your name
+                        </label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            className="form-control"
+                            onChange={formik.handleChange}
+                            value={formik.values.name}
+                            required
+                        />
+                        <br />
+                        <label htmlFor="email" className="grey-text">
+                            Your email
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="emailForReg"
+                            className="form-control"
+                            onChange={formik.handleChange}
+                            value={formik.values.email}
+                            required
+                        />
+                        <br />
+                        <label htmlFor="password" className="grey-text">
+                            Your password
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="passwordForReg"
+                            className="form-control"
+                            onChange={formik.handleChange}
+                            value={formik.values.password}
+                            required
+                        />
+                        <br />
+                        <label htmlFor="defaultFormRegisterConfirmEx" className="grey-text">
+                            Confirm your password
+                            <span id="validationIcon"></span>
+                        </label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            className="form-control"
+                            onChange={formik.handleChange}
+                            value={formik.values.confirmPassword}
+                            required
+                        />
+                        <div className="text-center mt-4">
+                            <MDBBtn color="indigo" type="submit">
+                                Register
+                            </MDBBtn>
+                        </div>
+                    </form>
+                </MDBCardBody>
+            </MDBCard>
+        </MDBCol>
+    );
+};
+export default RegisterForm;

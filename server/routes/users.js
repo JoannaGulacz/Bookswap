@@ -19,19 +19,19 @@ router.post('/register', async (req, res) => {
     });
     if (user) {
         return res.status(400).send('That user already exisits!');
+    } else {
+        const { name, email, password, role } = req.body;
+
+        // Create/Register new user
+        user = await User.create({
+            name,
+            email,
+            password,
+            role,
+        });
+
+        sendTokenResponse(user, 200, res);
     }
-
-    const { name, email, password, role } = req.body;
-
-    // Create/Register new user
-    user = await User.create({
-        name,
-        email,
-        password,
-        role,
-    });
-
-    sendTokenResponse(user, 200, res);
 });
 
 router.post('/login', async (req, res) => {

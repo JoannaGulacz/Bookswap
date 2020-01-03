@@ -6,7 +6,7 @@ import UserMenu from '../components/UserMenu';
 import Menu from '../components/Menu';
 
 //formularze rejestracji i logowania
-import Login from './routerTestLogin';
+import Login from './Login';
 
 //testowe routy
 import RouterTest from './routerTest';
