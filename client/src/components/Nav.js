@@ -17,11 +17,6 @@ const Nav = () => {
                     <span className="nav-link">Test</span>
                 </li>
             </Link>
-            <Link to="/login">
-                <li className="nav-item">
-                    <span className="nav-link">Login</span>
-                </li>
-            </Link>
 
             <MDBNavItem>
                 <MDBDropdown>
