@@ -58,9 +58,7 @@ const BooksToSwap = () => {
                 </MDBCardBody>
             </MDBCard>
             <MDBCard>
-                <MDBCardBody>
-                    
-                </MDBCardBody>
+                <MDBCardBody></MDBCardBody>
             </MDBCard>
         </MDBCol>
     );

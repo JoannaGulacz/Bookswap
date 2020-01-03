@@ -2,7 +2,6 @@ import React from 'react';
 import { MDBCol, MDBContainer, MDBRow } from 'mdbreact';
 import Nav from './Nav';
 
-// TO DO: username zalogowanego użytkownika / inne UserMenu w przypadku niezalogowania
 const Menu = props => {
     return (
         <div>

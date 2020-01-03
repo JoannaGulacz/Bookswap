@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MDBNavItem, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
 
-// links types (classes): active, disabled, (none)          [span]
-
 const Nav = () => {
     return (
         <ul className="nav justify-content-center grey lighten-4 py-2 mb-4">
