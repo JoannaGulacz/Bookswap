@@ -176,6 +176,86 @@ router.post(
         });
     })
 );
+router.get(
+    '/swaps',
+    protect,
+    asyncHandler(async (req, res, next) => {
+        const bookcases = await Bookcase.find({
+            change: true,
+        })
+            .populate({
+                path: 'parentBook',
+                select: '-title -_id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'category',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'publisher',
+                        select: 'name -_id',
+                    },
+                ],
+            })
+            .populate({
+                path: 'owner',
+                select: 'name email -_id',
+            })
+            .populate({
+                path: 'swaps',
+            });
+
+        res.status(200).json({
+            success: true,
+            data: bookcases,
+        });
+    })
+);
+
+router.get(
+    '/swaps/:title',
+    protect,
+    asyncHandler(async (req, res, next) => {
+        const bookcases = await Bookcase.find({
+            change: true,
+            title: new RegExp(`.*${req.params.title}.*`, 'i'),
+        })
+            .populate({
+                path: 'parentBook',
+                select: '-title -_id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'category',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'publisher',
+                        select: 'name -_id',
+                    },
+                ],
+            })
+            .populate({
+                path: 'owner',
+                select: 'name email -_id',
+            })
+            .populate({
+                path: 'swaps',
+            });
+
+        res.status(200).json({
+            success: true,
+            data: bookcases,
+        });
+    })
+);
 
 // @desc    Swap book
 // @route   POST /api/bookcases/:id/swaps

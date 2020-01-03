@@ -13,8 +13,8 @@ import Books from './routerBooks';
 import Book from './routerBook';
 import AddBook from './routerAddBook';
 
-//testowe routy
-import RouterTest from './routerTest';
+import Swap from './Swap';
+
 //import Home from './routerTestHome';
 import Main from './Home/Main';
 
@@ -37,7 +37,7 @@ const Root = () => {
 
                 <Switch>
                     <Route path="/" exact component={Main} />
-                    <Route path="/test" component={RouterTest} />
+                    <Route path="/swap" component={Swap} />
                     <Route path="/login" component={Login} />
                     <Route path="/books" component={Books} />
                     <Route path="/book/:_id" component={Book} />
