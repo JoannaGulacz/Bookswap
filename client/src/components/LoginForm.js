@@ -109,11 +109,9 @@ export default class LoginForm extends Component {
                                 required
                             />
                             <div className="text-center mt-4">
-                                <Link to="/">
-                                    <MDBBtn color="indigo" type="submit">
-                                        Login
-                                    </MDBBtn>
-                                </Link>
+                                <MDBBtn color="indigo" type="submit">
+                                    Login
+                                </MDBBtn>
                             </div>
                         </form>
                     </MDBCardBody>

@@ -2,6 +2,67 @@ import React from 'react';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
 import { Link } from 'react-router-dom';
 
+class DropdownPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLogged: false,
+            token: localStorage.getItem('token'),
+        };
+    }
+
+    render() {
+        if (this.state.token && !this.state.isLogged) {
+            this.setState({ isLogged: true });
+        } else if (this.state.token && this.state.isLogged) {
+            return (
+                <>
+                    <div className="text-center">User_name</div>
+                    <MDBDropdown>
+                        <MDBDropdownToggle caret color="primary">
+                            <i className="fas fa-user"></i>
+                        </MDBDropdownToggle>
+                        <MDBDropdownMenu basic>
+                            <MDBDropdownItem>
+                                <Link to="/" style={{ color: 'black' }}>
+                                    Change your password
+                                </Link>
+                            </MDBDropdownItem>
+                            <MDBDropdownItem>
+                                <Link to="/reviews" style={{ color: 'black' }}>
+                                    Your reviews
+                                </Link>
+                            </MDBDropdownItem>
+                            <MDBDropdownItem>
+                                <Link to="/bookcases" style={{ color: 'black' }}>
+                                    Your bookcases
+                                </Link>
+                            </MDBDropdownItem>
+                            <MDBDropdownItem>
+                                <Link to="/" style={{ color: 'black' }}>
+                                    Notifications
+                                </Link>
+                            </MDBDropdownItem>
+                            <MDBDropdownItem divider />
+                            <MDBDropdownItem onClick>Log out</MDBDropdownItem>
+                        </MDBDropdownMenu>
+                    </MDBDropdown>
+                </>
+            );
+        }
+        return (
+            <Link to="/login" style={{ color: 'white' }}>
+                <button type="button" class="btn btn-primary">
+                    Log in
+                </button>
+            </Link>
+        );
+    }
+}
+
+export default DropdownPage;
+
+/* 
 const DropdownPage = () => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -34,10 +95,8 @@ const DropdownPage = () => {
                             </Link>
                         </MDBDropdownItem>
                         <MDBDropdownItem divider />
-                        <MDBDropdownItem>
-                            <Link to="/" style={{ color: 'black' }}>
+                        <MDBDropdownItem onClick>
                                 Log out
-                            </Link>
                         </MDBDropdownItem>
                     </MDBDropdownMenu>
                 </MDBDropdown>
@@ -52,5 +111,4 @@ const DropdownPage = () => {
         </Link>
     );
 };
-
-export default DropdownPage;
+*/
