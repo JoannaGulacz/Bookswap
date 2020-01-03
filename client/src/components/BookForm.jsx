@@ -96,6 +96,8 @@ export default class BookForm extends Component {
                                                 style={{ fontSize: 12 }}
                                             >
                                                 {e.title}
+                                                <br />
+                                                {e.content}
                                                 <MDBBadge color="primary" pill>
                                                     {e.rating}
                                                 </MDBBadge>
@@ -129,6 +131,14 @@ export default class BookForm extends Component {
                                 category: {this.state.book.category.name} <br />
                                 rating: {this.state.book._rating}
                             </MDBCardText>
+                            <a href="/bookcases" /* <- link do dodawania recenzji */>
+                                <div style={{ cursor: 'pointer' }} className="black-text d-flex justify-content-end">
+                                    <h5>
+                                        Write new review
+                                        <MDBIcon icon="pen-fancy" className="ml-2" />
+                                    </h5>
+                                </div>
+                            </a>
                             {ListGroupPage()}
                             <br />
                             <div

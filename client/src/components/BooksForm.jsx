@@ -13,6 +13,8 @@ export default class BooksForm extends Component {
         };
         this.onSubmit.bind(this);
         this.handleTitleChange.bind(this);
+
+        axios.get('http://localhost:5000/api/books/').then(data => this.setState({ books: data.data.data }));
     }
     handleTitleChange = event => {
         const value = event.target.value;
@@ -35,6 +37,7 @@ export default class BooksForm extends Component {
                         Add new book
                     </MDBBtn>
                 </div>
+                <hr />
                 <form
                     className="form-inline mt-4 mb-4"
                     style={{ display: 'flex', justifyContent: 'center' }}

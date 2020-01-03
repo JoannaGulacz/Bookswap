@@ -31,7 +31,7 @@ router.get(
             })
             .populate({
                 path: 'reviews',
-                select: 'rating title -_id',
+                select: 'rating title content -_id',
             });
 
         for (let i = 0; i < books.length; i++) {
@@ -70,7 +70,7 @@ router.get(
                 })
                 .populate({
                     path: 'reviews',
-                    select: 'rating title -_id',
+                    select: 'rating title content -_id',
                 });
 
             const rates = await Review.find({ book: book.id });
