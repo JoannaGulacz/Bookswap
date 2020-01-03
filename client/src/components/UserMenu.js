@@ -12,7 +12,7 @@ class DropdownPage extends React.Component {
 
     handleLogOut = () => {
         localStorage.removeItem('token');
-        //this.props.history.push('/'); ???
+        this.props.history.push('/');
         window.location.reload(true);
     };
 

@@ -27,12 +27,12 @@ import Reviews from './Reviews';
 // exact wymusza dokładne porównanie ścieżek (domyślnie jest wyłączone)
 // brak exact w testowym home roucie sprawiłby, że route /test odnosiłby się do obu komponentów (zawiera zaróno / jak i /test)
 
-const Root = () => {
+const Root = props => {
     return (
         <Router>
             <>
                 <Menu>
-                    <UserMenu />
+                    <UserMenu {...props} />
                 </Menu>
 
                 <Switch>
