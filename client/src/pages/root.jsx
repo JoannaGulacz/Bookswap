@@ -11,6 +11,7 @@ import Login from './Login';
 //zbiór ksiązek
 import Books from './routerBooks';
 import Book from './routerBook';
+import AddBook from './routerAddBook';
 
 //testowe routy
 import RouterTest from './routerTest';
@@ -40,6 +41,7 @@ const Root = () => {
                     <Route path="/login" component={Login} />
                     <Route path="/books" component={Books} />
                     <Route path="/book/:_id" component={Book} />
+                    <Route path="/addbook/" component={AddBook} />
                     <Route path="/bookcases" component={NewBook} />
                     <Route path="/reviews" component={Reviews} />
                 </Switch>

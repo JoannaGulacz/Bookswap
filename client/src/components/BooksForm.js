@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCol, MDBIcon } from 'mdbreact';
+import { MDBCol, MDBIcon, MDBBtn } from 'mdbreact';
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
 
 import axios from 'axios';
@@ -30,6 +30,11 @@ export default class BooksForm extends Component {
     render() {
         return (
             <MDBCol md="6">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <MDBBtn rounded href="/addbook">
+                        Add new book
+                    </MDBBtn>
+                </div>
                 <form
                     className="form-inline mt-4 mb-4"
                     style={{ display: 'flex', justifyContent: 'center' }}

@@ -20,7 +20,84 @@
     "category": "5deff118c426854752e9b64d"
   },
   {
-    "_id": "5d725a1b7b292f5f8ceff788",
+    "_id": "5d725a037b292f5f8ceff788",
+    "title": "Harry Potter i Więzień Azkabanu",
+    "author": "5df02aa60fad54186ceff878",
+    "publisher": "5df002a32f49b02c8c841528",
+    "category": "5deff118c426854752e9b64d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff789",
+    "title": "Harry Potter i Czara Ognia",
+    "author": "5df02aa60fad54186ceff878",
+    "publisher": "5df002a32f49b02c8c841528",
+    "category": "5deff118c426854752e9b64d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff790",
+    "title": "Harry Potter i Zakon Feniksa",
+    "author": "5df02aa60fad54186ceff878",
+    "publisher": "5df002a32f49b02c8c841528",
+    "category": "5deff118c426854752e9b64d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff791",
+    "title": "Harry Potter i Książę Półkrwi",
+    "author": "5df02aa60fad54186ceff878",
+    "publisher": "5df002a32f49b02c8c841528",
+    "category": "5deff118c426854752e9b64d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff792",
+    "title": "Harry Potter i Insygnia Śmierci",
+    "author": "5df02aa60fad54186ceff878",
+    "publisher": "5df002a32f49b02c8c841528",
+    "category": "5deff118c426854752e9b64d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff793",
+    "title": "Żmijowisko",
+    "author": "5df02aa60fad54186ceff880",
+    "publisher": "5df002a32f49b02c8c841530",
+    "category": "5deff118c426854752e9b62d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff795",
+    "title": "Iluzjonista",
+    "author": "5df02aa60fad54186ceff881",
+    "publisher": "5df002a32f49b02c8c841531",
+    "category": "5deff118c426854752e9b62d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff796",
+    "title": "Behawiorysta",
+    "author": "5df02aa60fad54186ceff881",
+    "publisher": "5df002a32f49b02c8c841531",
+    "category": "5deff118c426854752e9b62d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff797",
+    "title": "Kasacja",
+    "author": "5df02aa60fad54186ceff881",
+    "publisher": "5df002a32f49b02c8c841532",
+    "category": "5deff118c426854752e9b62d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff798",
+    "title": "Pacjentka",
+    "author": "5df02aa60fad54186ceff882",
+    "publisher": "5df002a32f49b02c8c841533",
+    "category": "5deff118c426854752e9b62d"
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff799",
+    "title": "Instytut",
+    "author": "5df02aa60fad54186ceff883",
+    "publisher": "5df002a32f49b02c8c841534",
+    "category": "5deff118c426854752e9b63d"
+  },
+  {
+    "_id": "5d725a1b7b292f5f8ceff794",
     "title": "Władca pierścieni",
     "author": "5df02aa60fad54186ceff879",
     "publisher": "5df002a32f49b02c8c841529",

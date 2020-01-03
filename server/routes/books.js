@@ -124,11 +124,23 @@ router.get(
 
 router.post(
     '/',
-    protect,
-    authorize('admin'),
+    // protect,
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
+        let findBook = await Book.findOne({
+            title: req.params.title,
+        });
+
+        if (findBook) {
+            return res.status(400).json({
+                success: false,
+            });
+        }
+
         const { error } = Book.validateBook(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
 
         let category = await Category.find({
             name: req.body.category,
@@ -174,7 +186,7 @@ router.post(
             category: category,
         });
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             data: book,
         });

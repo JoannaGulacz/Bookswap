@@ -13,6 +13,28 @@
     "rating": 9.3
   },
   {
+    "_id": "5df02aa60fad54186ceff880",
+    "name": "Wojciech Chmielarz",
+    "rating": 7.0
+  },
+  {
+    "_id": "5df02aa60fad54186ceff881",
+    "name": "Remigiusz Mróz",
+    "born": "1887-01-15",
+    "rating": 7.1
+  },
+  {
+    "_id": "5df02aa60fad54186ceff882",
+    "name": "Alex Michaelides",
+    "rating": 7.4
+  },
+  {
+    "_id": "5df02aa60fad54186ceff883",
+    "name": "Stephen King",
+    "born": "1947-09-21",
+    "rating": 7.0
+  },
+  {
     "_id": "5df02aa60fad54186ceff87a",
     "name": "Stieg Larsson",
     "born": "1954-08-15",
