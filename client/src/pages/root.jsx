@@ -13,6 +13,18 @@ import Books from './Books';
 import Book from './Book';
 import AddBook from './AddBook';
 
+//zbiór autorów
+import Authors from './Authors';
+import Author from './Author';
+
+//zbiór wydawnictw
+import Publishers from './Publishers';
+import Publisher from './Publisher';
+
+//zbiór kategorii
+import Categories from './Categories';
+import Category from './Category';
+
 import Swap from './Swap';
 
 //import Home from './routerTestHome';
@@ -41,6 +53,12 @@ const Root = () => {
                     <Route path="/login" component={Login} />
                     <Route path="/books" component={Books} />
                     <Route path="/book/:_id" component={Book} />
+                    <Route path="/authors" component={Authors} />
+                    <Route path="/author/:_id" component={Author} />
+                    <Route path="/publishers" component={Publishers} />
+                    <Route path="/publisher/:_id" component={Publisher} />
+                    <Route path="/categories" component={Categories} />
+                    <Route path="/category/:_id" component={Category} />
                     <Route path="/addbook/" component={AddBook} />
                     <Route path="/bookcases" component={NewBook} />
                     <Route path="/reviews" component={Reviews} />
