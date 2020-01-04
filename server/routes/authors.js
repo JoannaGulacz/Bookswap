@@ -4,7 +4,9 @@ const router = express.Router();
 const asyncHandler = require('../middleware/async');
 const { protect, authorize } = require('../middleware/auth');
 
-const { Author, validateAuthor } = require('../models/Author');
+const Author = require('../models/Author');
+const validateAuthor = require('../models/Author');
+const Book = require('../models/Book');
 
 // @desc    Get all authors
 // @route   GET /api/authors
@@ -14,7 +16,7 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const authors = await Author.find().populate({
             path: 'books',
-            select: 'title category -_id',
+            select: 'title category _id',
             populate: {
                 path: 'category',
                 select: 'name -_id',
@@ -35,12 +37,16 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            validateAuthor(req, res, next);
+            // validateAuthor(req, res, next);
             const author = await Author.find({ _id: req.params.id }).populate({
                 path: 'books',
-                select: 'title category -_id',
+                select: 'title _rating category _id',
                 populate: {
                     path: 'category',
+                    select: 'name -_id',
+                },
+                populate: {
+                    path: 'publisher',
                     select: 'name -_id',
                 },
             });
@@ -51,6 +57,38 @@ router.get(
             });
         } catch {
             res.status(404).send('The author with the given id was not found.');
+        }
+    })
+);
+
+// @desc    Get a single author
+// @route   GET /api/authors/:id
+// @access  Public
+router.get(
+    '/search/:name',
+    asyncHandler(async (req, res, next) => {
+        try {
+            // validateAuthor(req, res, next);
+            const author = await Author.find({ name: new RegExp(`.*${req.params.name}.*`, 'i') }).populate({
+                // const author = await Author.find({ _id: req.params.id }).populate({
+                path: 'books',
+                select: 'title _rating category',
+                populate: {
+                    path: 'category',
+                    select: 'name',
+                },
+                populate: {
+                    path: 'publisher',
+                    select: 'name -_id',
+                },
+            });
+
+            res.status(200).json({
+                success: true,
+                data: author,
+            });
+        } catch {
+            res.status(404).send('The author with the given name was not found.');
         }
     })
 );
@@ -81,7 +119,7 @@ router.post(
 router.put(
     '/:id',
     protect,
-    authorize('admin'), // || 'moderator'
+    // authorize('admin'), // || 'moderator'
     asyncHandler(async (req, res, next) => {
         try {
             // Validate request with Joi
@@ -109,15 +147,25 @@ router.put(
 router.delete(
     '/:id',
     protect,
-    authorize('admin'),
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
-            const result = await Author.deleteOne({ _id: req.params.id });
-
-            res.status(200).json({
-                success: true,
-                data: result,
+            let book = await Book.findOne({
+                author: req.params.id,
             });
+            if (!book) {
+                await Author.deleteOne({
+                    _id: req.params.id,
+                });
+
+                res.status(200).json({
+                    success: true,
+                });
+            } else {
+                res.status(200).json({
+                    success: false,
+                });
+            }
         } catch {
             res.status(404).send('The author with the given id was not found.');
         }
