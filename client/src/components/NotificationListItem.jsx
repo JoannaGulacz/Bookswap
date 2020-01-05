@@ -1,21 +1,17 @@
 import React from 'react';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardTitle, MDBCardText, MDBBtn } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from 'mdbreact';
 
-// Zmockowane, do pobrania z serwera jeśli pyanie ma być o wymiane książki za książkę to podejrzewam, że będzie to obiekt tego typu.
-//Wymiana książki za książkę, czyli mamy 2
-
-const swapList = () => [
-    { id: 1, userName: 'aaa', book1Title: 'x', book2Title: 'y' },
-    { id: 2, userName: 'bbb', book1Title: 'y', book2Title: 'z' },
-];
+// TODO Pobieranie z serwera, po zrobieniu endpointu.
 
 const NotificationListItem = () => {
+    // TODO Pobieranie z serwera, po zrobieniu endpointu.
+
     swapList.map(item => (
         <MDBCard>
             <MDBCardBody>
-                <MDBCardTitle>{item.userName} wants to swap book!</MDBCardTitle>
+                <MDBCardTitle>{item.user} wants to swap book!</MDBCardTitle>
                 <MDBCardText>
-                    Do you want to exechange {item.book1Title} for {item.book2Title}?
+                    Do you want to exechange {item.bookToOffer} for {item.bookToGet}?
                 </MDBCardText>
                 <MDBBtn>Yes</MDBBtn>
                 <MDBBtn>No</MDBBtn>

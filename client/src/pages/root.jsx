@@ -34,6 +34,9 @@ import Main from './Home/Main';
 import NewBook from './NewBook';
 import Reviews from './Reviews';
 
+//Powiadomienia
+import Notification from './Notification';
+
 // <Switch> powoduje że renderowany jest tylko jeden komonent (pierwszy który pasuje do ścieżki)
 
 // exact wymusza dokładne porównanie ścieżek (domyślnie jest wyłączone)
@@ -62,6 +65,7 @@ const Root = () => {
                     <Route path="/addbook/" component={AddBook} />
                     <Route path="/bookcases" component={NewBook} />
                     <Route path="/reviews" component={Reviews} />
+                    <Route path="/notification" component={Notification} />
                 </Switch>
             </>
         </Router>
