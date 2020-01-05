@@ -12,7 +12,7 @@ const { protect, authorize } = require('../middleware/auth');
 router.get(
     '/',
     protect,
-    authorize('admin'),
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         const bookcases = await Bookcase.find()
             .populate({
@@ -49,7 +49,7 @@ router.get(
 );
 
 router.get(
-    '/me',
+    '/:id',
     protect,
     asyncHandler(async (req, res, next) => {
         try {
@@ -63,6 +63,43 @@ router.get(
                     title: 1,
                 }
             )
+                .populate({
+                    path: 'parentBook',
+                    select: '-title -_id',
+                    populate: [
+                        {
+                            path: 'author',
+                            select: 'name -_id',
+                        },
+                        {
+                            path: 'category',
+                            select: 'name -_id',
+                        },
+                        {
+                            path: 'publisher',
+                            select: 'name -_id',
+                        },
+                    ],
+                })
+                .populate({
+                    path: 'swaps',
+                });
+
+            res.status(200).json({
+                success: true,
+                data: bookcase,
+            });
+        } catch {
+            res.status(404).send('The book with the given id was not found.');
+        }
+    })
+);
+
+router.get(
+    '/search/:title',
+    asyncHandler(async (req, res, next) => {
+        try {
+            const bookcase = await Bookcase.find({ title: new RegExp(`.*${req.params.title}.*`, 'i') })
                 .populate({
                     path: 'parentBook',
                     select: '-title -_id',
