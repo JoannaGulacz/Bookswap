@@ -5,6 +5,7 @@ const bookcasesRouter = require('../routes/bookcases');
 const usersRouter = require('../routes/users');
 const categoriesRouter = require('../routes/categories');
 const reviewsRouter = require('../routes/review');
+const swapsRouter = require('../routes/swaps');
 
 module.exports = app => {
     app.use('/api/authors', authorsRouter);
@@ -14,4 +15,5 @@ module.exports = app => {
     app.use('/api/users', usersRouter);
     app.use('/api/categories', categoriesRouter);
     app.use('/api/reviews', reviewsRouter);
+    app.use('/api/swaps', swapsRouter);
 };
