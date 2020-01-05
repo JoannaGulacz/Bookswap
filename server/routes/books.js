@@ -58,15 +58,15 @@ router.get(
                 })
                 .populate({
                     path: 'category',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'publisher',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'author',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'reviews',
@@ -98,19 +98,19 @@ router.get(
                 })
                 .populate({
                     path: 'category',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'publisher',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'author',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'reviews',
-                    select: 'rating title -_id',
+                    select: 'rating title concent -_id',
                 });
             res.status(200).json({
                 success: true,
@@ -124,8 +124,7 @@ router.get(
 
 router.post(
     '/',
-    // protect,
-    // authorize('admin'),
+    protect,
     asyncHandler(async (req, res, next) => {
         let findBook = await Book.findOne({
             title: req.params.title,
@@ -216,7 +215,7 @@ router.put(
 
 router.delete(
     '/:id',
-    // protect,
+    protect,
     // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {

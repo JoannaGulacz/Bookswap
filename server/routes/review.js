@@ -82,6 +82,7 @@ router.post(
         });
 
         let review = new Review({
+            owner: req.user.id,
             title: book.title,
             author: book.author,
             content: req.body.content,

@@ -3,6 +3,7 @@ const asyncHandler = require('../middleware/async');
 const Category = require('../models/Category');
 const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
+const Book = require('../models/Book');
 
 router.get(
     '/',
@@ -35,7 +36,37 @@ router.get(
         try {
             const category = await Category.findById(req.params.id).populate({
                 path: 'books',
-                select: 'author publisher -_id',
+                select: 'author publisher title _id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'publisher',
+                        select: 'name -_id',
+                    },
+                ],
+            });
+
+            res.status(200).json({
+                success: true,
+                data: category,
+            });
+        } catch {
+            res.status(404).send('Category with the given ID not found.');
+        }
+    })
+);
+
+router.get(
+    '/search/:name',
+    asyncHandler(async (req, res, next) => {
+        try {
+            const category = await Category.find({ name: new RegExp(`.*${req.params.name}.*`, 'i') }).populate({
+                // const category = await Category.findById(req.params.id).populate({
+                path: 'books',
+                select: 'author publisher title _id',
                 populate: [
                     {
                         path: 'author',
@@ -78,7 +109,7 @@ router.post(
 router.put(
     '/:id',
     protect,
-    authorize('admin'),
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const { error } = Category.validateCategory(req.body);
@@ -103,15 +134,22 @@ router.put(
 router.delete(
     '/:id',
     protect,
-    authorize('admin'),
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
-            const category = await Category.findByIdAndDelete(req.params.id);
-
-            res.status(200).json({
-                success: true,
-                data: category,
+            let book = await Book.findOne({
+                category: req.params.id,
             });
+            if (!book) {
+                const category = await Category.findByIdAndDelete(req.params.id);
+
+                res.status(200).json({
+                    success: true,
+                    data: category,
+                });
+            } else {
+                res.status(404).send('Not found');
+            }
         } catch {
             res.status(404).send('Category with the given ID not found.');
         }

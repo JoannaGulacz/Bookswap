@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 
 const reviewSchema = new mongoose.Schema({
+    owner: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -23,12 +28,6 @@ const reviewSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book',
     },
-    // toJSON: {
-    //     virtuals: true,
-    // },
-    // toObject: {
-    //     virtuals: true,
-    // },
 });
 
 // const Review = mongoose.model('Review', reviewSchema);

@@ -1,9 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-//menu oraz nawigacja
-import UserMenu from '../components/UserMenu';
-import Menu from '../components/Menu';
+//nawigacja
+import Menu from '../components/navigation/Menu';
+
+//użytkownik
+import UserMenu from '../components/user_profile/UserMenu';
+import UserProfile from './UserProfile';
 
 //formularze rejestracji i logowania
 import Login from './Login';
@@ -16,6 +19,7 @@ import AddBook from './AddBook';
 //zbiór autorów
 import Authors from './Authors';
 import Author from './Author';
+import AddAuthor from './AddAuthor';
 
 //zbiór wydawnictw
 import Publishers from './Publishers';
@@ -27,11 +31,10 @@ import Category from './Category';
 
 import Swap from './Swap';
 
-//import Home from './routerTestHome';
 import Main from './Home/Main';
 
 // your Bookcases
-import NewBook from './NewBook';
+import AddBookcase from './AddBookcase';
 import Reviews from './Reviews';
 
 //Powiadomienia
@@ -54,18 +57,20 @@ const Root = () => {
                     <Route path="/" exact component={Main} />
                     <Route path="/swap" component={Swap} />
                     <Route path="/login" component={Login} />
-                    <Route path="/books" component={Books} />
-                    <Route path="/book/:_id" component={Book} />
-                    <Route path="/authors" component={Authors} />
-                    <Route path="/author/:_id" component={Author} />
-                    <Route path="/publishers" component={Publishers} />
-                    <Route path="/publisher/:_id" component={Publisher} />
-                    <Route path="/categories" component={Categories} />
-                    <Route path="/category/:_id" component={Category} />
+                    <Route path="/books" exact component={Books} />
+                    <Route path="/books/:_id" component={Book} />
+                    <Route path="/authors" exact component={Authors} />
+                    <Route path="/authors/:_id" component={Author} />
+                    <Route path="/addauthor/" component={AddAuthor} />
+                    <Route path="/publishers" exact component={Publishers} />
+                    <Route path="/publishers/:_id" component={Publisher} />
+                    <Route path="/categories" exact component={Categories} />
+                    <Route path="/categories/:_id" component={Category} />
                     <Route path="/addbook/" component={AddBook} />
-                    <Route path="/bookcases" component={NewBook} />
+                    <Route path="/bookcases" component={AddBookcase} />
                     <Route path="/reviews" component={Reviews} />
                     <Route path="/notification" component={Notification} />
+                    <Route path="/users/me" component={UserProfile} />
                 </Switch>
             </>
         </Router>

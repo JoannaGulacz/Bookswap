@@ -62,7 +62,7 @@ export default class BooksForm extends Component {
                                     <MDBCardTitle>{e.title}</MDBCardTitle>
                                     <hr />
                                     <MDBCardText>{e.author.name}</MDBCardText>
-                                    <a href={'/book/' + e._id} className="black-text d-flex justify-content-end">
+                                    <a href={'/books/' + e._id} className="black-text d-flex justify-content-end">
                                         <h5>
                                             More information
                                             <MDBIcon icon="angle-double-right" className="ml-2" />
