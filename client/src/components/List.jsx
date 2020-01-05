@@ -53,8 +53,6 @@ const List = ({ list }) => {
     if (list.length > 0) {
         let counts = compressArray(list);
 
-        console.log(newList);
-
         return (
             <MDBCol className="d-flex flex-row justify-content-center flex-wrap">
                 {newList.map((el, index) => {
