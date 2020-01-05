@@ -124,8 +124,7 @@ router.get(
 
 router.post(
     '/',
-    // protect,
-    // authorize('admin'),
+    protect,
     asyncHandler(async (req, res, next) => {
         let findBook = await Book.findOne({
             title: req.params.title,
