@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
-import { Link } from 'react-router-dom';
-import axios from '../utils/axios';
+import { Link, Redirect } from 'react-router-dom';
+import axios from '../../utils/axios';
 
 class DropdownPage extends React.Component {
     constructor(props) {
@@ -14,8 +14,7 @@ class DropdownPage extends React.Component {
 
     handleLogOut = () => {
         localStorage.removeItem('token');
-        //TO DO: redirect to home
-        window.location.reload(true);
+        window.location.pathname = '/';
     };
 
     getUserName = async () => {
@@ -40,8 +39,8 @@ class DropdownPage extends React.Component {
                         </MDBDropdownToggle>
                         <MDBDropdownMenu basic>
                             <MDBDropdownItem>
-                                <Link to="/" style={{ color: 'black' }}>
-                                    Change your password
+                                <Link to="/users/me" style={{ color: 'black' }}>
+                                    Profile
                                 </Link>
                             </MDBDropdownItem>
                             <MDBDropdownItem>

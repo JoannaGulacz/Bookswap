@@ -1,9 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-//menu oraz nawigacja
-import UserMenu from '../components/UserMenu';
-import Menu from '../components/Menu';
+//nawigacja
+import Menu from '../components/navigation/Menu';
+
+//użytkownik
+import UserMenu from '../components/user_profile/UserMenu';
+import UserProfile from './UserProfile';
 
 //formularze rejestracji i logowania
 import Login from './Login';
@@ -27,7 +30,6 @@ import Category from './Category';
 
 import Swap from './Swap';
 
-//import Home from './routerTestHome';
 import Main from './Home/Main';
 
 // your Bookcases
@@ -62,6 +64,7 @@ const Root = () => {
                     <Route path="/addbook/" component={AddBook} />
                     <Route path="/bookcases" component={NewBook} />
                     <Route path="/reviews" component={Reviews} />
+                    <Route path="/users/me" component={UserProfile} />
                 </Switch>
             </>
         </Router>
