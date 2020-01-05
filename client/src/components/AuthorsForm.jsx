@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBIcon, MDBBtn } from 'mdbreact';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
 
 import axios from 'axios';
 
-export default class BooksForm extends Component {
+export default class AuthorsForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            books: [],
+            name: '',
+            authors: [],
         };
         this.onSubmit.bind(this);
-        this.handleTitleChange.bind(this);
+        this.handleNameChange.bind(this);
 
-        axios.get('http://localhost:5000/api/books/').then(data => this.setState({ books: data.data.data }));
+        axios.get('http://localhost:5000/api/authors/').then(data => this.setState({ authors: data.data.data }));
     }
-    handleTitleChange = event => {
+    handleNameChange = event => {
         const value = event.target.value;
         this.setState({
-            title: value,
+            name: value,
         });
     };
     onSubmit = event => {
         event.preventDefault();
-        console.log(this.state.title);
+        console.log(this.state.name);
         axios
-            .get('http://localhost:5000/api/books/search/' + this.state.title)
-            .then(data => this.setState({ books: data.data.data }));
+            .get('http://localhost:5000/api/authors/search/' + this.state.name)
+            .then(data => this.setState({ authors: data.data.data }));
     };
     render() {
         return (
             <MDBCol md="6">
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <MDBBtn rounded href="/addbook">
-                        Add new book
+                    <MDBBtn rounded href="/addauthor">
+                        Add new author
                     </MDBBtn>
                 </div>
                 <hr />
@@ -49,20 +49,20 @@ export default class BooksForm extends Component {
                     <input
                         className="form-control form-control-sm ml-3 w-75"
                         type="text"
-                        onChange={this.handleTitleChange}
-                        placeholder="Search book"
+                        onChange={this.handleNameChange}
+                        placeholder="Search author"
                         aria-label="Search"
                     />
                 </form>
-                {this.state.books.map((e, i) => {
+                {this.state.authors.map((e, i) => {
                     return (
                         <div key={i}>
                             <MDBCard>
                                 <MDBCardBody>
-                                    <MDBCardTitle>{e.title}</MDBCardTitle>
+                                    <MDBCardTitle>{e.name}</MDBCardTitle>
                                     <hr />
-                                    <MDBCardText>{e.author.name}</MDBCardText>
-                                    <a href={'/books/' + e._id} className="black-text d-flex justify-content-end">
+                                    {/* <MDBCardText>{e.author.name}</MDBCardText> */}
+                                    <a href={'/authors/' + e._id} className="black-text d-flex justify-content-end">
                                         <h5>
                                             More information
                                             <MDBIcon icon="angle-double-right" className="ml-2" />
