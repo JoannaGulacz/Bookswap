@@ -4,6 +4,25 @@ import { MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreac
 const List = ({ list }) => {
     //zliczanie unikalnych tytułów
 
+    Array.prototype.contains = function(v) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].title === v.title) return true;
+        }
+        return false;
+    };
+
+    Array.prototype.unique = function() {
+        var arr = [];
+        for (var i = 0; i < this.length; i++) {
+            if (!arr.contains(this[i])) {
+                arr.push(this[i]);
+            }
+        }
+        return arr;
+    };
+
+    let newList = list.unique();
+
     //zliczanie kopii
     function compressArray(original) {
         var compressed = [];
@@ -17,8 +36,6 @@ const List = ({ list }) => {
                 if (original[i].title == copy[w].title) {
                     // increase amount of times duplicate is found
                     myCount++;
-                    // sets item to undefined
-                    //delete copy[w];
                 }
             }
 
@@ -36,11 +53,9 @@ const List = ({ list }) => {
     if (list.length > 0) {
         let counts = compressArray(list);
 
-        console.log(list);
-
         return (
             <MDBCol className="d-flex flex-row justify-content-center flex-wrap">
-                {list.map((el, index) => {
+                {newList.map((el, index) => {
                     return (
                         <div className="m-3 w-25" key={index}>
                             <MDBCard>
