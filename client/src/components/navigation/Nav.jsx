@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MDBNavItem, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
 
-// links types (classes): active, disabled, (none)          [span]
-
 const Nav = () => {
     return (
         <ul className="nav justify-content-center grey lighten-4 py-2 mb-4">
@@ -25,9 +23,9 @@ const Nav = () => {
                     </MDBDropdownToggle>
                     <MDBDropdownMenu>
                         <MDBDropdownItem href="/books">Books</MDBDropdownItem>
-                        <MDBDropdownItem href="/#!">Another Action</MDBDropdownItem>
-                        <MDBDropdownItem href="/#!">Something else here</MDBDropdownItem>
-                        <MDBDropdownItem href="/#!">Something else here</MDBDropdownItem>
+                        <MDBDropdownItem href="/authors">Authors</MDBDropdownItem>
+                        <MDBDropdownItem href="/publishers">Publishers</MDBDropdownItem>
+                        <MDBDropdownItem href="categories">Categories</MDBDropdownItem>
                     </MDBDropdownMenu>
                 </MDBDropdown>
             </MDBNavItem>

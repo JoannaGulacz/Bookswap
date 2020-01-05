@@ -46,11 +46,6 @@ export default class AddBookForm extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        let body = `{"title": "${this.state.title}",
-        "author": "${this.state.author}",
-        "publisher": "${this.state.publisher}",
-        "category": "${this.state.category}"}`;
-        console.log(body);
         axios
             .post('http://localhost:5000/api/books/', {
                 title: this.state.title,

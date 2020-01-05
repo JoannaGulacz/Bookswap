@@ -31,7 +31,7 @@ router.get(
             })
             .populate({
                 path: 'reviews',
-                select: 'rating title -_id',
+                select: 'rating title content -_id',
             });
 
         for (let i = 0; i < books.length; i++) {
@@ -58,19 +58,19 @@ router.get(
                 })
                 .populate({
                     path: 'category',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'publisher',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'author',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'reviews',
-                    select: 'rating title -_id',
+                    select: 'rating title content -_id',
                 });
 
             const rates = await Review.find({ book: book.id });
@@ -98,19 +98,19 @@ router.get(
                 })
                 .populate({
                     path: 'category',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'publisher',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'author',
-                    select: 'name -_id',
+                    select: 'name _id',
                 })
                 .populate({
                     path: 'reviews',
-                    select: 'rating title -_id',
+                    select: 'rating title concent -_id',
                 });
             res.status(200).json({
                 success: true,
@@ -124,7 +124,7 @@ router.get(
 
 router.post(
     '/',
-    // protect,
+    protect,
     // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         let findBook = await Book.findOne({
@@ -216,7 +216,7 @@ router.put(
 
 router.delete(
     '/:id',
-    // protect,
+    protect,
     // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {

@@ -96,6 +96,8 @@ export default class BookForm extends Component {
                                                 style={{ fontSize: 12 }}
                                             >
                                                 {e.title}
+                                                <br />
+                                                {e.content}
                                                 <MDBBadge color="primary" pill>
                                                     {e.rating}
                                                 </MDBBadge>
@@ -112,23 +114,34 @@ export default class BookForm extends Component {
             return (
                 <MDBCol md="8">
                     <MDBCard>
-                        <MDBCardImage
-                            top
-                            src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%28131%29.jpg"
-                            overlay="white-slight"
-                            hover
-                            waves
-                            alt="MDBCard image cap"
-                        />
+                        <MDBCardImage top src="/book.jpg" overlay="white-slight" hover waves alt="MDBCard image cap" />
                         <MDBCardBody>
                             <MDBCardTitle>{this.state.book.title}</MDBCardTitle>
                             <hr />
                             <MDBCardText>
-                                author: {this.state.book.author.name} <br />
-                                publisher: {this.state.book.publisher.name} <br />
-                                category: {this.state.book.category.name} <br />
+                                author:{' '}
+                                <a href={'/authors/' + this.state.book.author._id}>{this.state.book.author.name}</a>{' '}
+                                <br />
+                                publisher:{' '}
+                                <a href={'/publishers/' + this.state.book.publisher._id}>
+                                    {this.state.book.publisher.name}
+                                </a>{' '}
+                                <br />
+                                category:{' '}
+                                <a href={'/categories/' + this.state.book.category._id}>
+                                    {this.state.book.category.name}
+                                </a>{' '}
+                                <br />
                                 rating: {this.state.book._rating}
                             </MDBCardText>
+                            <a href="/bookcases" /* <- link do dodawania recenzji */>
+                                <div style={{ cursor: 'pointer' }} className="black-text d-flex justify-content-end">
+                                    <h5>
+                                        Write new review
+                                        <MDBIcon icon="pen-fancy" className="ml-2" />
+                                    </h5>
+                                </div>
+                            </a>
                             {ListGroupPage()}
                             <br />
                             <div
