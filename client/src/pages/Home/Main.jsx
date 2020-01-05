@@ -24,7 +24,7 @@ const Main = () => {
                         <MDBCardBody>
                             <MDBCardTitle>Virtual library</MDBCardTitle>
                             <MDBCardText>Here you can browse through our ever growing database of books.</MDBCardText>
-                            <MDBBtn href="#">Go to library</MDBBtn>
+                            <MDBBtn href="/books">Go to library</MDBBtn>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
@@ -33,7 +33,7 @@ const Main = () => {
                 <MDBCol lg="8">
                     <MDBCard>
                         <MDBCardBody>
-                            <MDBBtn href="#">Swap some books!</MDBBtn>
+                            <MDBBtn href="/swap">Swap some books!</MDBBtn>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>

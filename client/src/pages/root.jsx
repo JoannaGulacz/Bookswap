@@ -41,6 +41,9 @@ import AddBookcase from './AddBookcase';
 import Reviews from './Reviews';
 import AddReview from './AddReview';
 
+//Powiadomienia
+import Notification from './Notification';
+
 // <Switch> powoduje że renderowany jest tylko jeden komonent (pierwszy który pasuje do ścieżki)
 
 // exact wymusza dokładne porównanie ścieżek (domyślnie jest wyłączone)
