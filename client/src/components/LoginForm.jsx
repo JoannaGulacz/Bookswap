@@ -20,13 +20,15 @@ const LoginForm = props => {
                     const token = response.data.token;
                     localStorage.setItem('token', token);
                     props.history.push('/');
-                    window.location.reload(true); // to do: reload component zamiast całaj strony
+                    window.location.reload(true);
                 })
                 .catch(function(error) {
                     console.log(error.response.data);
                 });
 
             //DODAĆ PRZEJŚCIE NA STRONĘ Z KTÓREJ PRZEKIEROWAŁO NA LOGOWANIE
+
+            // Adam: zaimplementowane tymczasowe rozwiązanie z odświeżeniem strony
         },
     });
 
