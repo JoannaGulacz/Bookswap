@@ -3,7 +3,7 @@ import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from 'mdbreac
 
 // TODO Pobieranie z serwera, po zrobieniu endpointu.
 
-const NotificationListItem = () => {
+const NotificationListItem = ({ swapList }) => {
     // TODO Pobieranie z serwera, po zrobieniu endpointu.
 
     swapList.map(item => (
