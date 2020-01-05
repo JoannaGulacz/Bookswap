@@ -19,6 +19,7 @@ import AddBook from './AddBook';
 //zbiór autorów
 import Authors from './Authors';
 import Author from './Author';
+import AddAuthor from './AddAuthor';
 
 //zbiór wydawnictw
 import Publishers from './Publishers';
@@ -53,14 +54,15 @@ const Root = () => {
                     <Route path="/" exact component={Main} />
                     <Route path="/swap" component={Swap} />
                     <Route path="/login" component={Login} />
-                    <Route path="/books" component={Books} />
-                    <Route path="/book/:_id" component={Book} />
-                    <Route path="/authors" component={Authors} />
-                    <Route path="/author/:_id" component={Author} />
-                    <Route path="/publishers" component={Publishers} />
-                    <Route path="/publisher/:_id" component={Publisher} />
-                    <Route path="/categories" component={Categories} />
-                    <Route path="/category/:_id" component={Category} />
+                    <Route path="/books" exact component={Books} />
+                    <Route path="/books/:_id" component={Book} />
+                    <Route path="/authors" exact component={Authors} />
+                    <Route path="/authors/:_id" component={Author} />
+                    <Route path="/addauthor/" component={AddAuthor} />
+                    <Route path="/publishers" exact component={Publishers} />
+                    <Route path="/publishers/:_id" component={Publisher} />
+                    <Route path="/categories" exact component={Categories} />
+                    <Route path="/categories/:_id" component={Category} />
                     <Route path="/addbook/" component={AddBook} />
                     <Route path="/bookcases" component={NewBook} />
                     <Route path="/reviews" component={Reviews} />

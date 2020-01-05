@@ -3,13 +3,14 @@ const asyncHandler = require('../middleware/async');
 const Publisher = require('../models/Publisher');
 const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
+const Book = require('../models/Book');
 
 router.get(
     '/',
     asyncHandler(async (req, res, next) => {
         const publishers = await Publisher.find().populate({
             path: 'books',
-            select: 'title author category -_id',
+            select: 'title author category _id',
             populate: [
                 {
                     path: 'author',
@@ -34,7 +35,37 @@ router.get(
         try {
             const publisher = await Publisher.findById(req.params.id).populate({
                 path: 'books',
-                select: 'title author category -_id',
+                select: 'title author category _id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name -_id',
+                    },
+                    {
+                        path: 'category',
+                        select: 'name -_id',
+                    },
+                ],
+            });
+
+            res.status(200).json({
+                success: true,
+                data: publisher,
+            });
+        } catch {
+            res.status(404).send('The publisher with the given id was not found.');
+        }
+    })
+);
+
+router.get(
+    '/search/:name',
+    asyncHandler(async (req, res, next) => {
+        try {
+            // const publisher = await Publisher.findById(req.params.id).populate({
+            const publisher = await Publisher.find({ name: new RegExp(`.*${req.params.name}.*`, 'i') }).populate({
+                path: 'books',
+                select: 'title author category _id',
                 populate: [
                     {
                         path: 'author',
@@ -60,7 +91,7 @@ router.get(
 router.post(
     '/',
     protect,
-    authorize('admin'),
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         const { error } = Publisher.validatePublisher(req.body);
         if (error) {
@@ -77,7 +108,7 @@ router.post(
 router.put(
     '/:id',
     protect,
-    authorize('admin'),
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const { error } = Publisher.validatePublisher(req.body);
@@ -102,15 +133,22 @@ router.put(
 router.delete(
     '/:id',
     protect,
-    authorize('admin'),
+    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
-            const publisher = await Publisher.findByIdAndRemove(req.params.id);
-
-            res.status(200).json({
-                success: true,
-                data: publisher,
+            let book = await Book.findOne({
+                publisher: req.params.id,
             });
+            if (!book) {
+                const publisher = await Publisher.findByIdAndRemove(req.params.id);
+
+                res.status(200).json({
+                    success: true,
+                    data: publisher,
+                });
+            } else {
+                res.status(404).send('Not found');
+            }
         } catch {
             res.status(404).send('Not found');
         }

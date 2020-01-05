@@ -2,63 +2,65 @@ import React, { Component } from 'react';
 import { MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBModal, MDBModalBody, MDBModalFooter } from 'mdbreact';
 import axios from 'axios';
 
-export default class AddBookForm extends Component {
+export default class AddAuthorForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            author: '',
-            publisher: '',
-            category: '',
+            name: '',
+            born: '',
+            died: '',
+            rating: '',
             modal: false,
             modalText: '',
         };
         this.toggle.bind(this);
     }
 
-    handleTitleChange = event => {
+    handleNameChange = event => {
         const value = event.target.value;
         this.setState({
-            title: value,
+            name: value,
         });
     };
 
-    handleAuthorChange = event => {
+    handleBornChange = event => {
         const value = event.target.value;
         this.setState({
-            author: value,
+            born: value,
         });
     };
 
-    handlePublisherChange = event => {
+    handleDiedChange = event => {
         const value = event.target.value;
         this.setState({
-            publisher: value,
+            died: value,
         });
     };
 
-    handleCategoryChange = event => {
+    handleRatingChange = event => {
         const value = event.target.value;
         this.setState({
-            category: value,
+            rating: value,
         });
     };
 
     onSubmit = event => {
         event.preventDefault();
         axios
-            .post('http://localhost:5000/api/books/', {
-                title: this.state.title,
-                author: this.state.author,
-                publisher: this.state.publisher,
-                category: this.state.category,
+            .post('http://localhost:5000/api/authors/', {
+                name: this.state.name,
+                born: this.state.born,
+                died: this.state.died,
+                rating: this.state.rating,
             })
             .then(data => {
-                this.setState({ modalText: 'A new book has been added successfully.' });
+                this.setState({ modalText: 'A new author has been added successfully.' });
                 this.toggle();
             })
             .catch(err => {
-                this.setState({ modalText: 'A book with this title already exists' });
+                this.setState({
+                    modalText: 'Adding author failed.',
+                });
                 this.toggle();
             });
     };
@@ -75,23 +77,18 @@ export default class AddBookForm extends Component {
                 <MDBCard>
                     <MDBCardBody>
                         <form onSubmit={this.onSubmit}>
-                            <p className="h4 text-center mb-4">Add new book</p>
-                            <label className="grey-text">Title</label>
-                            <input type="text" className="form-control" onChange={this.handleTitleChange} required />
+                            <p className="h4 text-center mb-4">Add new author</p>
+                            <label className="grey-text">Name</label>
+                            <input type="text" className="form-control" onChange={this.handleNameChange} required />
                             <br />
-                            <label className="grey-text">Author</label>
-                            <input type="text" className="form-control" onChange={this.handleAuthorChange} required />
+                            <label className="grey-text">Born</label>
+                            <input type="text" className="form-control" onChange={this.handleBornChange} />
                             <br />
-                            <label className="grey-text">Publisher</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                onChange={this.handlePublisherChange}
-                                required
-                            />
+                            <label className="grey-text">Died</label>
+                            <input type="text" className="form-control" onChange={this.handleDiedChange} />
                             <br />
-                            <label className="grey-text">Category</label>
-                            <input type="text" className="form-control" onChange={this.handleCategoryChange} required />
+                            <label className="grey-text">Rating</label>
+                            <input type="text" className="form-control" onChange={this.handleRatingChange} />
                             <div className="text-center mt-4">
                                 <MDBBtn type="submit">Add</MDBBtn>
                             </div>
