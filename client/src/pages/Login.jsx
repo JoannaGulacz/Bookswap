@@ -8,7 +8,7 @@ const Login = props => {
         <>
             <FormCard>
                 <LoginForm {...props} />
-                <RegisterForm />
+                <RegisterForm {...props} />
             </FormCard>
         </>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from '../../utils/axios';
 
 class DropdownPage extends React.Component {

@@ -39,20 +39,23 @@ export default class UserProfile extends React.Component {
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol md="6">
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item">
-                                    <UserData data="User Name" value={this.state.userName} />
-                                </li>
-                                <li className="list-group-item">
-                                    <UserData data="Role" value={this.state.role} />
-                                </li>
-                                <li className="list-group-item">
-                                    <UserData data="E-mail" value={this.state.email} />
-                                </li>
-                                <li className="list-group-item">
-                                    <PasswordButton />
-                                </li>
-                            </ul>
+                            <div>
+                                <ul className="list-group list-group-flush">
+                                    <li className="list-group-item">
+                                        <UserData data="User Name" value={this.state.userName} />
+                                    </li>
+                                    <li className="list-group-item">
+                                        <UserData data="Role" value={this.state.role} />
+                                    </li>
+                                    <li className="list-group-item">
+                                        <UserData data="E-mail" value={this.state.email} />
+                                    </li>
+                                    <li className="list-group-item">
+                                        <PasswordButton />
+                                    </li>
+                                </ul>
+                            </div>
+                            <p id="password-msg" className="text-center mt-2"></p>
                         </MDBCol>
                         <MDBCol md="6">
                             <Switch>

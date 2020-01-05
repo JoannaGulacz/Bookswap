@@ -3,7 +3,7 @@ import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from '../utils/axios';
 import { useFormik } from 'formik';
 
-const RegisterForm = () => {
+const RegisterForm = props => {
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -24,6 +24,8 @@ const RegisterForm = () => {
                 .then(function(response) {
                     const token = response.data.token;
                     localStorage.setItem('token', token);
+                    props.history.push('/users/me');
+                    window.location.reload(true);
                 })
                 .catch(function(error) {
                     console.log(error.response.data);
@@ -35,6 +37,8 @@ const RegisterForm = () => {
             //     document.getElementById('validationIcon').innerHTML =
             //         '<i class="ml-1 far fa-times-circle text-danger"></i>';
             // }
+
+            // Adam: zaimplementowane tymczasowe rozwiązanie z odświeżeniem strony
         },
     });
     return (
