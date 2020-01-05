@@ -1,0 +1,27 @@
+import React from 'react';
+import { MDBCol, MDBContainer, MDBRow } from 'mdbreact';
+import Nav from './Nav';
+
+const Menu = props => {
+    return (
+        <div>
+            <MDBContainer>
+                <MDBRow className="align-items-center mt-2">
+                    <MDBCol md="10">
+                        <h1 className="text-center">BOOKSWAP</h1>
+                    </MDBCol>
+                    <MDBCol md="2">
+                        <div className="text-center">{props.children}</div>
+                    </MDBCol>
+                </MDBRow>
+                <MDBRow className="my-1">
+                    <MDBCol size="12">
+                        <Nav />
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
+        </div>
+    );
+};
+
+export default Menu;
