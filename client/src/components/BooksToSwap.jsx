@@ -1,23 +1,13 @@
 import React from 'react';
-import { MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
+import { MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
 import axios from '../utils/axios';
+import List from './List';
 import { useFormik } from 'formik';
 
-const BooksToSwap = () => {
-    let books = axios
-        .get('bookcases/swaps')
-        .then(function(response) {
-            books = response.data.data;
-            console.log(books);
-        })
-        .catch(function(error) {
-            console.log(error.response.data);
-        });
-
+const BooksToSwap = props => {
     const formik = useFormik({
         initialValues: {
             title: '',
-            books: [books],
             //category: '',
         },
         onSubmit: () => {
@@ -27,40 +17,34 @@ const BooksToSwap = () => {
                     //category: formik.values.category,
                 })
                 .then(function(response) {
-                    console.log(response.data.data);
+                    props.updateBooks(response.data.data);
                 })
                 .catch(function(error) {
-                    console.log(error.response.data);
+                    console.log(error);
                 });
         },
     });
 
     return (
-        <MDBCol md="6">
-            <MDBCard>
-                <MDBCardBody>
-                    <form onSubmit={formik.handleSubmit}>
-                        <input
-                            type="text"
-                            name="title"
-                            id="swapBookTitle"
-                            className="form-control"
-                            placeholder="search for book title"
-                            onChange={formik.handleChange}
-                            value={formik.values.title}
-                        />
-                        <div className="text-center mt-4">
-                            <MDBBtn color="indigo" type="submit">
-                                Search
-                            </MDBBtn>
-                        </div>
-                    </form>
-                </MDBCardBody>
-            </MDBCard>
-            <MDBCard>
-                <MDBCardBody></MDBCardBody>
-            </MDBCard>
-        </MDBCol>
+        <div className="mb-3 d-flex justify-content-center">
+            <MDBCol sm="6">
+                <MDBCard>
+                    <MDBCardBody>
+                        <form onChange={formik.handleSubmit}>
+                            <input
+                                type="text"
+                                name="title"
+                                id="swapBookTitle"
+                                className="form-control"
+                                placeholder="search for book title"
+                                onChange={formik.handleChange}
+                                value={formik.values.title}
+                            />
+                        </form>
+                    </MDBCardBody>
+                </MDBCard>
+            </MDBCol>
+        </div>
     );
 };
 
