@@ -34,7 +34,7 @@ import Swap from './Swap';
 import Main from './Home/Main';
 
 // your Bookcases
-import NewBook from './NewBook';
+import AddBookcase from './AddBookcase';
 import Reviews from './Reviews';
 
 // <Switch> powoduje że renderowany jest tylko jeden komonent (pierwszy który pasuje do ścieżki)
@@ -64,7 +64,7 @@ const Root = () => {
                     <Route path="/categories" exact component={Categories} />
                     <Route path="/categories/:_id" component={Category} />
                     <Route path="/addbook/" component={AddBook} />
-                    <Route path="/bookcases" component={NewBook} />
+                    <Route path="/bookcases" component={AddBookcase} />
                     <Route path="/reviews" component={Reviews} />
                     <Route path="/users/me" component={UserProfile} />
                 </Switch>

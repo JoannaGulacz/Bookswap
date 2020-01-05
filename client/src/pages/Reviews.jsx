@@ -26,7 +26,7 @@ class Reviews extends Component {
                                     content: '',
                                 }}
                                 onSubmit={fields => {
-                                    alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4));
+                                    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4));
                                     axios
                                         .post('reviews', {
                                             title: fields.title,

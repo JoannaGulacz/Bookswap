@@ -1,18 +1,19 @@
 import React from 'react';
-import { MDBContainer, MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBContainer, MDBCol, MDBRow, MDBIcon, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
 import axios from '../utils/axios';
 import { useFormik } from 'formik';
 
-const NewBook = () => {
+const AddBookcase = () => {
     const formik = useFormik({
         initialValues: {
             title: '',
             author: '',
             publisher: '',
             category: '',
+            change: false,
         },
         onSubmit: values => {
-            // alert(JSON.stringify(values, null, 2));
+            alert(JSON.stringify(values, null, 2));
             // alert(formik.values.title);
             axios
                 .post('bookcases', {
@@ -20,6 +21,7 @@ const NewBook = () => {
                     author: formik.values.author,
                     publisher: formik.values.publisher,
                     category: formik.values.category,
+                    change: formik.values.change,
                 })
                 .then(function(response) {
                     console.log(response);
@@ -33,56 +35,66 @@ const NewBook = () => {
         <MDBContainer>
             <MDBCol md="6">
                 <MDBCard>
-                    <MDBCardBody>
+                    <MDBCardBody className="mx-4">
                         <form onSubmit={formik.handleSubmit}>
-                            <p className="h4 text-center mb-4">Add a new book</p>
-                            <label htmlFor="title" className="grey-text">
-                                Title
-                            </label>
-                            <input
+                            <div className="h4 text-center mb-4">Add a new book</div>
+                            <MDBInput
+                                label="Title"
+                                group
                                 type="text"
                                 name="title"
                                 id="title"
-                                className="form-control"
                                 onChange={formik.handleChange}
                                 value={formik.values.title}
                             />
-                            <br />
-                            <label htmlFor="author" className="grey-text">
-                                Author
-                            </label>
-                            <input
+                            <MDBInput
+                                label="Author"
+                                group
                                 type="text"
                                 name="author"
                                 id="author"
-                                className="form-control"
                                 onChange={formik.handleChange}
                                 value={formik.values.author}
                             />
-                            <br />
-                            <label htmlFor="publisher" className="grey-text">
-                                Publisher
-                            </label>
-                            <input
+                            <MDBInput
+                                label="Publisher"
+                                group
                                 type="text"
                                 name="publisher"
                                 id="publisher"
-                                className="form-control"
                                 onChange={formik.handleChange}
                                 value={formik.values.publisher}
                             />
-                            <br />
-                            <label htmlFor="category" className="grey-text">
-                                Category
-                            </label>
-                            <input
+                            <MDBInput
+                                label="Category"
+                                group
                                 type="text"
                                 name="category"
                                 id="category"
-                                className="form-control"
                                 onChange={formik.handleChange}
                                 value={formik.values.category}
                             />
+                            <MDBRow className="d-flex align-items-center mb-4">
+                                <MDBCol md="6" className="text-center">
+                                    <label htmlFor="title" className="grey-text">
+                                        Swap possible
+                                    </label>
+                                </MDBCol>
+                                <MDBCol md="6" className="text-center">
+                                    <div className="md-form pb-3">
+                                        <div className="form-check my-4">
+                                            <MDBInput
+                                                group
+                                                type="checkbox"
+                                                name="change"
+                                                id="change"
+                                                onChange={formik.handleChange}
+                                                checked={formik.values.change}
+                                            />
+                                        </div>
+                                    </div>
+                                </MDBCol>
+                            </MDBRow>
                             <div className="text-center mt-4">
                                 <MDBBtn color="indigo" type="submit">
                                     Add
@@ -96,4 +108,4 @@ const NewBook = () => {
     );
 };
 
-export default NewBook;
+export default AddBookcase;
