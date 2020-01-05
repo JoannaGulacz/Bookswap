@@ -33,9 +33,13 @@ import Swap from './Swap';
 
 import Main from './Home/Main';
 
-// your Bookcases
+// zbiór posiadanych książek
+import Bookcases from './Bookcases';
 import AddBookcase from './AddBookcase';
+
+//zbiór recenzji
 import Reviews from './Reviews';
+import AddReview from './AddReview';
 
 // <Switch> powoduje że renderowany jest tylko jeden komonent (pierwszy który pasuje do ścieżki)
 
@@ -64,8 +68,10 @@ const Root = () => {
                     <Route path="/categories" exact component={Categories} />
                     <Route path="/categories/:_id" component={Category} />
                     <Route path="/addbook/" component={AddBook} />
-                    <Route path="/bookcases" component={AddBookcase} />
-                    <Route path="/reviews" component={Reviews} />
+                    <Route path="/bookcases" exact component={Bookcases} />
+                    <Route path="/addbookcase" component={AddBookcase} />
+                    <Route path="/reviews" exact component={Reviews} />
+                    <Route path="/addreview" component={AddReview} />
                     <Route path="/users/me" component={UserProfile} />
                 </Switch>
             </>

@@ -7,13 +7,14 @@ const { protect, authorize } = require('../middleware/auth');
 
 router.get(
     '/',
+    protect,
     asyncHandler(async (req, res, next) => {
         const reviews = await Review.find()
             .sort({ title: 1 })
-            .populate({
-                path: 'author',
-                select: 'name -_id',
-            })
+            // .populate({
+            //     path: 'author',
+            //     select: 'name -_id',
+            // })
             .populate({
                 path: 'book',
                 select: 'title author -_id',
@@ -21,6 +22,10 @@ router.get(
                     path: 'author',
                     select: 'name -_id',
                 },
+            })
+            .populate({
+                path: 'owner',
+                select: 'name email -_id',
             });
 
         res.status(200).json({
@@ -32,12 +37,13 @@ router.get(
 
 router.get(
     '/:id',
+    protect,
     asyncHandler(async (req, res, next) => {
         const review = await Review.findById(req.params.id)
-            .populate({
-                path: 'author',
-                select: 'name -_id',
-            })
+            // .populate({
+            //     path: 'author',
+            //     select: 'name -_id',
+            // })
             .populate({
                 path: 'book',
                 select: 'title author -_id',
@@ -81,10 +87,13 @@ router.post(
             title: req.body.title,
         });
 
+        if (!book) {
+            console.log('There is no book with this title');
+        }
+
         let review = new Review({
             owner: req.user.id,
             title: book.title,
-            author: book.author,
             content: req.body.content,
             rating: req.body.rating,
             book: book,
@@ -110,7 +119,7 @@ router.put(
             title: req.body.title,
             content: req.body.content,
             rating: req.body.rating,
-            author: req.body.author,
+            owner: req.user.id,
         });
 
         if (!review) return res.status(404).send('There is no review with given ID in database');
