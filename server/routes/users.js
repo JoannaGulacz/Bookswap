@@ -197,9 +197,10 @@ router.put(
 // @route   PUT /api/v1/users/updatepassword
 // @access  Private
 router.put(
-    '/updatepassword',
+    '/me/updatepassword',
     protect,
     asyncHandler(async (req, res, next) => {
+        console.log(req);
         const user = await User.findById(req.user.id).select('+password');
 
         // Check current password
