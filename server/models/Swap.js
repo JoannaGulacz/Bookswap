@@ -4,6 +4,7 @@ const swapSchema = new mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
             required: true,
         },
         createdAt: {
@@ -12,10 +13,12 @@ const swapSchema = new mongoose.Schema(
         },
         bookToOffer: {
             type: mongoose.Schema.Types.ObjectId,
+            ref: 'Bookcase',
             required: true,
         },
         bookToGet: {
             type: mongoose.Schema.Types.ObjectId,
+            ref: 'Bookcase',
             required: true,
         },
     },
