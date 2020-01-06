@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from '../../utils/axios';
 
 class DropdownPage extends React.Component {
@@ -14,7 +14,7 @@ class DropdownPage extends React.Component {
 
     handleLogOut = () => {
         localStorage.removeItem('token');
-        window.location.pathname = '/';
+        this.props.logoutHandler();
     };
 
     getUserName = async () => {
@@ -22,14 +22,14 @@ class DropdownPage extends React.Component {
         this.setState({ userName: user.data.data.name });
     };
 
-    componentDidMount() {
+    componentDidUpdate() {
         if (this.state.token) {
             this.getUserName();
         }
     }
 
     render() {
-        if (this.state.token) {
+        if (this.state.token && this.props.isLogged) {
             return (
                 <>
                     <div className="text-center">{this.state.userName}</div>

@@ -24,8 +24,8 @@ const RegisterForm = props => {
                 .then(function(response) {
                     const token = response.data.token;
                     localStorage.setItem('token', token);
+                    props.loginHandler();
                     props.history.push('/users/me');
-                    window.location.reload(true);
                 })
                 .catch(function(error) {
                     console.log(error.response.data);
@@ -37,8 +37,6 @@ const RegisterForm = props => {
             //     document.getElementById('validationIcon').innerHTML =
             //         '<i class="ml-1 far fa-times-circle text-danger"></i>';
             // }
-
-            // Adam: zaimplementowane tymczasowe rozwiązanie z odświeżeniem strony
         },
     });
     return (
