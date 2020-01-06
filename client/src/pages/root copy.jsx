@@ -56,21 +56,13 @@ class Root extends React.Component {
         userName: '',
     };
 
-    componentDidMount() {
-        if (localStorage.getItem('token')) {
-            this.getUser();
-            this.setState({ isLogged: true });
-        }
-    }
-
     getUser = async () => {
         const user = await axios.get('/users/me');
         this.setState({ userName: user.data.data.name });
     };
 
-    loginHandler = token => {
+    loginHandler = () => {
         this.getUser();
-        localStorage.setItem('token', token);
         this.setState({ isLogged: true });
     };
 

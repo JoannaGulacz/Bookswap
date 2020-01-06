@@ -23,8 +23,7 @@ const RegisterForm = props => {
                 })
                 .then(function(response) {
                     const token = response.data.token;
-                    localStorage.setItem('token', token);
-                    props.loginHandler();
+                    props.loginHandler(token);
                     props.history.push('/users/me');
                 })
                 .catch(function(error) {

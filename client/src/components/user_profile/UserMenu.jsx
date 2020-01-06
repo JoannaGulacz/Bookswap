@@ -16,12 +16,6 @@ class DropdownPage extends React.Component {
         this.props.logoutHandler();
     };
 
-    componentDidMount() {
-        if (this.state.token && this.props.isLogged) {
-            this.getUserName();
-        }
-    }
-
     render() {
         if (this.state.token && this.props.isLogged) {
             return (
