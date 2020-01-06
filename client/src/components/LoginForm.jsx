@@ -18,8 +18,7 @@ const LoginForm = props => {
                 .then(function(response) {
                     console.log('Logged in successfully');
                     const token = response.data.token;
-                    localStorage.setItem('token', token);
-                    props.loginHandler();
+                    props.loginHandler(token);
                     props.history.push('/');
                 })
                 .catch(function(error) {
