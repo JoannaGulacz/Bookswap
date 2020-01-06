@@ -50,6 +50,7 @@ export default class BookcasesForm extends Component {
         this.handleTitleChange.bind(this);
         this.toggleEditConfirm.bind(this);
         this.toggleEditLast.bind(this);
+        this.toggleLast.bind(this);
     }
 
     handleDelete = id => {
@@ -130,7 +131,7 @@ export default class BookcasesForm extends Component {
                 category: this.state.category,
                 change: this.state.change,
             })
-            .then(data => {
+            .then(() => {
                 this.setState({
                     modalEditText: 'Bookcase edited',
                 });
@@ -162,27 +163,6 @@ export default class BookcasesForm extends Component {
         const value = event.target.value;
         this.setState({
             title: value,
-        });
-    };
-
-    handleAuthorChange = event => {
-        const value = event.target.value;
-        this.setState({
-            author: value,
-        });
-    };
-
-    handlePublisherChange = event => {
-        const value = event.target.value;
-        this.setState({
-            publisher: value,
-        });
-    };
-
-    handleCategoryChange = event => {
-        const value = event.target.value;
-        this.setState({
-            category: value,
         });
     };
 
@@ -313,7 +293,7 @@ export default class BookcasesForm extends Component {
                                 <input type="text" value={this.state.author} className="form-control" disabled />
                                 <br />
                                 <label className="grey-text">Publisher</label>
-                                <input type="text" value={this.state.publisher} className="form-control" />
+                                <input type="text" value={this.state.publisher} className="form-control" disabled />
                                 <br />
                                 <label className="grey-text">Category</label>
                                 <input type="text" value={this.state.category} className="form-control" disabled />

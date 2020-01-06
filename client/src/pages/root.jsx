@@ -74,7 +74,7 @@ const Root = () => {
                     <Route path="/bookcases" exact component={Bookcases} />
                     <Route path="/addbookcase" component={AddBookcase} />
                     <Route path="/reviews" exact component={Reviews} />
-                    <Route path="/addreview" component={AddReview} />
+                    <Route path="/addreview/:_id" component={AddReview} />
                     <Route path="/users/me" component={UserProfile} />
                 </Switch>
             </>

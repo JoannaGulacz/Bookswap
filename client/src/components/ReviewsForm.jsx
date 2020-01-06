@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBIcon, MDBBtn } from 'mdbreact';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBContainer } from 'mdbreact';
+import {
+    MDBCard,
+    MDBCardBody,
+    MDBCardTitle,
+    MDBCardText,
+    MDBContainer,
+    MDBModal,
+    MDBModalBody,
+    MDBModalFooter,
+} from 'mdbreact';
 
 import axios from 'axios';
 
@@ -10,81 +19,283 @@ export default class ReviewsForm extends Component {
         this.state = {
             title: '',
             reviews: [],
+            author: '',
+            content: '',
+            rating: 0,
+            modalEdit: false,
+            modal: false,
+            modalInfo: false,
+            modalEditText: '',
+            modalText: '',
+            reviewId: '',
         };
-        this.onSubmit.bind(this);
-        this.handleTitleChange.bind(this);
+        this.toggleEdit.bind(this);
+        this.handleEdit.bind(this);
+        this.toggle.bind(this);
+        this.toggleDelete.bind(this);
+        this.handleDelete.bind(this);
+        this.toggleEditConfirm.bind(this);
+        this.toggleEditLast.bind(this);
+        this.toggleLast.bind(this);
 
         axios
-            .get('reviews/')
-            // .then(function(response) {
-            //     console.log(response.data.data);
-            // })
+            .get('reviews/myReviews')
             .then(data => this.setState({ reviews: data.data.data }))
             .catch(function(error) {
                 console.log(error.response.data);
             });
     }
-    handleTitleChange = event => {
-        const value = event.target.value;
+
+    handleDelete = id => {
+        this.toggle();
         this.setState({
-            title: value,
+            reviewId: id,
         });
     };
-    onSubmit = event => {
-        event.preventDefault();
-        console.log(this.state.title);
-        // axios
-        //     .get('http://localhost:5000/api/bookcases/search/' + this.state.title)
-        //     .then(data => this.setState({ bookcases: data.data.data }));
+
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal,
+        });
     };
+
+    toggleDelete = () => {
+        this.setState({
+            modal: !this.state.modal,
+            modalInfo: !this.state.modalInfo,
+        });
+        axios
+            .delete('http://localhost:5000/api/reviews/' + this.state.reviewId)
+            .then(() => {
+                this.setState({
+                    modalText: 'Review deleted',
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    modalText: `Review could't be deleted`,
+                });
+                console.log(error.response.data);
+            });
+    };
+
+    handleEdit = id => {
+        this.toggleEdit();
+        this.setState({
+            reviewId: id,
+        });
+        axios
+            .get('http://localhost:5000/api/reviews/' + id)
+            .then(response => {
+                console.log(response.data);
+                this.setState({
+                    title: response.data.data.book.title,
+                });
+                this.setState({
+                    author: response.data.data.book.author.name,
+                });
+                this.setState({
+                    content: response.data.data.content,
+                });
+                this.setState({
+                    rating: response.data.data.rating,
+                });
+            })
+            .catch(function(error) {
+                console.log(error.response.data);
+            });
+    };
+
+    toggleEdit = () => {
+        this.setState({
+            modalEdit: !this.state.modalEdit,
+        });
+    };
+
+    toggleEditConfirm = () => {
+        axios
+            .put('http://localhost:5000/api/reviews/' + this.state.reviewId, {
+                title: this.state.title,
+                content: this.state.content,
+                rating: this.state.rating,
+            })
+            .then(() => {
+                this.setState({
+                    modalEditText: 'Review edited',
+                });
+            })
+            .catch(err => {
+                console.log(err.response.data);
+                this.setState({
+                    modalEditText: 'The review has not been edited',
+                });
+            });
+        this.setState({
+            modalEdit: !this.state.modalEdit,
+            modalEditInfo: !this.state.modalEditInfo,
+        });
+    };
+    toggleEditLast = () => {
+        this.setState({
+            modalEditInfo: !this.state.modalEditInfo,
+        });
+    };
+
+    toggleLast = () => {
+        this.setState({
+            modalInfo: !this.state.modalInfo,
+        });
+    };
+
+    handleContentChange = event => {
+        const value = event.target.value;
+        this.setState({
+            content: value,
+        });
+    };
+
+    handleRatingChange = event => {
+        const value = event.target.value;
+        this.setState({
+            rating: value,
+        });
+    };
+
     render() {
+        const ListOfReviews = () => {
+            return (
+                <MDBContainer className="d-flex justify-content-center">
+                    <MDBCol md="12">
+                        {this.state.reviews.map((e, i) => {
+                            return (
+                                <div key={i}>
+                                    <MDBCard>
+                                        <MDBCardBody>
+                                            <MDBCardTitle>{e.book.title}</MDBCardTitle>
+                                            <hr />
+                                            <MDBCardText>author: {e.book.author.name}</MDBCardText>
+                                            <MDBCardText>content: {e.content}</MDBCardText>
+                                            <MDBCardText>rating: {e.rating}</MDBCardText>
+                                            <div
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => this.handleEdit(e._id)}
+                                                className="black-text d-flex justify-content-end"
+                                            >
+                                                <h5>
+                                                    Edit review
+                                                    <MDBIcon icon="edit" className="ml-2" />
+                                                </h5>
+                                            </div>
+                                            <div
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => this.handleDelete(e._id)}
+                                                className="black-text d-flex justify-content-end"
+                                            >
+                                                <h5>
+                                                    Delete review
+                                                    <MDBIcon icon="trash-alt" className="ml-2" />
+                                                </h5>
+                                            </div>
+                                            <MDBModal isOpen={this.state.modal} toggle={this.toggle} centered>
+                                                <MDBModalBody>
+                                                    Are you sure you want to delete this review?
+                                                </MDBModalBody>
+                                                <MDBModalFooter>
+                                                    <MDBBtn color="success" onClick={this.toggle}>
+                                                        No
+                                                    </MDBBtn>
+                                                    <MDBBtn color="danger" onClick={this.toggleDelete}>
+                                                        Yes
+                                                    </MDBBtn>
+                                                </MDBModalFooter>
+                                            </MDBModal>
+
+                                            <MDBModal isOpen={this.state.modalInfo} toggle={this.toggleLast} centered>
+                                                <MDBModalBody>{this.state.modalText}</MDBModalBody>
+                                                <MDBModalFooter>
+                                                    <a href={'http://localhost:3000/reviews'}>
+                                                        <MDBBtn color="success" onClick={this.toggleLast}>
+                                                            Close
+                                                        </MDBBtn>
+                                                    </a>
+                                                </MDBModalFooter>
+                                            </MDBModal>
+                                        </MDBCardBody>
+                                    </MDBCard>
+                                    <br />
+                                </div>
+                            );
+                        })}
+                        ;
+                    </MDBCol>
+                </MDBContainer>
+            );
+        };
         return (
             <MDBContainer className="d-flex justify-content-center">
                 <MDBCol md="6">
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <MDBBtn rounded href="/addreview">
                             Add new review
                         </MDBBtn>
                     </div>
-                    <hr />
-                    {/* <form
-                        className="form-inline mt-4 mb-4"
-                        style={{ display: 'flex', justifyContent: 'center' }}
-                        onSubmit={this.onSubmit}
-                    >
-                        <button type="submit" value="submit" style={{ all: 'unset' }}>
-                            <MDBIcon icon="search" />
-                        </button>
-                        <input
-                            className="form-control form-control-sm ml-3 w-75"
-                            type="text"
-                            onChange={this.handleTitleChange}
-                            placeholder="Search bookcase"
-                            aria-label="Search"
-                        />
-                    </form> */}
-                    {this.state.reviews.map((e, i) => {
-                        return (
-                            <div key={i}>
-                                <MDBCard>
-                                    <MDBCardBody>
-                                        <MDBCardTitle>{e.book.title}</MDBCardTitle>
-                                        <hr />
-                                        <MDBCardText>author: {e.book.author.name}</MDBCardText>
-                                        <MDBCardText>content: {e.content}</MDBCardText>
-                                        <MDBCardText>rating: {e.rating}</MDBCardText>
-                                        {/* <a href={'/bookcases/' + e._id} className="black-text d-flex justify-content-end">
-                                            <h5>
-                                                Edytuj
-                                                <MDBIcon icon="angle-double-right" className="ml-2" />
-                                            </h5>
-                                        </a> */}
-                                    </MDBCardBody>
-                                </MDBCard>
+                    <hr /> */}
+                    {ListOfReviews()}
+                    <MDBModal isOpen={this.state.modalEdit} toggle={this.toggleEdit} centered>
+                        <MDBModalBody>
+                            <form>
+                                <p className="h4 text-center mb-4">Edit review</p>
+                                <label className="grey-text">Title</label>
+                                <input type="text" value={this.state.title} className="form-control" disabled />
                                 <br />
-                            </div>
-                        );
-                    })}
+                                <label className="grey-text">Author</label>
+                                <input type="text" value={this.state.author} className="form-control" disabled />
+                                <br />
+                                <label className="grey-text">Content</label>
+                                <textarea
+                                    rows="10"
+                                    cols="30"
+                                    value={this.state.content}
+                                    className="form-control"
+                                    onChange={this.handleContentChange}
+                                />
+                                <br />
+                                <div>
+                                    <label className="grey-text">Rating</label>
+                                    <select
+                                        label="Rating"
+                                        className="browser-default custom-select"
+                                        onChange={this.handleRatingChange}
+                                    >
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <br />
+                            </form>
+                        </MDBModalBody>
+                        <MDBModalFooter>
+                            <MDBBtn color="success" onClick={this.toggleEdit}>
+                                Cancel
+                            </MDBBtn>
+                            <MDBBtn color="success" onClick={this.toggleEditConfirm}>
+                                Save
+                            </MDBBtn>
+                        </MDBModalFooter>
+                    </MDBModal>
+                    <MDBModal isOpen={this.state.modalEditInfo} toggle={this.toggleEditLast} centered>
+                        <MDBModalBody>{this.state.modalEditText}</MDBModalBody>
+                        <MDBModalFooter>
+                            <a href={'http://localhost:3000/reviews'}>
+                                <MDBBtn color="success" onClick={this.toggleEditLast}>
+                                    Close
+                                </MDBBtn>
+                            </a>
+                        </MDBModalFooter>
+                    </MDBModal>
                 </MDBCol>
             </MDBContainer>
         );
