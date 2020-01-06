@@ -19,16 +19,14 @@ const LoginForm = props => {
                     console.log('Logged in successfully');
                     const token = response.data.token;
                     localStorage.setItem('token', token);
+                    props.loginHandler();
                     props.history.push('/');
-                    window.location.reload(true);
                 })
                 .catch(function(error) {
                     console.log(error.response.data);
                 });
 
             //DODAĆ PRZEJŚCIE NA STRONĘ Z KTÓREJ PRZEKIEROWAŁO NA LOGOWANIE
-
-            // Adam: zaimplementowane tymczasowe rozwiązanie z odświeżeniem strony
         },
     });
 
