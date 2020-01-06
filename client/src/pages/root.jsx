@@ -62,12 +62,6 @@ class Root extends React.Component {
         this.setState({ isLogged: true });
     };
 
-    /*
-    loginHandler = () => {
-        this.setState({ isLogged: true });
-    };
-    */
-
     logoutHandler = () => {
         this.setState({ isLogged: false });
     };
@@ -86,7 +80,6 @@ class Root extends React.Component {
                 <Switch>
                     <Route path="/" exact component={Main} />
                     <Route path="/swap" component={Swap} />
-                    {/*<Route path="/login" component={Login} >*/}
                     <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
                     <Route path="/books" exact component={Books} />
                     <Route path="/books/:_id" component={Book} />
@@ -102,7 +95,6 @@ class Root extends React.Component {
                     <Route path="/addbookcase" component={AddBookcase} />
                     <Route path="/reviews" exact component={Reviews} />
                     <Route path="/addreview" component={AddReview} />
-                    {/*<Route path="/users/me" component={UserProfile} />*/}
                     <Route path="/users/me">{this.state.isLogged ? <UserProfile /> : <Redirect to="/" />}</Route>
                 </Switch>
             </Router>
