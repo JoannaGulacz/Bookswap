@@ -59,6 +59,20 @@ router.get(
             .populate({
                 path: 'parentBook',
                 select: '-title -_id',
+                populate: [
+                    {
+                        path: 'author',
+                        select: 'name',
+                    },
+                    {
+                        path: 'category',
+                        select: 'name',
+                    },
+                    {
+                        path: 'publisher',
+                        select: 'name',
+                    },
+                ],
             })
             .populate({
                 path: 'swaps',

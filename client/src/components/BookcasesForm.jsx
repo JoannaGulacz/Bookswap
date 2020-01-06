@@ -27,33 +27,73 @@ export default class BookcasesForm extends Component {
             change: false,
             bookcaseId: '',
             modalEdit: false,
+            modal: false,
+            modalInfo: false,
+            modalEditText: '',
+            modalText: '',
         };
 
         axios
-            .get('http://localhost:5000/api/bookcases/')
-            // .then(function(response) {
-            //     console.log(response.data.data);
-            // })
+            .get('http://localhost:5000/api/bookcases/library')
             .then(data => {
                 this.setState({ bookcases: data.data.data });
             })
             .catch(function(error) {
                 console.log(error.response.data);
             });
+        this.toggle.bind(this);
         this.toggleEdit.bind(this);
+        this.toggleDelete.bind(this);
+        this.handleDelete.bind(this);
         this.handleEdit.bind(this);
         this.onSubmit.bind(this);
         this.handleTitleChange.bind(this);
+        this.toggleEditConfirm.bind(this);
+        this.toggleEditLast.bind(this);
     }
+
+    handleDelete = id => {
+        this.toggle();
+        this.setState({
+            bookcaseId: id,
+        });
+    };
+
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal,
+        });
+    };
+
+    toggleDelete = () => {
+        this.setState({
+            modal: !this.state.modal,
+            modalInfo: !this.state.modalInfo,
+        });
+        axios
+            .delete('http://localhost:5000/api/bookcases/' + this.state.bookcaseId)
+            .then(() => {
+                this.setState({
+                    modalText: 'Bookcase deleted',
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    modalText: `Bookcase could't be deleted`,
+                });
+                console.log(error.response.data);
+            });
+    };
 
     handleEdit = id => {
         this.toggleEdit();
+        this.setState({
+            bookcaseId: id,
+        });
         axios
             .get('http://localhost:5000/api/bookcases/' + id)
             .then(response => {
-                console.log('aaaaaaaaaaaaaa');
                 console.log(response.data);
-                // console.log(response.data.data[0]);
                 this.setState({
                     title: response.data.data.title,
                 });
@@ -65,6 +105,9 @@ export default class BookcasesForm extends Component {
                 });
                 this.setState({
                     category: response.data.data.parentBook.category.name,
+                });
+                this.setState({
+                    change: response.data.data.change,
                 });
             })
             .catch(function(error) {
@@ -78,21 +121,161 @@ export default class BookcasesForm extends Component {
         });
     };
 
+    toggleEditConfirm = () => {
+        axios
+            .put('http://localhost:5000/api/bookcases/' + this.state.bookcaseId, {
+                title: this.state.title,
+                author: this.state.author,
+                publisher: this.state.publisher,
+                category: this.state.category,
+                change: this.state.change,
+            })
+            .then(data => {
+                this.setState({
+                    modalEditText: 'Bookcase edited',
+                });
+            })
+            .catch(err => {
+                this.setState({
+                    modalEditText: 'The bookcase has not been edited',
+                });
+            });
+        this.setState({
+            modalEdit: !this.state.modalEdit,
+            modalEditInfo: !this.state.modalEditInfo,
+        });
+    };
+
+    toggleEditLast = () => {
+        this.setState({
+            modalEditInfo: !this.state.modalEditInfo,
+        });
+    };
+
+    toggleLast = () => {
+        this.setState({
+            modalInfo: !this.state.modalInfo,
+        });
+    };
+
     handleTitleChange = event => {
         const value = event.target.value;
         this.setState({
             title: value,
         });
     };
+
+    handleAuthorChange = event => {
+        const value = event.target.value;
+        this.setState({
+            author: value,
+        });
+    };
+
+    handlePublisherChange = event => {
+        const value = event.target.value;
+        this.setState({
+            publisher: value,
+        });
+    };
+
+    handleCategoryChange = event => {
+        const value = event.target.value;
+        this.setState({
+            category: value,
+        });
+    };
+
+    handleChangeChange = event => {
+        const value = event.target.checked;
+        this.setState({
+            change: value,
+        });
+    };
+
     onSubmit = event => {
-        // event.preventDefault();
-        // console.log(this.state.title);
-        // axios
-        //     .get('http://localhost:5000/api/bookcases/search/' + this.state.title)
-        //     .then(data => this.setState({ bookcases: data.data.data }));
+        event.preventDefault();
+        axios
+            .get('http://localhost:5000/api/bookcases/search/' + this.state.title)
+            .then(data => this.setState({ bookcases: data.data.data }));
     };
 
     render() {
+        const ListOfBookcases = () => {
+            return (
+                <MDBContainer className="d-flex justify-content-center">
+                    <MDBCol md="12">
+                        {this.state.bookcases.map((e, i) => {
+                            return (
+                                <div key={i}>
+                                    <MDBCard>
+                                        <MDBCardBody>
+                                            <MDBCardTitle>{e.title}</MDBCardTitle>
+                                            <hr />
+                                            <MDBCardText>author: {e.parentBook.author.name}</MDBCardText>
+                                            <MDBCardText>publisher: {e.parentBook.publisher.name}</MDBCardText>
+                                            <MDBCardText>category: {e.parentBook.category.name}</MDBCardText>
+                                            <MDBCardText>
+                                                {e.change ? (
+                                                    <strong>SWAP IS POSSIBLE</strong>
+                                                ) : (
+                                                    <strong>SWAP IS UNAVAILABLE</strong>
+                                                )}
+                                            </MDBCardText>
+                                            <div
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => this.handleEdit(e._id)}
+                                                className="black-text d-flex justify-content-end"
+                                            >
+                                                <h5>
+                                                    Edit bookcase
+                                                    <MDBIcon icon="edit" className="ml-2" />
+                                                </h5>
+                                            </div>
+                                            <div
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => this.handleDelete(e._id)}
+                                                className="black-text d-flex justify-content-end"
+                                            >
+                                                <h5>
+                                                    Delete bookcase
+                                                    <MDBIcon icon="trash-alt" className="ml-2" />
+                                                </h5>
+                                            </div>
+                                        </MDBCardBody>
+                                    </MDBCard>
+
+                                    <MDBModal isOpen={this.state.modal} toggle={this.toggle} centered>
+                                        <MDBModalBody>Are you sure you want to delete this bookcase?</MDBModalBody>
+                                        <MDBModalFooter>
+                                            <MDBBtn color="success" onClick={this.toggle}>
+                                                No
+                                            </MDBBtn>
+                                            <MDBBtn color="danger" onClick={this.toggleDelete}>
+                                                Yes
+                                            </MDBBtn>
+                                        </MDBModalFooter>
+                                    </MDBModal>
+
+                                    <MDBModal isOpen={this.state.modalInfo} toggle={this.toggleLast} centered>
+                                        <MDBModalBody>{this.state.modalText}</MDBModalBody>
+                                        <MDBModalFooter>
+                                            <a href={'http://localhost:3000/bookcases'}>
+                                                <MDBBtn color="success" onClick={this.toggleLast}>
+                                                    Close
+                                                </MDBBtn>
+                                            </a>
+                                        </MDBModalFooter>
+                                    </MDBModal>
+                                    <br />
+                                </div>
+                            );
+                        })}
+                        ;
+                    </MDBCol>
+                </MDBContainer>
+            );
+        };
         return (
             <MDBContainer className="d-flex justify-content-center">
                 <MDBCol md="6">
@@ -118,127 +301,65 @@ export default class BookcasesForm extends Component {
                             aria-label="Search"
                         />
                     </form>
-                    {this.state.bookcases.map((e, i) => {
-                        return (
-                            <div key={i}>
-                                <MDBCard>
-                                    <MDBCardBody>
-                                        <MDBCardTitle>{e.title}</MDBCardTitle>
-                                        <hr />
-                                        <MDBCardText>author: {e.parentBook.author.name}</MDBCardText>
-                                        <MDBCardText>publisher: {e.parentBook.publisher.name}</MDBCardText>
-                                        <MDBCardText>category: {e.parentBook.category.name}</MDBCardText>
-                                        <MDBCardText>
-                                            {e.change ? (
-                                                <strong>SWAP IS POSSIBLE</strong>
-                                            ) : (
-                                                <strong>SWAP IS UNAVAILABLE</strong>
-                                            )}
-                                        </MDBCardText>
-                                        <div
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={() => this.handleEdit(e._id)}
-                                            className="black-text d-flex justify-content-end"
-                                        >
-                                            <h5>
-                                                Edit bookcase
-                                                <MDBIcon icon="edit" className="ml-2" />
-                                            </h5>
-                                        </div>
-                                        {/* <div
-                                            style={{ cursor: 'pointer' }}
-                                            onClick={this.toggle}
-                                            className="black-text d-flex justify-content-end"
-                                        >
-                                            <h5>
-                                                Delete bookcase
-                                                <MDBIcon icon="trash-alt" className="ml-2" />
-                                            </h5>
-                                        </div> */}
-                                    </MDBCardBody>
-                                </MDBCard>
-                                <MDBModal isOpen={this.state.modalEdit} toggle={this.toggleEdit} centered>
-                                    <MDBModalBody>
-                                        <form onSubmit={this.onSubmit}>
-                                            <p className="h4 text-center mb-4">Edit bookcase</p>
-                                            <label className="grey-text">Title</label>
-                                            <input
-                                                type="text"
-                                                value={this.state.title}
-                                                className="form-control"
-                                                onChange={this.handleTitleChange}
-                                                required
-                                            />
-                                            <br />
-                                            <label className="grey-text">Author</label>
-                                            <input
-                                                type="text"
-                                                value={this.state.author}
-                                                className="form-control"
-                                                onChange={this.handleAuthorChange}
-                                            />
-                                            <br />
-                                            <label className="grey-text">Publisher</label>
-                                            <input
-                                                type="text"
-                                                value={this.state.publisher}
-                                                className="form-control"
-                                                onChange={this.handlePublisherChange}
-                                            />
-                                            <br />
-                                            <label className="grey-text">Category</label>
-                                            <input
-                                                type="text"
-                                                value={this.state.category}
-                                                className="form-control"
-                                                onChange={this.handleCategoryChange}
-                                            />
-                                            <br />
-                                            {/* <MDBRow className="d-flex align-items-center mb-4">
-                                        <MDBCol md="6" className="text-center">
-                                            <label htmlFor="title" className="grey-text">
-                                                Swap possible
-                                            </label>
-                                        </MDBCol>
-                                        <MDBCol md="6" className="text-center">
-                                            <div className="md-form pb-3">
-                                                <div className="form-check my-4">
-                                                    <MDBInput
-                                                        group
-                                                        type="checkbox"
-                                                        name="change"
-                                                        id="change"
-                                                        onChange={this.handleChangeChange}
-                                                        checked={this.state.change}
-                                                    />
-                                                </div>
+                    {ListOfBookcases()}
+                    <MDBModal isOpen={this.state.modalEdit} toggle={this.toggleEdit} centered>
+                        <MDBModalBody>
+                            <form>
+                                <p className="h4 text-center mb-4">Edit bookcase</p>
+                                <label className="grey-text">Title</label>
+                                <input type="text" value={this.state.title} className="form-control" disabled />
+                                <br />
+                                <label className="grey-text">Author</label>
+                                <input type="text" value={this.state.author} className="form-control" disabled />
+                                <br />
+                                <label className="grey-text">Publisher</label>
+                                <input type="text" value={this.state.publisher} className="form-control" />
+                                <br />
+                                <label className="grey-text">Category</label>
+                                <input type="text" value={this.state.category} className="form-control" disabled />
+                                <br />
+                                <MDBRow className="d-flex align-items-center mb-4">
+                                    <MDBCol md="6" className="text-center">
+                                        <label htmlFor="title" className="grey-text">
+                                            Swap possible
+                                        </label>
+                                    </MDBCol>
+                                    <MDBCol md="6" className="text-center">
+                                        <div className="md-form pb-3">
+                                            <div className="form-check my-4">
+                                                <MDBInput
+                                                    group
+                                                    type="checkbox"
+                                                    name="change"
+                                                    id="change"
+                                                    onChange={this.handleChangeChange}
+                                                    checked={this.state.change}
+                                                />
                                             </div>
-                                        </MDBCol>
-                                    </MDBRow> */}
-                                            <label className="grey-text">Swap</label>
-                                            <input
-                                                type="checkbox"
-                                                checked={this.state.change}
-                                                className="form-control"
-                                                onChange={this.handleChangeChange}
-                                            />
-                                            {/* <div className="text-center mt-4">
-                                            <MDBBtn type="submit">Save</MDBBtn>
-                                        </div> */}
-                                        </form>
-                                    </MDBModalBody>
-                                    <MDBModalFooter>
-                                        <MDBBtn color="success" onClick={this.handleEdit}>
-                                            Cancel
-                                        </MDBBtn>
-                                        <MDBBtn color="success" onClick={this.toggleEditConfirm}>
-                                            Save
-                                        </MDBBtn>
-                                    </MDBModalFooter>
-                                </MDBModal>
-                            </div>
-                        );
-                    })}
+                                        </div>
+                                    </MDBCol>
+                                </MDBRow>
+                            </form>
+                        </MDBModalBody>
+                        <MDBModalFooter>
+                            <MDBBtn color="success" onClick={this.toggleEdit}>
+                                Cancel
+                            </MDBBtn>
+                            <MDBBtn color="success" onClick={this.toggleEditConfirm}>
+                                Save
+                            </MDBBtn>
+                        </MDBModalFooter>
+                    </MDBModal>
+                    <MDBModal isOpen={this.state.modalEditInfo} toggle={this.toggleEditLast} centered>
+                        <MDBModalBody>{this.state.modalEditText}</MDBModalBody>
+                        <MDBModalFooter>
+                            <a href={'http://localhost:3000/bookcases'}>
+                                <MDBBtn color="success" onClick={this.toggleEditLast}>
+                                    Close
+                                </MDBBtn>
+                            </a>
+                        </MDBModalFooter>
+                    </MDBModal>
                 </MDBCol>
             </MDBContainer>
         );
