@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import axios from '../utils/axios';
 
 //nawigacja
 import Menu from '../components/navigation/Menu';
@@ -51,22 +50,11 @@ import Notification from './Notification';
 // brak exact w testowym home roucie sprawiłby, że route /test odnosiłby się do obu komponentów (zawiera zaróno / jak i /test)
 
 class Root extends React.Component {
-    state = {
-        isLogged: false,
-        userName: '',
-    };
+    state = { isLogged: false };
 
-    loginHandler = async () => {
-        const user = await axios.get('/users/me');
-        this.setState({ userName: user.data.data.name });
-        this.setState({ isLogged: true });
-    };
-
-    /*
     loginHandler = () => {
         this.setState({ isLogged: true });
     };
-    */
 
     logoutHandler = () => {
         this.setState({ isLogged: false });
@@ -76,11 +64,7 @@ class Root extends React.Component {
         return (
             <Router>
                 <Menu>
-                    <UserMenu
-                        isLogged={this.state.isLogged}
-                        userName={this.state.userName}
-                        logoutHandler={this.logoutHandler}
-                    />
+                    <UserMenu isLogged={this.state.isLogged} logoutHandler={this.logoutHandler} />
                 </Menu>
 
                 <Switch>

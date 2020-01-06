@@ -17,6 +17,11 @@ class DropdownPage extends React.Component {
         this.props.logoutHandler();
     };
 
+    getUserName = async () => {
+        const user = await axios.get('/users/me');
+        this.setState({ userName: user.data.data.name });
+    };
+
     componentDidMount() {
         if (this.state.token && this.props.isLogged) {
             this.getUserName();
@@ -28,7 +33,7 @@ class DropdownPage extends React.Component {
         if (this.state.token && this.props.isLogged) {
             return (
                 <>
-                    <div className="text-center">{this.props.userName}</div>
+                    <div className="text-center">{this.state.userName}</div>
                     <MDBDropdown>
                         <MDBDropdownToggle caret color="primary">
                             <i className="fas fa-user"></i>
