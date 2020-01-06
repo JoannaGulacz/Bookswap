@@ -75,6 +75,7 @@ class Root extends React.Component {
     };
 
     logoutHandler = () => {
+        localStorage.removeItem('token');
         this.setState({ isLogged: false });
     };
 
