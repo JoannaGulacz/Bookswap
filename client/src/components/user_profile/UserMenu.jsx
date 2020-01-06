@@ -1,7 +1,6 @@
 import React from 'react';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
-import { Link, Redirect } from 'react-router-dom';
-//import axios from '../../utils/axios';
+import { Link } from 'react-router-dom';
 
 class DropdownPage extends React.Component {
     constructor(props) {
@@ -24,7 +23,6 @@ class DropdownPage extends React.Component {
     }
 
     render() {
-        console.log(this.props.isLogged);
         if (this.state.token && this.props.isLogged) {
             return (
                 <>
