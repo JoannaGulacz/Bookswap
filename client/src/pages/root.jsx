@@ -56,9 +56,13 @@ class Root extends React.Component {
         userName: '',
     };
 
-    loginHandler = async () => {
+    getUser = async () => {
         const user = await axios.get('/users/me');
         this.setState({ userName: user.data.data.name });
+    };
+
+    loginHandler = () => {
+        this.getUser();
         this.setState({ isLogged: true });
     };
 
