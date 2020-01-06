@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import axios from '../utils/axios';
 
 //nawigacja
 import Menu from '../components/navigation/Menu';
@@ -49,18 +50,50 @@ import Notification from './Notification';
 // exact wymusza dokładne porównanie ścieżek (domyślnie jest wyłączone)
 // brak exact w testowym home roucie sprawiłby, że route /test odnosiłby się do obu komponentów (zawiera zaróno / jak i /test)
 
-const Root = () => {
-    return (
-        <Router>
-            <>
+class Root extends React.Component {
+    state = {
+        isLogged: false,
+        userName: '',
+    };
+
+    componentDidMount() {
+        if (localStorage.getItem('token')) {
+            this.getUser();
+            this.setState({ isLogged: true });
+        }
+    }
+
+    getUser = async () => {
+        const user = await axios.get('/users/me');
+        this.setState({ userName: user.data.data.name });
+    };
+
+    loginHandler = token => {
+        this.getUser();
+        localStorage.setItem('token', token);
+        this.setState({ isLogged: true });
+    };
+
+    logoutHandler = () => {
+        localStorage.removeItem('token');
+        this.setState({ isLogged: false });
+    };
+
+    render() {
+        return (
+            <Router>
                 <Menu>
-                    <UserMenu />
+                    <UserMenu
+                        isLogged={this.state.isLogged}
+                        userName={this.state.userName}
+                        logoutHandler={this.logoutHandler}
+                    />
                 </Menu>
 
                 <Switch>
                     <Route path="/" exact component={Main} />
                     <Route path="/swap" component={Swap} />
-                    <Route path="/login" component={Login} />
+                    <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
                     <Route path="/books" exact component={Books} />
                     <Route path="/books/:_id" component={Book} />
                     <Route path="/authors" exact component={Authors} />
@@ -75,13 +108,13 @@ const Root = () => {
                     <Route path="/addbookcase" component={AddBookcase} />
                     <Route path="/reviews" exact component={Reviews} />
                     <Route path="/addreview/:_id" component={AddReview} />
-                    <Route path="/users/me" component={UserProfile} />
-                </Switch>
-            </>
-        </Router>
-    );
-};
+                    <Route path="/users/me">{this.state.isLogged ? <UserProfile /> : <Redirect to="/" />}</Route>
 
+                </Switch>
+            </Router>
+        );
+    }
+}
 export default Root;
 
 /* MATERIAŁY:
