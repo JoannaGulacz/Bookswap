@@ -3,8 +3,6 @@ import { MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from '../../utils/axios';
 import { useFormik } from 'formik';
 
-// TO DO: hasło się nie haszuje po zmianie
-
 const PasswordForm = props => {
     const formik = useFormik({
         initialValues: {

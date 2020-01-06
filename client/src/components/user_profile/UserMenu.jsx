@@ -1,7 +1,6 @@
 import React from 'react';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
-import { Link, Redirect } from 'react-router-dom';
-import axios from '../../utils/axios';
+import { Link } from 'react-router-dom';
 
 class DropdownPage extends React.Component {
     constructor(props) {
@@ -17,12 +16,7 @@ class DropdownPage extends React.Component {
         this.props.logoutHandler();
     };
 
-    getUserName = async () => {
-        const user = await axios.get('/users/me');
-        this.setState({ userName: user.data.data.name });
-    };
-
-    componentDidUpdate() {
+    componentDidMount() {
         if (this.state.token && this.props.isLogged) {
             this.getUserName();
         }
@@ -32,7 +26,7 @@ class DropdownPage extends React.Component {
         if (this.state.token && this.props.isLogged) {
             return (
                 <>
-                    <div className="text-center">{this.state.userName}</div>
+                    <div className="text-center">{this.props.userName}</div>
                     <MDBDropdown>
                         <MDBDropdownToggle caret color="primary">
                             <i className="fas fa-user"></i>
