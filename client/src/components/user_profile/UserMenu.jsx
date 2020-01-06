@@ -23,7 +23,7 @@ class DropdownPage extends React.Component {
     };
 
     componentDidUpdate() {
-        if (this.state.token) {
+        if (this.state.token && this.props.isLogged) {
             this.getUserName();
         }
     }
