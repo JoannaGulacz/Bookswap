@@ -5,7 +5,7 @@ import { MDBDropdownItem } from 'mdbreact';
 const SearchLink = props => {
     return (
         <Link to={props.route}>
-            <MDBDropdownItem href="/books">{props.name}</MDBDropdownItem>
+            <MDBDropdownItem> {props.name}</MDBDropdownItem>
         </Link>
     );
 };
