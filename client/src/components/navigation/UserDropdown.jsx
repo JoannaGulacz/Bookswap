@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 const UserDropdown = props => {
     return (
-        <>
-            <div className="text-center">{props.userName}</div>
+        <div className="text-center">
+            {props.userName}
             <MDBDropdown>
                 <MDBDropdownToggle caret color="primary">
                     <i className="fas fa-user"></i>
@@ -27,7 +27,7 @@ const UserDropdown = props => {
                     <MDBDropdownItem onClick={props.logoutHandler}>Log out</MDBDropdownItem>
                 </MDBDropdownMenu>
             </MDBDropdown>
-        </>
+        </div>
     );
 };
 
