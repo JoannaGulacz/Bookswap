@@ -5,6 +5,7 @@ import axios from '../utils/axios';
 
 //nawigacja
 import Menu from '../components/navigation/Menu';
+import FooterPage from '../components/navigation/FooterPage';
 
 //użytkownik
 import UserMenu from '../components/user_profile/UserMenu';
@@ -123,6 +124,7 @@ class Root extends React.Component {
                         </Route>
                     </Switch>
                 </MDBContainer>
+                <FooterPage />
             </Router>
         );
     }
