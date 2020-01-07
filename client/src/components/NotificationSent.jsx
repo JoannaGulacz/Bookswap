@@ -40,19 +40,20 @@ export default class NotificationSent extends Component {
         if (this.state.swaps.length > 0) {
             return (
                 <MDBRow center className="mt-3">
-                    <MDBCol md="6">
+                    <MDBCol md="9">
                         <h2 className="text-center">Swap offers sent:</h2>
                         {this.state.swaps.map(el => {
                             return (
                                 <MDBCard key={el._id} className="mt-3">
                                     <MDBCardBody>
                                         <MDBCardText>
-                                            Give away
+                                            Give away: "
                                             <Link to={`/books/${el.bookToOffer.parentBook}`}>
                                                 {el.bookToOffer.title}
                                             </Link>
-                                            <br /> and get
-                                            <Link to={`/books/${el.bookToGet.parentBook}`}>{el.bookToGet.title}</Link>
+                                            "
+                                            <br /> and get: "
+                                            <Link to={`/books/${el.bookToGet.parentBook}`}>{el.bookToGet.title}</Link>"
                                         </MDBCardText>
                                         <MDBCardText>Offer to {el.userThatGetsOffer.name}</MDBCardText>
                                         <MDBBtnGroup className="d-block text-center">
