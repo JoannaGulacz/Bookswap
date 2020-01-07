@@ -98,6 +98,10 @@ router.get(
                     ],
                 })
                 .populate({
+                    path: 'owner',
+                    select: 'name email _id',
+                })
+                .populate({
                     path: 'swaps',
                 });
 
@@ -293,7 +297,8 @@ router.post(
         req.body.user = req.user.id;
 
         // Check if bookcase that we want to get is available (exists and is for swap)
-        console.log(req.url);
+        //console.log(req.url);
+
         const getBook = await Bookcase.findById(req.params.bookcaseId);
         if (getBook && getBook.change === true) {
             const offerBook = await Bookcase.findById(req.body.bookToOffer);
