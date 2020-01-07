@@ -16,7 +16,6 @@ const LoginForm = props => {
                     password: formik.values.password,
                 })
                 .then(function(response) {
-                    console.log('Logged in successfully');
                     const token = response.data.token;
                     props.loginHandler(token);
                     props.history.push('/');

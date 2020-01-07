@@ -134,7 +134,7 @@ export default class FormToOfferSwap extends Component {
         }
         return (
             <MDBRow center>
-                <MDBCol md="6" className="mt-2" style={{ textAlign: 'center' }}>
+                <MDBCol className="mt-2" style={{ textAlign: 'center' }}>
                     You have no books to offer.
                     <br />
                     <Link to={`../../addbookcase`}>Try to add some first</Link>

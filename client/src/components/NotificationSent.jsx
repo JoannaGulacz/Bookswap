@@ -1,48 +1,84 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBCardText, MDBBtnGroup } from 'mdbreact';
 import { Link } from 'react-router-dom';
+import axios from '../utils/axios';
 
-const NotificationSent = props => {
-    if (props.sent.length > 0) {
+export default class NotificationSent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            swaps: [],
+        };
+
+        this.handleCancel.bind(this);
+        this.getSwaps.bind(this);
+
+        this.getSwaps();
+    }
+
+    getSwaps() {
+        axios
+            .get('/swaps/sent')
+            .then(response => {
+                this.setState({
+                    swaps: response.data.data,
+                });
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    handleCancel(ev, id) {
+        axios.delete(`/swaps/${id}`).then(this.getSwaps());
+        ev.target.disabled = true;
+        ev.target.innerHTML = 'Cancelled';
+    }
+    render() {
+        if (this.state.swaps.length > 0) {
+            return (
+                <MDBRow center className="mt-3">
+                    <MDBCol md="6">
+                        <h2 className="text-center">Swap offers sent:</h2>
+                        {this.state.swaps.map(el => {
+                            return (
+                                <MDBCard key={el._id} className="mt-3">
+                                    <MDBCardBody>
+                                        <MDBCardText>
+                                            Give away
+                                            <Link to={`/books/${el.bookToOffer.parentBook}`}>
+                                                {' '}
+                                                '{el.bookToOffer.title}'{' '}
+                                            </Link>
+                                            <br /> and get
+                                            <Link to={`/books/${el.bookToGet.parentBook}`}>
+                                                {' '}
+                                                '{el.bookToGet.title}'{' '}
+                                            </Link>
+                                        </MDBCardText>
+                                        <MDBCardText>Offer to {el.userThatGetsOffer.name}</MDBCardText>
+                                        <MDBBtnGroup className="d-block text-center">
+                                            <MDBBtn
+                                                className="ml-3"
+                                                color="danger"
+                                                onClick={ev => this.handleCancel(ev, el._id)}
+                                                disabled={false}
+                                            >
+                                                Cancel
+                                            </MDBBtn>
+                                        </MDBBtnGroup>
+                                    </MDBCardBody>
+                                </MDBCard>
+                            );
+                        })}
+                    </MDBCol>
+                </MDBRow>
+            );
+        }
         return (
             <MDBRow center className="mt-3">
-                <h2>Swap offers sent:</h2>
-                <MDBCol md="6">
-                    {props.sent.map(el => {
-                        return (
-                            <MDBCard key={el._id} className="mt-3">
-                                <MDBCardBody>
-                                    <MDBCardText>
-                                        Give away
-                                        <Link to={`/books/${el.bookToOffer.parentBook}`}>
-                                            {' '}
-                                            '{el.bookToOffer.title}'{' '}
-                                        </Link>
-                                        <br /> and get
-                                        <Link to={`/books/${el.bookToGet.parentBook}`}> '{el.bookToGet.title}' </Link>
-                                    </MDBCardText>
-                                    <MDBCardText>Offer to {el.userThatGetsOffer.name}</MDBCardText>
-                                    <MDBBtnGroup className="d-block text-center">
-                                        <MDBBtn
-                                            className="ml-3"
-                                            color="danger"
-                                            onClick={() => props.handleCancel(`${el._id}`)}
-                                        >
-                                            Cancel
-                                        </MDBBtn>
-                                    </MDBBtnGroup>
-                                </MDBCardBody>
-                            </MDBCard>
-                        );
-                    })}
-                </MDBCol>
+                <h2>No swaps offers sent.</h2>
             </MDBRow>
         );
     }
-    return (
-        <MDBRow center className="mt-3">
-            <h2>No swaps offers sent.</h2>
-        </MDBRow>
-    );
-};
-export default NotificationSent;
+}
