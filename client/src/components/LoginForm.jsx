@@ -1,72 +1,81 @@
-import React from 'react';
-import { MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import React, { Component } from 'react';
+import { MDBCard } from 'mdbreact';
 import axios from '../utils/axios';
-import { useFormik } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-const LoginForm = props => {
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-        },
-        onSubmit: () => {
-            axios
-                .post('users/login', {
-                    email: formik.values.email,
-                    password: formik.values.password,
-                })
-                .then(function(response) {
-                    console.log('Logged in successfully');
-                    const token = response.data.token;
-                    props.loginHandler(token);
-                    props.history.push('/');
-                })
-                .catch(function(error) {
-                    console.log(error.response.data);
-                });
-
-            //DODAĆ PRZEJŚCIE NA STRONĘ Z KTÓREJ PRZEKIEROWAŁO NA LOGOWANIE
-        },
-    });
-    return (
-        <MDBCard>
-            <MDBCardBody>
-                <form onSubmit={formik.handleSubmit}>
-                    <p className="h4 text-center mb-4">Sign in</p>
-                    <label htmlFor="email" className="grey-text">
-                        Your email
-                    </label>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                        required
+export default class LoginForm extends Component {
+    render() {
+        return (
+            <MDBCard>
+                <Formik>
+                    <Formik
+                        initialValues={{
+                            email: '',
+                            password: '',
+                            props: this.props,
+                        }}
+                        validationSchema={Yup.object().shape({
+                            email: Yup.string()
+                                .email('Email is invalid')
+                                .required('Email is required'),
+                            password: Yup.string()
+                                .min(5, 'Password must be at least 6 characters')
+                                .required('Password is required'),
+                        })}
+                        onSubmit={fields => {
+                            axios
+                                .post('users/login', {
+                                    email: fields.email,
+                                    password: fields.password,
+                                })
+                                .then(function(response) {
+                                    const token = response.data.token;
+                                    fields.props.loginHandler(token);
+                                    fields.props.history.push('/');
+                                })
+                                .catch(function(error) {
+                                    console.log(error);
+                                });
+                        }}
+                        render={({ errors, status, touched }) => (
+                            <Form className="pl-4 pr-4 pt-4">
+                                <h4 className="text-center">Sign in</h4>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <Field
+                                        name="email"
+                                        type="text"
+                                        className={
+                                            'form-control' + (errors.email && touched.email ? ' is-invalid' : '')
+                                        }
+                                    />
+                                    <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Password</label>
+                                    <Field
+                                        name="password"
+                                        type="password"
+                                        className={
+                                            'form-control' + (errors.password && touched.password ? ' is-invalid' : '')
+                                        }
+                                    />
+                                    <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <button type="submit" className="btn btn-primary mr-2">
+                                        Login
+                                    </button>
+                                    <button type="reset" className="btn btn-secondary">
+                                        Reset
+                                    </button>
+                                </div>
+                            </Form>
+                        )}
                     />
-                    <br />
-                    <label htmlFor="password" className="grey-text">
-                        Your password
-                    </label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
-                        required
-                    />
-                    <div className="text-center mt-4">
-                        <MDBBtn color="indigo" type="submit">
-                            Login
-                        </MDBBtn>
-                    </div>
-                </form>
-            </MDBCardBody>
-        </MDBCard>
-    );
-};
-
-export default LoginForm;
+                </Formik>
+            </MDBCard>
+        );
+    }
+}
