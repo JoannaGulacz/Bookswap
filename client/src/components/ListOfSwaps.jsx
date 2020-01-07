@@ -10,7 +10,7 @@ const List = ({ list, filter }) => {
     ) {
         return (
             <MDBRow center>
-                <MDBCol md="6" className="mt-2" style={{ textAlign: 'center' }}>
+                <MDBCol md="6" style={{ textAlign: 'center' }}>
                     No results.
                 </MDBCol>
             </MDBRow>
@@ -22,12 +22,12 @@ const List = ({ list, filter }) => {
                     .filter(el => el[0].title.toLowerCase().indexOf(filter.toLowerCase()) >= 0)
                     .map((el, index) => {
                         return (
-                            <MDBCol md="6" lg="4" className="mb-2" key={index}>
+                            <MDBCol md="6" className="mb-2" key={index}>
                                 <MDBCard>
                                     <MDBCardBody>
                                         <MDBCardTitle>{el[0].title}</MDBCardTitle>
                                         <hr />
-                                        <MDBCardText>number of copies to swap: {el.length}</MDBCardText>
+                                        <MDBCardText>number of copies available to swap: {el.length}</MDBCardText>
                                         <MDBCardText>
                                             <Link to={`/swap/${el[0].parentBook}`}>see details >></Link>
                                         </MDBCardText>

@@ -47,11 +47,6 @@ import AddReview from './AddReview';
 //Powiadomienia
 import Notification from './Notification';
 
-// <Switch> powoduje że renderowany jest tylko jeden komonent (pierwszy który pasuje do ścieżki)
-
-// exact wymusza dokładne porównanie ścieżek (domyślnie jest wyłączone)
-// brak exact w testowym home roucie sprawiłby, że route /test odnosiłby się do obu komponentów (zawiera zaróno / jak i /test)
-
 class Root extends React.Component {
     state = {
         isLogged: false,
@@ -97,7 +92,9 @@ class Root extends React.Component {
 
                     <Switch>
                         <Route path="/" exact component={Main} />
-                        <Route path="/swap" component={Swap} />
+                        <Route path="/swap" exact component={Swap} />
+                        <Route path="/swap/:id" component={SwapDetails} />
+                        <Route path="/notifications" component={Notification} />
                         <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
                         <Route path="/books" exact component={Books} />
                         <Route path="/books/:_id" component={Book} />

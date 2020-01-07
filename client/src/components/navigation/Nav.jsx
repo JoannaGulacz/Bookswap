@@ -1,35 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { MDBNavItem, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
+
+import NavLink from './NavLink';
+import SearchDropdown from './SearchDropdown';
+import SearchLink from './SearchLink';
+import NavContainer from './NavContainer';
 
 const Nav = () => {
     return (
-        <ul className="nav grey lighten-4 py-2 h-100 d-flex justify-content-center align-items-center">
-            <Link to="/">
-                <li className="nav-item">
-                    <span className="nav-link">Home</span>
-                </li>
-            </Link>
-            <Link to="/swap">
-                <li className="nav-item">
-                    <span className="nav-link">Books to swap</span>
-                </li>
-            </Link>
+        <NavContainer>
+            <NavLink route="/" name="Home" />
+            <NavLink route="/swap" name="Books to swap" />
 
-            <MDBNavItem>
-                <MDBDropdown>
-                    <MDBDropdownToggle nav caret>
-                        <span className="mr-2">Search</span>
-                    </MDBDropdownToggle>
-                    <MDBDropdownMenu>
-                        <MDBDropdownItem href="/books">Books</MDBDropdownItem>
-                        <MDBDropdownItem href="/authors">Authors</MDBDropdownItem>
-                        <MDBDropdownItem href="/publishers">Publishers</MDBDropdownItem>
-                        <MDBDropdownItem href="categories">Categories</MDBDropdownItem>
-                    </MDBDropdownMenu>
-                </MDBDropdown>
-            </MDBNavItem>
-        </ul>
+            <SearchDropdown>
+                <SearchLink route="/books" name="Books" />
+                <SearchLink route="/authors" name="Authors" />
+                <SearchLink route="/publishers" name="Publishers" />
+                <SearchLink route="/categories" name="Categories" />
+            </SearchDropdown>
+        </NavContainer>
     );
 };
 

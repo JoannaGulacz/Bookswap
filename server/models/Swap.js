@@ -21,6 +21,11 @@ const swapSchema = new mongoose.Schema(
             ref: 'Bookcase',
             required: true,
         },
+        userThatGetsOffer: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
     },
     {
         toJSON: {
