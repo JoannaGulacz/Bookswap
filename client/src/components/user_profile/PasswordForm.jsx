@@ -17,7 +17,7 @@ const PasswordForm = props => {
                         currentPassword: formik.values.currentPassword,
                         newPassword: formik.values.newPassword,
                     })
-                    .then(res => {
+                    .then(() => {
                         console.log('Password changed successfully');
                         props.history.push('/users/me');
                         document.getElementById('password-msg').innerHTML =

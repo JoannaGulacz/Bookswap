@@ -54,6 +54,8 @@ class Root extends React.Component {
     state = {
         isLogged: false,
         userName: '',
+        role: '',
+        email: '',
     };
 
     componentDidMount() {
@@ -65,7 +67,7 @@ class Root extends React.Component {
 
     getUser = async () => {
         const user = await axios.get('/users/me');
-        this.setState({ userName: user.data.data.name });
+        this.setState({ userName: user.data.data.name, role: user.data.data.role, email: user.data.data.email });
     };
 
     loginHandler = token => {
@@ -108,7 +110,17 @@ class Root extends React.Component {
                     <Route path="/addbookcase" component={AddBookcase} />
                     <Route path="/reviews" exact component={Reviews} />
                     <Route path="/addreview" component={AddReview} />
-                    <Route path="/users/me">{this.state.isLogged ? <UserProfile /> : <Redirect to="/" />}</Route>
+                    <Route path="/users/me">
+                        {this.state.isLogged ? (
+                            <UserProfile
+                                userName={this.state.userName}
+                                role={this.state.role}
+                                email={this.state.email}
+                            />
+                        ) : (
+                            <Redirect to="/" />
+                        )}
+                    </Route>
                 </Switch>
             </Router>
         );
