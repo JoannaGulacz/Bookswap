@@ -5,6 +5,7 @@ import axios from '../utils/axios';
 
 //nawigacja
 import Menu from '../components/navigation/Menu';
+import FooterPage from '../components/navigation/Footer';
 
 //użytkownik
 import UserMenu from '../components/user_profile/UserMenu';
@@ -86,7 +87,7 @@ class Root extends React.Component {
     render() {
         return (
             <Router>
-                <MDBContainer>
+                <MDBContainer style={{ maxWidth: '100%', padding: '0' }}>
                     <Menu>
                         <UserMenu
                             isLogged={this.state.isLogged}
@@ -97,7 +98,8 @@ class Root extends React.Component {
 
                     <Switch>
                         <Route path="/" exact component={Main} />
-                        <Route path="/swap" component={Swap} />
+                        <Route path="/swap" exact component={Swap} />
+                        <Route path="/swap/:id" component={SwapDetails} />
                         <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
                         <Route path="/books" exact component={Books} />
                         <Route path="/books/:_id" component={Book} />
@@ -112,7 +114,8 @@ class Root extends React.Component {
                         <Route path="/bookcases" exact component={Bookcases} />
                         <Route path="/addbookcase" component={AddBookcase} />
                         <Route path="/reviews" exact component={Reviews} />
-                        <Route path="/addreview" component={AddReview} />
+                        <Route path="/addreview/:id" component={AddReview} />
+                        <Route path="/notifications" component={Notification} />
                         <Route path="/users/me">
                             {this.state.isLogged ? (
                                 <UserProfile
@@ -125,6 +128,8 @@ class Root extends React.Component {
                             )}
                         </Route>
                     </Switch>
+
+                    <FooterPage />
                 </MDBContainer>
             </Router>
         );

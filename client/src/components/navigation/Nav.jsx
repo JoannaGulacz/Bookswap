@@ -25,7 +25,7 @@ const Nav = () => {
                         <MDBDropdownItem href="/books">Books</MDBDropdownItem>
                         <MDBDropdownItem href="/authors">Authors</MDBDropdownItem>
                         <MDBDropdownItem href="/publishers">Publishers</MDBDropdownItem>
-                        <MDBDropdownItem href="categories">Categories</MDBDropdownItem>
+                        <MDBDropdownItem href="/categories">Categories</MDBDropdownItem>
                     </MDBDropdownMenu>
                 </MDBDropdown>
             </MDBNavItem>

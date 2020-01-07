@@ -13,11 +13,14 @@ const Menu = props => {
                 </MDBCol>
             </MDBRow>
             <MDBRow className="mt-1 mb-4">
-                <MDBCol md="10">
-                    <Nav />
+                <MDBCol
+                    className="position-absolute"
+                    style={{ position: 'fixed', right: '0px', top: '15px', zIndex: '1000' }}
+                >
+                    {props.children}
                 </MDBCol>
-                <MDBCol md="2">
-                    <div className="text-center">{props.children}</div>
+                <MDBCol md="12">
+                    <Nav />
                 </MDBCol>
             </MDBRow>
         </div>

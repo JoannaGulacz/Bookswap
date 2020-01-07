@@ -4,7 +4,7 @@ import { MDBRow, MDBContainer, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCa
 const Main = () => {
     return (
         <MDBContainer>
-            <MDBRow style={{ margin: '20px auto', textAlign: 'center' }}>
+            <MDBRow style={{ margin: '20px auto', textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
                 <MDBCol lg="8">
                     <MDBCard>
                         <MDBCardBody>
@@ -18,7 +18,7 @@ const Main = () => {
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
-            <MDBRow style={{ margin: '20px auto', textAlign: 'center' }}>
+            <MDBRow style={{ margin: '20px auto', textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
                 <MDBCol lg="8">
                     <MDBCard>
                         <MDBCardBody>
@@ -29,7 +29,7 @@ const Main = () => {
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
-            <MDBRow style={{ margin: '20px auto', textAlign: 'center' }}>
+            <MDBRow style={{ margin: '20px auto', textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
                 <MDBCol lg="8">
                     <MDBCard>
                         <MDBCardBody>

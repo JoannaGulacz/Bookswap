@@ -320,7 +320,7 @@ router.post(
             // Check if offered book is user's property
             if (offerBook.owner.toString() === req.user.id) {
                 req.body.bookToGet = req.params.bookcaseId;
-
+                req.body.userThatGetsOffer = getBook.owner;
                 const swap = await Swap.create(req.body);
 
                 res.status(201).json({

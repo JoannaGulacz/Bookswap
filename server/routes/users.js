@@ -65,7 +65,6 @@ router.get(
     '/me',
     protect,
     asyncHandler(async (req, res, next) => {
-        console.log('Zalogowany user: ', req.user);
         const user = await User.findById(req.user.id).populate([
             {
                 path: 'reviews',
@@ -200,7 +199,6 @@ router.put(
     '/me/updatepassword',
     protect,
     asyncHandler(async (req, res, next) => {
-        console.log(req);
         const user = await User.findById(req.user.id).select('+password');
 
         // Check current password
@@ -233,7 +231,6 @@ router.delete(
 
 // Get token from model, create and send response
 const sendTokenResponse = (user, statusCode, res) => {
-    console.log('Create token');
     const token = user.getSignedJWT();
 
     res.status(statusCode).json({

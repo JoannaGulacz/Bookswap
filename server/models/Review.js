@@ -9,7 +9,7 @@ const reviewSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: true,
+        //required: true,
     },
     content: {
         type: String,
@@ -49,8 +49,8 @@ function validateReview(review) {
     const schema = Joi.object({
         title: Joi.string()
             .min(5)
-            .max(255)
-            .required(),
+            .max(255),
+        //.required(),
         content: Joi.string()
             .max(500)
             .required(),

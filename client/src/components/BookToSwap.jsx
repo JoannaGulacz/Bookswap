@@ -8,7 +8,7 @@ const BookToSwap = props => {
         return (
             <MDBContainer>
                 <MDBRow center>
-                    <MDBCol className="mb-2">
+                    <MDBCol md="6" className="mb-4">
                         <MDBCard>
                             <MDBCardBody>
                                 <MDBCardTitle>{props.book.title}</MDBCardTitle>
@@ -28,7 +28,7 @@ const BookToSwap = props => {
                                     </Link>{' '}
                                     <br />
                                     rating: {props.book._rating}/5 <br />
-                                    number of copies: {props.bookcases.length}
+                                    number of copies available: {props.bookcases.length}
                                 </MDBCardText>
                             </MDBCardBody>
                         </MDBCard>

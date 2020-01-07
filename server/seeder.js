@@ -15,6 +15,7 @@ const Author = require('./models/Author');
 const Category = require('./models/Category');
 const Review = require('./models/Review');
 const User = require('./models/User');
+const Swap = require('./models/Swap');
 
 // Connect to DB
 mongoose.connect(process.env.DB_URI, {
@@ -60,6 +61,7 @@ const deleteData = async () => {
         await Category.deleteMany();
         await Review.deleteMany();
         await User.deleteMany();
+        await Swap.deleteMany();
         console.log('Data Destroyed...');
         process.exit();
     } catch (err) {
