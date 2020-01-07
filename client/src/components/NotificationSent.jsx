@@ -12,7 +12,9 @@ export default class NotificationSent extends Component {
 
         this.handleCancel.bind(this);
         this.getSwaps.bind(this);
+    }
 
+    componentDidMount() {
         this.getSwaps();
     }
 
@@ -59,7 +61,7 @@ export default class NotificationSent extends Component {
                                         <MDBCardText>Offer to {el.userThatGetsOffer.name}</MDBCardText>
                                         <MDBBtnGroup className="d-block text-center">
                                             <MDBBtn
-                                                className="ml-3"
+                                                className="ml-3 w-50"
                                                 color="danger"
                                                 onClick={ev => this.handleCancel(ev, el._id)}
                                                 disabled={false}
@@ -77,7 +79,7 @@ export default class NotificationSent extends Component {
         }
         return (
             <MDBRow center className="mt-3">
-                <h2>No swaps offers sent.</h2>
+                <h2 style={{ textAlign: 'center' }}>No swaps offers sent.</h2>
             </MDBRow>
         );
     }

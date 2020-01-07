@@ -87,7 +87,6 @@ export default class ReviewsForm extends Component {
         axios
             .get('http://localhost:5000/api/reviews/' + id)
             .then(response => {
-                console.log(response.data);
                 this.setState({
                     title: response.data.data.book.title,
                 });

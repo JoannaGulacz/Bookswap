@@ -1,6 +1,5 @@
 const express = require('express');
 const asyncHandler = require('../middleware/async');
-const Bookcase = require('../models/Bookcase');
 const Swap = require('../models/Swap');
 const router = express.Router();
 const { protect } = require('../middleware/auth');

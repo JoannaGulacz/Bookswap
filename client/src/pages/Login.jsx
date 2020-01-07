@@ -8,11 +8,11 @@ const Login = props => {
         <>
             <MDBContainer>
                 <MDBRow>
-                    <MDBCol size="6">
+                    <MDBCol md="6" className="mb-3">
                         <LoginForm {...props} />
                     </MDBCol>
 
-                    <MDBCol size="6">
+                    <MDBCol md="6">
                         <RegisterForm {...props} />
                     </MDBCol>
                 </MDBRow>

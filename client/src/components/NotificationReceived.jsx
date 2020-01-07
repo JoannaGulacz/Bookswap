@@ -13,7 +13,9 @@ export default class NotificationReceived extends Component {
         this.handleAccept.bind(this);
         this.handleRefuse.bind(this);
         this.getSwaps.bind(this);
+    }
 
+    componentDidMount() {
         this.getSwaps();
     }
 
@@ -71,14 +73,14 @@ export default class NotificationReceived extends Component {
                                         <MDBCardText>Offer from {el.user.name}</MDBCardText>
                                         <MDBBtnGroup className="d-block text-center">
                                             <MDBBtn
-                                                className="mr-3"
+                                                className="mr-3 w-40"
                                                 color="success"
                                                 onClick={ev => this.handleAccept(ev, el)}
                                             >
                                                 Accept
                                             </MDBBtn>
                                             <MDBBtn
-                                                className="ml-3"
+                                                className="ml-3 w-40"
                                                 color="danger"
                                                 onClick={ev => this.handleRefuse(ev, el._id)}
                                             >
@@ -95,7 +97,7 @@ export default class NotificationReceived extends Component {
         }
         return (
             <MDBRow center>
-                <h2>No swaps offers received.</h2>
+                <h2 style={{ textAlign: 'center' }}>No swaps offers received.</h2>
             </MDBRow>
         );
     }
