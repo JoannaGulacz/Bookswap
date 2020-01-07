@@ -7,12 +7,12 @@ import Logo from '../logo/Logo';
 const Menu = props => {
     return (
         <div>
-            <MDBRow className="align-items-center mt-2">
+            <MDBRow className="align-items-center mt-2 ">
                 <MDBCol md="12">
                     <Logo title="BOOKSWAP" />
                 </MDBCol>
             </MDBRow>
-            <MDBRow className="mt-1 mb-4">
+            <MDBRow className="mt-2 mb-4">
                 <MDBCol md="10">
                     <Nav />
                 </MDBCol>
