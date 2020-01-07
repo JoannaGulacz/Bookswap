@@ -32,6 +32,7 @@ import Categories from './Categories';
 import Category from './Category';
 
 import Swap from './Swap';
+import SwapDetails from './SwapDetails';
 
 import Main from './Home/Main';
 

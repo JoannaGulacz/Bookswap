@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from '../utils/axios';
 import { useFormik } from 'formik';
 
@@ -39,72 +39,70 @@ const RegisterForm = props => {
         },
     });
     return (
-        <MDBCol md="6">
-            <MDBCard>
-                <MDBCardBody>
-                    <form onSubmit={formik.handleSubmit}>
-                        <p className="h4 text-center mb-4">Sign up</p>
-                        <label htmlFor="name" className="grey-text">
-                            Your name
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            className="form-control"
-                            onChange={formik.handleChange}
-                            value={formik.values.name}
-                            required
-                        />
-                        <br />
-                        <label htmlFor="email" className="grey-text">
-                            Your email
-                        </label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="emailForReg"
-                            className="form-control"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                            required
-                        />
-                        <br />
-                        <label htmlFor="password" className="grey-text">
-                            Your password
-                        </label>
-                        <input
-                            type="password"
-                            name="password"
-                            id="passwordForReg"
-                            className="form-control"
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
-                            required
-                        />
-                        <br />
-                        <label htmlFor="defaultFormRegisterConfirmEx" className="grey-text">
-                            Confirm your password
-                            <span id="validationIcon"></span>
-                        </label>
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            id="confirmPassword"
-                            className="form-control"
-                            onChange={formik.handleChange}
-                            value={formik.values.confirmPassword}
-                            required
-                        />
-                        <div className="text-center mt-4">
-                            <MDBBtn color="indigo" type="submit">
-                                Register
-                            </MDBBtn>
-                        </div>
-                    </form>
-                </MDBCardBody>
-            </MDBCard>
-        </MDBCol>
+        <MDBCard>
+            <MDBCardBody>
+                <form onSubmit={formik.handleSubmit}>
+                    <p className="h4 text-center mb-4">Sign up</p>
+                    <label htmlFor="name" className="grey-text">
+                        Your name
+                    </label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        className="form-control"
+                        onChange={formik.handleChange}
+                        value={formik.values.name}
+                        required
+                    />
+                    <br />
+                    <label htmlFor="email" className="grey-text">
+                        Your email
+                    </label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="emailForReg"
+                        className="form-control"
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                        required
+                    />
+                    <br />
+                    <label htmlFor="password" className="grey-text">
+                        Your password
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="passwordForReg"
+                        className="form-control"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        required
+                    />
+                    <br />
+                    <label htmlFor="defaultFormRegisterConfirmEx" className="grey-text">
+                        Confirm your password
+                        <span id="validationIcon"></span>
+                    </label>
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        className="form-control"
+                        onChange={formik.handleChange}
+                        value={formik.values.confirmPassword}
+                        required
+                    />
+                    <div className="text-center mt-4">
+                        <MDBBtn color="indigo" type="submit">
+                            Register
+                        </MDBBtn>
+                    </div>
+                </form>
+            </MDBCardBody>
+        </MDBCard>
     );
 };
 export default RegisterForm;

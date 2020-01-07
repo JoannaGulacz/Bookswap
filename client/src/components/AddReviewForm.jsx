@@ -4,9 +4,22 @@ import axios from '../utils/axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 
 class Reviews extends Component {
-    state = {
-        radio: 4,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            radio: 4,
+            title: '',
+        };
+        console.log(this.props._id);
+        axios
+            .get('http://localhost:5000/api/books/' + this.props._id)
+            .then(response => {
+                this.setState({ title: response.data.data.title });
+            })
+            .catch(function(error) {
+                console.log(error.response.data);
+            });
+    }
 
     onClick = nr => () => {
         this.setState({
@@ -26,18 +39,19 @@ class Reviews extends Component {
                                     content: '',
                                 }}
                                 onSubmit={fields => {
-                                    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4));
                                     axios
                                         .post('reviews', {
-                                            title: fields.title,
+                                            title: this.state.title,
                                             rating: fields.rating,
                                             content: fields.content,
                                         })
                                         .then(function(response) {
                                             console.log(response);
+                                            alert('Review added');
                                         })
                                         .catch(function(error) {
                                             console.log(error.response.data);
+                                            alert('Review not added');
                                         });
                                 }}
                                 render={({ errors, status, touched }) => (
@@ -50,6 +64,8 @@ class Reviews extends Component {
                                             <Field
                                                 name="title"
                                                 type="text"
+                                                value={this.state.title}
+                                                disabled
                                                 className={
                                                     'form-control' +
                                                     (errors.firstName && touched.firstName ? ' is-invalid' : '')

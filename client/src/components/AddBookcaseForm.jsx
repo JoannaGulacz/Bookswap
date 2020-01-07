@@ -13,8 +13,6 @@ const AddBookcase = () => {
             change: false,
         },
         onSubmit: values => {
-            // alert(JSON.stringify(values, null, 2));
-            // alert(formik.values.title);
             axios
                 .post('bookcases', {
                     title: formik.values.title,
@@ -24,10 +22,10 @@ const AddBookcase = () => {
                     change: formik.values.change,
                 })
                 .then(function(response) {
-                    console.log(response);
+                    alert('Bookcase added');
                 })
                 .catch(function(error) {
-                    console.log(error.response.data);
+                    alert('Bookcase not added');
                 });
         },
     });
