@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { MDBContainer } from 'mdbreact';
 import axios from '../utils/axios';
 
 //nawigacja
@@ -85,45 +86,46 @@ class Root extends React.Component {
     render() {
         return (
             <Router>
-                <Menu>
-                    <UserMenu
-                        isLogged={this.state.isLogged}
-                        userName={this.state.userName}
-                        logoutHandler={this.logoutHandler}
-                    />
-                </Menu>
+                <MDBContainer>
+                    <Menu>
+                        <UserMenu
+                            isLogged={this.state.isLogged}
+                            userName={this.state.userName}
+                            logoutHandler={this.logoutHandler}
+                        />
+                    </Menu>
 
-                <Switch>
-                    <Route path="/" exact component={Main} />
-                    <Route path="/swap" exact component={Swap} />
-                    <Route path="/swap/:id" component={SwapDetails} />
-                    <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
-                    <Route path="/books" exact component={Books} />
-                    <Route path="/books/:_id" component={Book} />
-                    <Route path="/authors" exact component={Authors} />
-                    <Route path="/authors/:_id" component={Author} />
-                    <Route path="/addauthor/" component={AddAuthor} />
-                    <Route path="/publishers" exact component={Publishers} />
-                    <Route path="/publishers/:_id" component={Publisher} />
-                    <Route path="/categories" exact component={Categories} />
-                    <Route path="/categories/:_id" component={Category} />
-                    <Route path="/addbook/" component={AddBook} />
-                    <Route path="/bookcases" exact component={Bookcases} />
-                    <Route path="/addbookcase" component={AddBookcase} />
-                    <Route path="/reviews" exact component={Reviews} />
-                    <Route path="/addreview/:_id" component={AddReview} />
-                    <Route path="/users/me">
-                        {this.state.isLogged ? (
-                            <UserProfile
-                                userName={this.state.userName}
-                                role={this.state.role}
-                                email={this.state.email}
-                            />
-                        ) : (
-                            <Redirect to="/" />
-                        )}
-                    </Route>
-                </Switch>
+                    <Switch>
+                        <Route path="/" exact component={Main} />
+                        <Route path="/swap" component={Swap} />
+                        <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
+                        <Route path="/books" exact component={Books} />
+                        <Route path="/books/:_id" component={Book} />
+                        <Route path="/authors" exact component={Authors} />
+                        <Route path="/authors/:_id" component={Author} />
+                        <Route path="/addauthor/" component={AddAuthor} />
+                        <Route path="/publishers" exact component={Publishers} />
+                        <Route path="/publishers/:_id" component={Publisher} />
+                        <Route path="/categories" exact component={Categories} />
+                        <Route path="/categories/:_id" component={Category} />
+                        <Route path="/addbook/" component={AddBook} />
+                        <Route path="/bookcases" exact component={Bookcases} />
+                        <Route path="/addbookcase" component={AddBookcase} />
+                        <Route path="/reviews" exact component={Reviews} />
+                        <Route path="/addreview" component={AddReview} />
+                        <Route path="/users/me">
+                            {this.state.isLogged ? (
+                                <UserProfile
+                                    userName={this.state.userName}
+                                    role={this.state.role}
+                                    email={this.state.email}
+                                />
+                            ) : (
+                                <Redirect to="/" />
+                            )}
+                        </Route>
+                    </Switch>
+                </MDBContainer>
             </Router>
         );
     }
