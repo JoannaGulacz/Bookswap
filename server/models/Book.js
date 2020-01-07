@@ -60,12 +60,6 @@ function validateBook(bookData) {
             .min(3)
             .max(250)
             .required(),
-        // category: Joi.array().items(
-        //     Joi.string()
-        //         .min(3)
-        //         .max(250)
-        //         .required()
-        // ),
     });
 
     return schema.validate(bookData);
@@ -76,16 +70,9 @@ function getAverageRating(arrayOfReviewObjects) {
     for (let i = 0; i < arrayOfReviewObjects.length; i++) {
         sumOfRatings += arrayOfReviewObjects[i].rating;
     }
-    return sumOfRatings / arrayOfReviewObjects.length;
+    return Math.ceil((sumOfRatings / arrayOfReviewObjects.length) * 10) / 10;
 }
 
-/*
-testSchema.pre('save', function(next) {
-    this.test = this.test.toLowerCase()
-    next();
-});
-*/
-// Reverse populate with virtuals
 bookSchema.virtual('bookcases', {
     ref: 'Bookcase',
     localField: '_id',

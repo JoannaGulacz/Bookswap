@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from '../utils/axios';
-import { MDBBtn, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
+import { MDBBtn, MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
 
@@ -18,9 +18,11 @@ export default class FormToOfferSwap extends Component {
         this.handleBookOnChange.bind(this);
         this.handleSubmit.bind(this);
         this.getSwaps.bind(this);
-        this.getSwaps();
     }
 
+    componentDidMount() {
+        this.getSwaps();
+    }
     getSwaps = async () => {
         await axios
             .get(`/swaps/sent`, { user: this.props.user.id })
@@ -35,8 +37,6 @@ export default class FormToOfferSwap extends Component {
     };
 
     updateButton = () => {
-        console.log(this.state.bookToGet);
-        console.log(this.state.bookToOffer);
         if (this.state.bookToGet.length === 0) {
             this.setState({ isDisabled: true, buttonText: 'invalid' });
         } else {
@@ -48,7 +48,7 @@ export default class FormToOfferSwap extends Component {
                 }
             });
             this.state.swaps.filter(el => {
-                if (el.bookToGet === this.state.bookToGet && el.bookToOffer === this.state.bookToOffer)
+                if (el.bookToGet._id === this.state.bookToGet && el.bookToOffer._id === this.state.bookToOffer)
                     this.setState({ isDisabled: true, buttonText: 'offer sent' });
             });
         }
@@ -84,7 +84,7 @@ export default class FormToOfferSwap extends Component {
     render() {
         if (this.props.booksToOffer.length > 0) {
             return (
-                <MDBCol className="mb-2" style={{ textAlignLast: 'center' }}>
+                <MDBCol md="9" className="mb-2" style={{ textAlignLast: 'center' }}>
                     <MDBCard>
                         <MDBCardBody>
                             <form onSubmit={this.handleSubmit} style={{ textAlignLast: 'center' }}>
@@ -136,7 +136,7 @@ export default class FormToOfferSwap extends Component {
         }
         return (
             <MDBRow center>
-                <MDBCol md="6" className="mt-2" style={{ textAlign: 'center' }}>
+                <MDBCol className="mt-2" style={{ textAlign: 'center' }}>
                     You have no books to offer.
                     <br />
                     <Link to={`../../addbookcase`}>Try to add some first</Link>

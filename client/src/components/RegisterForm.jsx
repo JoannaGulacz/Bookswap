@@ -1,108 +1,110 @@
-import React from 'react';
-import { MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import React, { Component } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { MDBCard } from 'mdbreact';
 import axios from '../utils/axios';
-import { useFormik } from 'formik';
 
-const RegisterForm = props => {
-    const formik = useFormik({
-        initialValues: {
-            name: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-        },
-        onSubmit: () => {
-            //if (formik.values.password === formik.values.confirmPassword) {
-            document.getElementById('validationIcon').innerHTML = '<i class="ml-1 far fa-check-circle text-success">';
-            axios
-                .post('users/register', {
-                    name: formik.values.name,
-                    email: formik.values.email,
-                    password: formik.values.password,
-                    role: 'user',
-                })
-                .then(function(response) {
-                    const token = response.data.token;
-                    props.loginHandler(token);
-                    props.history.push('/users/me');
-                })
-                .catch(function(error) {
-                    console.log(error.response.data);
-                });
-
-            //DODAĆ PRZEJŚCIE DO STRONY O MNIE
-            // }
-            // else {
-            //     document.getElementById('validationIcon').innerHTML =
-            //         '<i class="ml-1 far fa-times-circle text-danger"></i>';
-            // }
-        },
-    });
-    return (
-        <MDBCard>
-            <MDBCardBody>
-                <form onSubmit={formik.handleSubmit}>
-                    <p className="h4 text-center mb-4">Sign up</p>
-                    <label htmlFor="name" className="grey-text">
-                        Your name
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.name}
-                        required
+export default class RegisterForm extends Component {
+    render() {
+        return (
+            <MDBCard>
+                <Formik>
+                    <Formik
+                        initialValues={{
+                            name: '',
+                            email: '',
+                            password: '',
+                            confirmPassword: '',
+                            props: this.props,
+                        }}
+                        validationSchema={Yup.object().shape({
+                            name: Yup.string().required('Name is required'),
+                            email: Yup.string()
+                                .email('Email is invalid')
+                                .required('Email is required'),
+                            password: Yup.string()
+                                .min(5, 'Password must be at least 6 characters')
+                                .required('Password is required'),
+                            confirmPassword: Yup.string()
+                                .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                                .required('Confirm Password is required'),
+                        })}
+                        onSubmit={fields => {
+                            axios
+                                .post('users/register', {
+                                    name: fields.name,
+                                    email: fields.email,
+                                    password: fields.password,
+                                    role: 'user',
+                                })
+                                .then(function(response) {
+                                    const token = response.data.token;
+                                    fields.props.loginHandler(token);
+                                    fields.props.history.push('/users/me');
+                                })
+                                .catch(function(error) {
+                                    console.log(error);
+                                });
+                        }}
+                        render={({ errors, status, touched }) => (
+                            <Form className="pl-4 pr-4 pt-4">
+                                <h4 className="text-center">Sign up</h4>
+                                <div className="form-group">
+                                    <label htmlFor="name">Name</label>
+                                    <Field
+                                        name="name"
+                                        type="text"
+                                        className={'form-control' + (errors.name && touched.name ? ' is-invalid' : '')}
+                                    />
+                                    <ErrorMessage name="name" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <Field
+                                        name="email"
+                                        type="text"
+                                        className={
+                                            'form-control' + (errors.email && touched.email ? ' is-invalid' : '')
+                                        }
+                                    />
+                                    <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Password</label>
+                                    <Field
+                                        name="password"
+                                        type="password"
+                                        className={
+                                            'form-control' + (errors.password && touched.password ? ' is-invalid' : '')
+                                        }
+                                    />
+                                    <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="confirmPassword">Confirm Password</label>
+                                    <Field
+                                        name="confirmPassword"
+                                        type="password"
+                                        className={
+                                            'form-control' +
+                                            (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')
+                                        }
+                                    />
+                                    <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <button type="submit" className="btn btn-primary mr-2">
+                                        Register
+                                    </button>
+                                    <button type="reset" className="btn btn-secondary">
+                                        Reset
+                                    </button>
+                                </div>
+                            </Form>
+                        )}
                     />
-                    <br />
-                    <label htmlFor="email" className="grey-text">
-                        Your email
-                    </label>
-                    <input
-                        type="email"
-                        name="email"
-                        id="emailForReg"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                        required
-                    />
-                    <br />
-                    <label htmlFor="password" className="grey-text">
-                        Your password
-                    </label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="passwordForReg"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
-                        required
-                    />
-                    <br />
-                    <label htmlFor="defaultFormRegisterConfirmEx" className="grey-text">
-                        Confirm your password
-                        <span id="validationIcon"></span>
-                    </label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.confirmPassword}
-                        required
-                    />
-                    <div className="text-center mt-4">
-                        <MDBBtn color="indigo" type="submit">
-                            Register
-                        </MDBBtn>
-                    </div>
-                </form>
-            </MDBCardBody>
-        </MDBCard>
-    );
-};
-export default RegisterForm;
+                </Formik>
+            </MDBCard>
+        );
+    }
+}

@@ -1,7 +1,15 @@
 import React from 'react';
+import './Logo.css';
+
+import LogoContainer from './LogoContainer';
+import LogoTitle from './LogoTittle';
 
 const Logo = props => {
-    return <h1 className="text-center">{props.title}</h1>;
+    return (
+        <LogoContainer>
+            <LogoTitle {...props} />
+        </LogoContainer>
+    );
 };
 
 export default Logo;

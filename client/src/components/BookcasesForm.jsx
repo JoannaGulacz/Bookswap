@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBIcon, MDBBtn } from 'mdbreact';
+
 import {
     MDBCard,
     MDBCardBody,
     MDBCardTitle,
     MDBCardText,
-    MDBContainer,
     MDBModal,
     MDBModalBody,
     MDBModalFooter,
@@ -71,6 +71,7 @@ export default class BookcasesForm extends Component {
             modal: !this.state.modal,
             modalInfo: !this.state.modalInfo,
         });
+        axios.delete(`/swaps/bookcases/${this.state.bookcaseId}`).catch(error => console.log(error));
         axios
             .delete('http://localhost:5000/api/bookcases/' + this.state.bookcaseId)
             .then(() => {
@@ -94,7 +95,6 @@ export default class BookcasesForm extends Component {
         axios
             .get('http://localhost:5000/api/bookcases/' + id)
             .then(response => {
-                console.log(response.data);
                 this.setState({
                     title: response.data.data.title,
                 });
@@ -183,7 +183,7 @@ export default class BookcasesForm extends Component {
     render() {
         const ListOfBookcases = () => {
             return (
-                <MDBContainer className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                     <MDBCol md="12">
                         {this.state.bookcases.map((e, i) => {
                             return (
@@ -192,9 +192,13 @@ export default class BookcasesForm extends Component {
                                         <MDBCardBody>
                                             <MDBCardTitle>{e.title}</MDBCardTitle>
                                             <hr />
-                                            <MDBCardText>author: {e.parentBook.author.name}</MDBCardText>
-                                            <MDBCardText>publisher: {e.parentBook.publisher.name}</MDBCardText>
-                                            <MDBCardText>category: {e.parentBook.category.name}</MDBCardText>
+                                            <MDBCardText>
+                                                <strong>author:</strong> {e.parentBook.author.name}
+                                                <br />
+                                                <strong>publisher:</strong> {e.parentBook.publisher.name}
+                                                <br />
+                                                <strong>category:</strong> {e.parentBook.category.name}
+                                            </MDBCardText>
                                             <MDBCardText>
                                                 {e.change ? (
                                                     <strong>SWAP IS POSSIBLE</strong>
@@ -253,17 +257,12 @@ export default class BookcasesForm extends Component {
                         })}
                         ;
                     </MDBCol>
-                </MDBContainer>
+                </div>
             );
         };
         return (
-            <MDBContainer className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center">
                 <MDBCol md="6">
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MDBBtn rounded href="/addbookcase">
-                            Add new bookcase
-                        </MDBBtn>
-                    </div>
                     <hr />
                     <form
                         className="form-inline mt-4 mb-4"
@@ -341,7 +340,7 @@ export default class BookcasesForm extends Component {
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBCol>
-            </MDBContainer>
+            </div>
         );
     }
 }

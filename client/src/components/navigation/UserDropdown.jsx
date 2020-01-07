@@ -20,7 +20,7 @@ const UserDropdown = props => {
                     <Link to="/bookcases" style={{ color: 'black' }}>
                         <MDBDropdownItem>Your bookcases</MDBDropdownItem>
                     </Link>
-                    <Link to="/" style={{ color: 'black' }}>
+                    <Link to="/notifications" style={{ color: 'black' }}>
                         <MDBDropdownItem>Notifications</MDBDropdownItem>
                     </Link>
                     <MDBDropdownItem divider />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
+import { MDBCol, MDBRow, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
 import axios from 'axios';
 import { useFormik } from 'formik';
 
@@ -30,7 +30,7 @@ const AddBookcase = () => {
         },
     });
     return (
-        <MDBContainer className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
             <MDBCol md="6">
                 <MDBCard>
                     <MDBCardBody>
@@ -100,7 +100,7 @@ const AddBookcase = () => {
                     </MDBCardBody>
                 </MDBCard>
             </MDBCol>
-        </MDBContainer>
+        </div>
     );
 };
 

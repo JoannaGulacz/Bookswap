@@ -2,7 +2,7 @@ const express = require('express');
 const asyncHandler = require('../middleware/async');
 const Publisher = require('../models/Publisher');
 const router = express.Router();
-const { protect, authorize } = require('../middleware/auth');
+const { protect } = require('../middleware/auth');
 const Book = require('../models/Book');
 
 router.get(

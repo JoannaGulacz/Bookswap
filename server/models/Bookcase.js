@@ -10,7 +10,7 @@ const bookcaseSchema = new mongoose.Schema(
         },
         change: {
             type: Boolean,
-            default:false,
+            default: false,
         },
         title: {
             type: String,
@@ -41,19 +41,19 @@ function validateBookcase(bookcaseData) {
         title: Joi.string()
             .min(3)
             .max(250),
-            // .required(),
+        // .required(),
         author: Joi.string()
             .min(3)
             .max(250),
-            // .required(),
+        // .required(),
         publisher: Joi.string()
             .min(3)
             .max(250),
-            // .required(),
+        // .required(),
         category: Joi.string()
             .min(3)
             .max(250),
-            // .required(),
+        // .required(),
         // parentBook: Joi.string()
         //     .min(3)
         //     .max(250)
@@ -69,13 +69,6 @@ bookcaseSchema.virtual('swaps', {
     foreignField: 'bookToGet',
     justOne: false,
 });
-
-/*
-testSchema.pre('save', function(next) {
-    this.test = this.test.toLowerCase()
-    next();
-});
-*/
 
 module.exports = mongoose.model('Bookcase', bookcaseSchema);
 module.exports.validateBookcase = validateBookcase;
