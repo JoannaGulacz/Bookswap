@@ -52,7 +52,7 @@ export default class NotificationReceived extends Component {
         if (this.state.swaps.length > 0) {
             return (
                 <MDBRow center>
-                    <MDBCol md="6">
+                    <MDBCol md="9">
                         <h2 className="text-center">Swaps offers received:</h2>
                         {this.state.swaps.map(el => {
                             return (
