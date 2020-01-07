@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import BookToSwap from '../components/BookToSwap';
-import { MDBContainer } from 'mdbreact';
 import axios from '../utils/axios';
 
 export default class SwapDetails extends Component {
@@ -38,14 +37,12 @@ export default class SwapDetails extends Component {
 
     render() {
         return (
-            <MDBContainer>
-                <BookToSwap
-                    book={this.state.book}
-                    bookcases={this.state.bookcases}
-                    booksToOffer={this.state.yourBooks}
-                    user={this.state.user}
-                />
-            </MDBContainer>
+            <BookToSwap
+                book={this.state.book}
+                bookcases={this.state.bookcases}
+                booksToOffer={this.state.yourBooks}
+                user={this.state.user}
+            />
         );
     }
 }

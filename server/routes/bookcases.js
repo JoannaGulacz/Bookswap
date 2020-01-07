@@ -256,21 +256,16 @@ router.put(
     asyncHandler(async (req, res, next) => {
         try {
             const bookcase = await Bookcase.findById(req.params.id);
-            console.log(bookcase);
-            if (bookcase.owner == req.user.id) {
-                bookcase.owner = req.user.id;
-                bookcase.change = req.body.change;
-                const bookcase_update = await Bookcase.findByIdAndUpdate(req.params.id, bookcase, {
-                    new: true,
-                    runValidators: true,
-                });
-                res.status(200).json({
-                    success: true,
-                    data: bookcase_update,
-                });
-            } else {
-                res.status(401).send("You don't have permission");
-            }
+            bookcase.owner = req.body.user;
+            bookcase.change = req.body.change;
+            const bookcase_update = await Bookcase.findByIdAndUpdate(req.params.id, bookcase, {
+                new: true,
+                runValidators: true,
+            });
+            res.status(200).json({
+                success: true,
+                data: bookcase_update,
+            });
         } catch {
             res.status(404).send('The book with the given id was not found.');
         }
@@ -320,7 +315,7 @@ router.post(
             // Check if offered book is user's property
             if (offerBook.owner.toString() === req.user.id) {
                 req.body.bookToGet = req.params.bookcaseId;
-
+                req.body.userThatGetsOffer = getBook.owner;
                 const swap = await Swap.create(req.body);
 
                 res.status(201).json({

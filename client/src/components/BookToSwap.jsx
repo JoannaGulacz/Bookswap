@@ -1,14 +1,14 @@
 import React from 'react';
-import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBContainer } from 'mdbreact';
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import FormToOfferSwap from './FormToOfferSwap';
 
 const BookToSwap = props => {
     if (props.bookcases.length > 0 && props.book) {
         return (
-            <MDBContainer>
+            <div>
                 <MDBRow center>
-                    <MDBCol className="mb-2">
+                    <MDBCol md="6" className="mb-4">
                         <MDBCard>
                             <MDBCardBody>
                                 <MDBCardTitle>{props.book.title}</MDBCardTitle>
@@ -28,7 +28,7 @@ const BookToSwap = props => {
                                     </Link>{' '}
                                     <br />
                                     rating: {props.book._rating}/5 <br />
-                                    number of copies: {props.bookcases.length}
+                                    number of copies available: {props.bookcases.length}
                                 </MDBCardText>
                             </MDBCardBody>
                         </MDBCard>
@@ -37,7 +37,7 @@ const BookToSwap = props => {
                 <MDBRow center>
                     <FormToOfferSwap {...props} />
                 </MDBRow>
-            </MDBContainer>
+            </div>
         );
     }
     return (
