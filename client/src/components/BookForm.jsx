@@ -134,7 +134,7 @@ export default class BookForm extends Component {
                                 <br />
                                 rating: {this.state.book._rating}
                             </MDBCardText>
-                            <a href="/addreview" /* <- link do dodawania recenzji */>
+                            <a href={'/addreview/' + this.state.book.id} /* <- link do dodawania recenzji */>
                                 <div style={{ cursor: 'pointer' }} className="black-text d-flex justify-content-end">
                                     <h5>
                                         Write new review

@@ -109,7 +109,6 @@ class Root extends React.Component {
                     <Route path="/bookcases" exact component={Bookcases} />
                     <Route path="/addbookcase" component={AddBookcase} />
                     <Route path="/reviews" exact component={Reviews} />
-                    <Route path="/addreview" component={AddReview} />
                     <Route path="/users/me">
                         {this.state.isLogged ? (
                             <UserProfile
@@ -120,7 +119,7 @@ class Root extends React.Component {
                         ) : (
                             <Redirect to="/" />
                         )}
-                    </Route>
+                    <Route path="/addreview/:_id" component={AddReview} />
                 </Switch>
             </Router>
         );
