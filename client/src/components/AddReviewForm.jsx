@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from '../utils/axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 
@@ -28,7 +28,7 @@ class Reviews extends Component {
     };
     render() {
         return (
-            <MDBContainer className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center">
                 <MDBCol md="6">
                     <MDBCard>
                         <MDBCardBody>
@@ -54,7 +54,7 @@ class Reviews extends Component {
                                             alert('Review not added');
                                         });
                                 }}
-                                render={({ errors, status, touched }) => (
+                                render={({ errors, touched }) => (
                                     <Form>
                                         <p className="h4 text-center mb-4">Add new review</p>
                                         <div className="form-group">
@@ -66,12 +66,8 @@ class Reviews extends Component {
                                                 type="text"
                                                 value={this.state.title}
                                                 disabled
-                                                className={
-                                                    'form-control' +
-                                                    (errors.firstName && touched.firstName ? ' is-invalid' : '')
-                                                }
+                                                className="form-control"
                                             />
-                                            <ErrorMessage name="title" component="div" className="invalid-feedback" />
                                             <br />
                                         </div>
                                         <div className="form-group">
@@ -80,6 +76,7 @@ class Reviews extends Component {
                                             </label>
                                             <br />
                                             <Field as="select" name="rating">
+                                                <option>Choose your grade</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -97,7 +94,7 @@ class Reviews extends Component {
                                                 rows="5"
                                                 className={
                                                     'form-control' +
-                                                    (errors.firstName && touched.firstName ? ' is-invalid' : '')
+                                                    (errors.content && touched.content ? ' is-invalid' : '')
                                                 }
                                             />
                                             <ErrorMessage name="content" component="div" className="invalid-feedback" />
@@ -112,7 +109,7 @@ class Reviews extends Component {
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
-            </MDBContainer>
+            </div>
         );
     }
 }

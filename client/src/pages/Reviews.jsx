@@ -3,7 +3,7 @@ import ReviewsForm from '../components/ReviewsForm';
 
 const Reviews = () => {
     return (
-        <div>
+        <div className="d-flex justify-content-center">
             <ReviewsForm />
         </div>
     );
