@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 const PasswordButton = () => {
     return (
-        <div className="text-center">
-            <button type="button" className="btn btn-light btn-sm">
-                <Link to="/users/me/password" style={{ color: 'black' }}>
+        <div className="text-center mt-2">
+            <Link to="/users/me/password" style={{ color: 'black' }}>
+                <button type="button" className="btn btn-light btn-sm">
                     Change your password
-                </Link>
-            </button>
+                </button>
+            </Link>
         </div>
     );
 };
