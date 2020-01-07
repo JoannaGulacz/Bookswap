@@ -15,7 +15,7 @@ router.get(
         const books = await Book.find()
             .populate({
                 path: 'bookcases',
-                select: 'owner change -_id',
+                select: 'owner change title -_id',
             })
             .populate({
                 path: 'category',
@@ -54,7 +54,13 @@ router.get(
             const book = await Book.findById(req.params.id)
                 .populate({
                     path: 'bookcases',
-                    select: 'owner change -_id',
+                    select: 'owner change _id',
+                    populate: [
+                        {
+                            path: 'owner',
+                            select: 'name email _id',
+                        },
+                    ],
                 })
                 .populate({
                     path: 'category',

@@ -1,36 +1,43 @@
 import React, { Component } from 'react';
 import BooksToSwap from '../components/BooksToSwap';
 import axios from '../utils/axios';
-import List from '../components/List';
+import ListOfSwaps from '../components/ListOfSwaps';
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 export default class Swap extends Component {
     constructor(props) {
         super(props);
         this.state = {
             books: [],
+            filter: '',
         };
-    }
-
-    updateBooks = BookList => {
-        this.setState({ books: BookList });
-    };
-
-    async componentDidMount() {
-        await axios
-            .get('bookcases/swaps')
+        axios
+            .get('books')
             .then(response => {
-                this.setState({ books: response.data.data });
+                let allBooks = response.data.data
+                    .filter(el => el.bookcases.length > 0)
+                    .map(el => el.bookcases.filter(el => el.change))
+                    .filter(el => el.length > 0);
+                this.setState({ books: allBooks });
             })
             .catch(function(error) {
                 console.log(error);
             });
     }
 
+    updateBooks = title => {
+        this.setState({ filter: title });
+    };
+
     render() {
         return (
-            <div>
-                <BooksToSwap updateBooks={this.updateBooks} />
-                <List list={this.state.books} />
-            </div>
+            <MDBContainer>
+                <MDBRow center>
+                    <MDBCol md="9">
+                        <BooksToSwap updateBooks={this.updateBooks} />
+                    </MDBCol>
+                </MDBRow>
+                <ListOfSwaps list={this.state.books} filter={this.state.filter} />
+            </MDBContainer>
         );
     }
 }

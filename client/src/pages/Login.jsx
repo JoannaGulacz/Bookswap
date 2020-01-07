@@ -1,15 +1,22 @@
 import React from 'react';
-import FormCard from '../components/FormCard';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
+import { MDBContainer, MDBCol, MDBRow } from 'mdbreact';
 
 const Login = props => {
     return (
         <>
-            <FormCard>
-                <LoginForm {...props} />
-                <RegisterForm {...props} />
-            </FormCard>
+            <MDBContainer>
+                <MDBRow>
+                    <MDBCol size="6">
+                        <LoginForm {...props} />
+                    </MDBCol>
+
+                    <MDBCol size="6">
+                        <RegisterForm {...props} />
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
         </>
     );
 };

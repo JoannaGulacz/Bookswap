@@ -31,6 +31,7 @@ import Categories from './Categories';
 import Category from './Category';
 
 import Swap from './Swap';
+import SwapDetails from './SwapDetails';
 
 import Main from './Home/Main';
 
@@ -94,7 +95,8 @@ class Root extends React.Component {
 
                 <Switch>
                     <Route path="/" exact component={Main} />
-                    <Route path="/swap" component={Swap} />
+                    <Route path="/swap" exact component={Swap} />
+                    <Route path="/swap/:id" component={SwapDetails} />
                     <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
                     <Route path="/books" exact component={Books} />
                     <Route path="/books/:_id" component={Book} />

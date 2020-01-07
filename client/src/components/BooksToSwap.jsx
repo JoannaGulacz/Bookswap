@@ -1,33 +1,21 @@
 import React from 'react';
-import { MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
-import axios from '../utils/axios';
-import List from './List';
+import { MDBCol, MDBCard, MDBCardBody } from 'mdbreact';
 import { useFormik } from 'formik';
 
 const BooksToSwap = props => {
     const formik = useFormik({
         initialValues: {
             title: '',
-            //category: '',
+            filteredByTitle: '',
         },
         onSubmit: () => {
-            axios
-                .get('bookcases/swaps/' + formik.values.title, {
-                    title: formik.values.title,
-                    //category: formik.values.category,
-                })
-                .then(function(response) {
-                    props.updateBooks(response.data.data);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
+            props.updateBooks(formik.values.title);
         },
     });
 
     return (
-        <div className="mb-3 d-flex justify-content-center">
-            <MDBCol sm="6">
+        <div className="mb-2 d-flex justify-content-center">
+            <MDBCol>
                 <MDBCard>
                     <MDBCardBody>
                         <form onChange={formik.handleSubmit}>
