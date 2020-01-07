@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBIcon, MDBBtn } from 'mdbreact';
-import {
-    MDBCard,
-    MDBCardBody,
-    MDBCardTitle,
-    MDBCardText,
-    MDBContainer,
-    MDBModal,
-    MDBModalBody,
-    MDBModalFooter,
-} from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBModal, MDBModalBody, MDBModalFooter } from 'mdbreact';
 
 import axios from 'axios';
 
@@ -164,7 +155,7 @@ export default class ReviewsForm extends Component {
     render() {
         const ListOfReviews = () => {
             return (
-                <MDBContainer className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                     <MDBCol md="12">
                         {this.state.reviews.map((e, i) => {
                             return (
@@ -173,9 +164,13 @@ export default class ReviewsForm extends Component {
                                         <MDBCardBody>
                                             <MDBCardTitle>{e.book.title}</MDBCardTitle>
                                             <hr />
-                                            <MDBCardText>author: {e.book.author.name}</MDBCardText>
-                                            <MDBCardText>content: {e.content}</MDBCardText>
-                                            <MDBCardText>rating: {e.rating}</MDBCardText>
+                                            <MDBCardText>
+                                                <strong>author:</strong> {e.book.author.name}
+                                                <br />
+                                                <strong>review:</strong> {e.content}
+                                                <br />
+                                                <strong>rating:</strong> {e.rating}
+                                            </MDBCardText>
                                             <div
                                                 style={{ cursor: 'pointer' }}
                                                 onClick={() => this.handleEdit(e._id)}
@@ -228,18 +223,12 @@ export default class ReviewsForm extends Component {
                         })}
                         ;
                     </MDBCol>
-                </MDBContainer>
+                </div>
             );
         };
         return (
-            <MDBContainer className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center">
                 <MDBCol md="6">
-                    {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MDBBtn rounded href="/addreview">
-                            Add new review
-                        </MDBBtn>
-                    </div>
-                    <hr /> */}
                     {ListOfReviews()}
                     <MDBModal isOpen={this.state.modalEdit} toggle={this.toggleEdit} centered>
                         <MDBModalBody>
@@ -267,6 +256,7 @@ export default class ReviewsForm extends Component {
                                         className="browser-default custom-select"
                                         onChange={this.handleRatingChange}
                                     >
+                                        <option>Choose your option</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -297,7 +287,7 @@ export default class ReviewsForm extends Component {
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBCol>
-            </MDBContainer>
+            </div>
         );
     }
 }

@@ -5,7 +5,6 @@ import {
     MDBCardBody,
     MDBCardTitle,
     MDBCardText,
-    MDBContainer,
     MDBModal,
     MDBModalBody,
     MDBModalFooter,
@@ -183,7 +182,7 @@ export default class BookcasesForm extends Component {
     render() {
         const ListOfBookcases = () => {
             return (
-                <MDBContainer className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                     <MDBCol md="12">
                         {this.state.bookcases.map((e, i) => {
                             return (
@@ -192,9 +191,13 @@ export default class BookcasesForm extends Component {
                                         <MDBCardBody>
                                             <MDBCardTitle>{e.title}</MDBCardTitle>
                                             <hr />
-                                            <MDBCardText>author: {e.parentBook.author.name}</MDBCardText>
-                                            <MDBCardText>publisher: {e.parentBook.publisher.name}</MDBCardText>
-                                            <MDBCardText>category: {e.parentBook.category.name}</MDBCardText>
+                                            <MDBCardText>
+                                                <strong>author:</strong> {e.parentBook.author.name}
+                                                <br />
+                                                <strong>publisher:</strong> {e.parentBook.publisher.name}
+                                                <br />
+                                                <strong>category:</strong> {e.parentBook.category.name}
+                                            </MDBCardText>
                                             <MDBCardText>
                                                 {e.change ? (
                                                     <strong>SWAP IS POSSIBLE</strong>
@@ -253,11 +256,11 @@ export default class BookcasesForm extends Component {
                         })}
                         ;
                     </MDBCol>
-                </MDBContainer>
+                </div>
             );
         };
         return (
-            <MDBContainer className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center">
                 <MDBCol md="6">
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <MDBBtn rounded href="/addbookcase">
@@ -284,7 +287,7 @@ export default class BookcasesForm extends Component {
                     {ListOfBookcases()}
                     <MDBModal isOpen={this.state.modalEdit} toggle={this.toggleEdit} centered>
                         <MDBModalBody>
-                            <form>
+                            <form style={{ display: 'flex', justifyContent: 'center' }}>
                                 <p className="h4 text-center mb-4">Edit bookcase</p>
                                 <label className="grey-text">Title</label>
                                 <input type="text" value={this.state.title} className="form-control" disabled />
@@ -341,7 +344,7 @@ export default class BookcasesForm extends Component {
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBCol>
-            </MDBContainer>
+            </div>
         );
     }
 }
