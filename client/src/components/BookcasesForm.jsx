@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBIcon, MDBBtn } from 'mdbreact';
+
 import {
     MDBCard,
     MDBCardBody,
@@ -261,11 +262,6 @@ export default class BookcasesForm extends Component {
         return (
             <div className="d-flex justify-content-center">
                 <MDBCol md="6">
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MDBBtn rounded href="/addbookcase">
-                            Add new bookcase
-                        </MDBBtn>
-                    </div>
                     <hr />
                     <form
                         className="form-inline mt-4 mb-4"
