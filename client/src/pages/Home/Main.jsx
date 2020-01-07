@@ -1,5 +1,6 @@
 import React from 'react';
-import { MDBRow, MDBContainer, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from 'mdbreact';
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from 'mdbreact';
+import { Link } from 'react-router-dom';
 
 const Main = () => {
     return (
@@ -24,7 +25,9 @@ const Main = () => {
                         <MDBCardBody>
                             <MDBCardTitle>Virtual library</MDBCardTitle>
                             <MDBCardText>Here you can browse through our ever growing database of books.</MDBCardText>
-                            <MDBBtn href="/books">Go to library</MDBBtn>
+                            <Link to="/books">
+                                <MDBBtn>Go to library</MDBBtn>
+                            </Link>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
@@ -33,7 +36,9 @@ const Main = () => {
                 <MDBCol lg="8">
                     <MDBCard>
                         <MDBCardBody>
-                            <MDBBtn href="/swap">Swap some books!</MDBBtn>
+                            <Link to="/swap">
+                                <MDBBtn>Swap some books!</MDBBtn>
+                            </Link>
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
