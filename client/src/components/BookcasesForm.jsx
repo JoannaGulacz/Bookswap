@@ -245,7 +245,7 @@ export default class BookcasesForm extends Component {
                                         <MDBModalBody>{this.state.modalText}</MDBModalBody>
                                         <MDBModalFooter>
                                             <a href={'http://localhost:3000/bookcases'}>
-                                                <MDBBtn color="success" onClick={this.toggleEditLast}>
+                                                <MDBBtn color="success" onClick={this.toggleLast}>
                                                     Close
                                                 </MDBBtn>
                                             </a>
