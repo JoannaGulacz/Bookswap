@@ -44,9 +44,22 @@ router.get(
     '/received',
     protect,
     asyncHandler(async (req, res, next) => {
-        let swaps = await Swap.find({ userThatGetsOffer: req.user.id }).populate({
-            path: 'user bookToOffer bookToGet',
-        });
+        let swaps = await Swap.find({ userThatGetsOffer: req.user.id })
+            .populate({
+                path: 'userThatGetsOffer',
+            })
+            .populate({
+                path: 'bookToOffer',
+                populate: {
+                    path: 'parentBook',
+                },
+            })
+            .populate({
+                path: 'bookToGet',
+                populate: {
+                    path: 'parentBook',
+                },
+            });
 
         res.status(200).json({
             success: true,

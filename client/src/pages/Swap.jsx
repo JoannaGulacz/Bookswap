@@ -11,6 +11,8 @@ export default class Swap extends Component {
             books: [],
             filter: '',
         };
+    }
+    componentDidMount() {
         axios
             .get('books')
             .then(response => {
@@ -24,7 +26,6 @@ export default class Swap extends Component {
                 console.log(error);
             });
     }
-
     updateBooks = title => {
         this.setState({ filter: title });
     };

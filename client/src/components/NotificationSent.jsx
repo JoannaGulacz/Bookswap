@@ -49,14 +49,10 @@ export default class NotificationSent extends Component {
                                         <MDBCardText>
                                             Give away
                                             <Link to={`/books/${el.bookToOffer.parentBook}`}>
-                                                {' '}
-                                                '{el.bookToOffer.title}'{' '}
+                                                {el.bookToOffer.title}
                                             </Link>
                                             <br /> and get
-                                            <Link to={`/books/${el.bookToGet.parentBook}`}>
-                                                {' '}
-                                                '{el.bookToGet.title}'{' '}
-                                            </Link>
+                                            <Link to={`/books/${el.bookToGet.parentBook}`}>{el.bookToGet.title}</Link>
                                         </MDBCardText>
                                         <MDBCardText>Offer to {el.userThatGetsOffer.name}</MDBCardText>
                                         <MDBBtnGroup className="d-block text-center">
