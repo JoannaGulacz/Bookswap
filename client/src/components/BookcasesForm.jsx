@@ -33,14 +33,6 @@ export default class BookcasesForm extends Component {
             modalText: '',
         };
 
-        axios
-            .get('http://localhost:5000/api/bookcases/library')
-            .then(data => {
-                this.setState({ bookcases: data.data.data });
-            })
-            .catch(function(error) {
-                console.log(error.response.data);
-            });
         this.toggle.bind(this);
         this.toggleEdit.bind(this);
         this.toggleDelete.bind(this);
@@ -52,6 +44,21 @@ export default class BookcasesForm extends Component {
         this.toggleEditLast.bind(this);
         this.toggleLast.bind(this);
     }
+
+    componentDidMount() {
+        this.getLibrary();
+    }
+
+    getLibrary = () => {
+        axios
+            .get('http://localhost:5000/api/bookcases/library')
+            .then(data => {
+                this.setState({ bookcases: data.data.data });
+            })
+            .catch(function(error) {
+                console.log(error.response.data);
+            });
+    };
 
     handleDelete = id => {
         this.toggle();
@@ -151,12 +158,14 @@ export default class BookcasesForm extends Component {
         this.setState({
             modalEditInfo: !this.state.modalEditInfo,
         });
+        this.getLibrary();
     };
 
     toggleLast = () => {
         this.setState({
             modalInfo: !this.state.modalInfo,
         });
+        this.getLibrary();
     };
 
     handleTitleChange = event => {
@@ -244,11 +253,9 @@ export default class BookcasesForm extends Component {
                                     <MDBModal isOpen={this.state.modalInfo} toggle={this.toggleLast} centered>
                                         <MDBModalBody>{this.state.modalText}</MDBModalBody>
                                         <MDBModalFooter>
-                                            <a href={'http://localhost:3000/bookcases'}>
-                                                <MDBBtn color="success" onClick={this.toggleLast}>
-                                                    Close
-                                                </MDBBtn>
-                                            </a>
+                                            <MDBBtn color="success" onClick={this.toggleLast}>
+                                                Close
+                                            </MDBBtn>
                                         </MDBModalFooter>
                                     </MDBModal>
                                     <br />
@@ -332,11 +339,9 @@ export default class BookcasesForm extends Component {
                     <MDBModal isOpen={this.state.modalEditInfo} toggle={this.toggleEditLast} centered>
                         <MDBModalBody>{this.state.modalEditText}</MDBModalBody>
                         <MDBModalFooter>
-                            <a href={'http://localhost:3000/bookcases'}>
-                                <MDBBtn color="success" onClick={this.toggleEditLast}>
-                                    Close
-                                </MDBBtn>
-                            </a>
+                            <MDBBtn color="success" onClick={this.toggleEditLast}>
+                                Close
+                            </MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBCol>
