@@ -11,10 +11,33 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const reviews = await Review.find()
             .sort({ title: 1 })
-            // .populate({
-            //     path: 'author',
-            //     select: 'name -_id',
-            // })
+            .populate({
+                path: 'book',
+                select: 'title author -_id',
+                populate: {
+                    path: 'author',
+                    select: 'name -_id',
+                },
+            })
+            .populate({
+                path: 'owner',
+                select: 'name email -_id',
+            });
+
+        res.status(200).json({
+            success: true,
+            data: reviews,
+        });
+    })
+);
+
+router.get(
+    '/myReviews',
+    protect,
+    asyncHandler(async (req, res, next) => {
+        const reviews = await Review.find({
+            owner: req.user.id,
+        })
             .populate({
                 path: 'book',
                 select: 'title author -_id',
@@ -112,7 +135,7 @@ router.put(
     '/:id',
     protect,
     asyncHandler(async (req, res, next) => {
-        const { error } = validateReview(req.body);
+        const { error } = Review.validateReview(req.body);
         if (error) return res.status(400).send(error.details[0].message);
 
         let review = await Review.findByIdAndUpdate(req.params.id, {
