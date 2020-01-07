@@ -15,7 +15,7 @@ const BooksToSwap = props => {
 
     return (
         <MDBCol md="6">
-            <MDBCard className="mb-4 w-75">
+            <MDBCard className="mb-4">
                 <MDBCardBody>
                     <form onChange={formik.handleSubmit}>
                         <input
