@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from '../utils/axios';
+import axios from '../../utils/axios';
 import { MDBBtn, MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
