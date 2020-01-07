@@ -1,8 +1,6 @@
 import React from 'react';
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from 'mdbreact';
 
-// TODO Pobieranie z serwera, po zrobieniu endpointu.
-
 const NotificationListItem = ({ swapList }) => {
     // TODO Pobieranie z serwera, po zrobieniu endpointu.
 
