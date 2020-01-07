@@ -94,7 +94,7 @@ class Root extends React.Component {
                         <Route path="/" exact component={Main} />
                         <Route path="/swap" exact component={Swap} />
                         <Route path="/swap/:id" component={SwapDetails} />
-                        <Route path="/notification" component={Notification} />
+                        <Route path="/notifications" component={Notification} />
                         <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
                         <Route path="/books" exact component={Books} />
                         <Route path="/books/:_id" component={Book} />
