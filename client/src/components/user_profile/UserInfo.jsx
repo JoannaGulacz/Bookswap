@@ -1,7 +1,6 @@
 import React from 'react';
 
 import UserData from './UserData';
-import PasswordButton from './PasswordButton';
 
 const UserInfo = props => {
     return (
@@ -15,11 +14,6 @@ const UserInfo = props => {
             <li className="list-group-item">
                 <UserData data="E-mail" value={props.email} />
             </li>
-            {/* 
-                <li className="list-group-item">
-                    <PasswordButton />
-                </li>
-                */}
         </ul>
     );
 };
