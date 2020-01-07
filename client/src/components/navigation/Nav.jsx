@@ -4,7 +4,7 @@ import { MDBNavItem, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdow
 
 const Nav = () => {
     return (
-        <ul className="nav justify-content-center grey lighten-4 py-2 mb-4">
+        <ul className="nav grey lighten-4 py-2 h-100 d-flex justify-content-center align-items-center">
             <Link to="/">
                 <li className="nav-item">
                     <span className="nav-link">Home</span>

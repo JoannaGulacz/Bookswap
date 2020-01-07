@@ -1,22 +1,24 @@
 import React from 'react';
-import { MDBCol, MDBContainer, MDBRow } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import Nav from './Nav';
+
+import Logo from '../logo/Logo';
 
 const Menu = props => {
     return (
         <div>
             <MDBContainer>
                 <MDBRow className="align-items-center mt-2">
+                    <MDBCol md="12">
+                        <Logo title="BOOKSWAP" />
+                    </MDBCol>
+                </MDBRow>
+                <MDBRow className="mt-1 mb-4">
                     <MDBCol md="10">
-                        <h1 className="text-center">BOOKSWAP</h1>
+                        <Nav />
                     </MDBCol>
                     <MDBCol md="2">
                         <div className="text-center">{props.children}</div>
-                    </MDBCol>
-                </MDBRow>
-                <MDBRow className="my-1">
-                    <MDBCol size="12">
-                        <Nav />
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
@@ -25,3 +27,19 @@ const Menu = props => {
 };
 
 export default Menu;
+
+/*
+<MDBRow className="align-items-center mt-2">
+                    <MDBCol size="10">
+                        <Logo title="BOOKSWAP" />
+                    </MDBCol>
+                </MDBRow>
+                <MDBRow className="mt-1 mb-4">
+                    <MDBCol size="10">
+                        <Nav />
+                    </MDBCol>
+                    <MDBCol md="2">
+                        <div className="text-center">{props.children}</div>
+                    </MDBCol>
+                </MDBRow>
+                 */
