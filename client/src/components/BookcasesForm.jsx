@@ -71,6 +71,7 @@ export default class BookcasesForm extends Component {
             modal: !this.state.modal,
             modalInfo: !this.state.modalInfo,
         });
+        axios.delete(`/swaps/bookcases/${this.state.bookcaseId}`).catch(error => console.log(error));
         axios
             .delete('http://localhost:5000/api/bookcases/' + this.state.bookcaseId)
             .then(() => {

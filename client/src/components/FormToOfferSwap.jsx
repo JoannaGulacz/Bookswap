@@ -73,7 +73,9 @@ export default class FormToOfferSwap extends Component {
             .post(`bookcases/${this.state.bookToGet}/swaps`, {
                 bookToOffer: this.state.bookToOffer,
             })
-            .then(function(response) {})
+            .then(function(response) {
+                console.log(response.data.data);
+            })
             .catch(function(error) {
                 console.log(error.response.data);
             });

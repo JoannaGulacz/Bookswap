@@ -119,4 +119,18 @@ router.delete(
     })
 );
 
+router.delete(
+    '/bookcases/:id',
+    protect,
+    asyncHandler(async (req, res, next) => {
+        await Swap.deleteMany({ bookToGet: req.params.id });
+        await Swap.deleteMany({ bookToOffer: req.params.id });
+
+        res.status(200).json({
+            success: true,
+            data: [],
+        });
+    })
+);
+
 module.exports = router;
