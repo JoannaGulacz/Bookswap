@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BookToSwap from '../components/BookToSwap';
+import BookToSwap from '../components/swaps/BookToSwap';
 import axios from '../utils/axios';
 
 export default class SwapDetails extends Component {

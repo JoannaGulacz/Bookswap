@@ -46,7 +46,7 @@ router.get(
     asyncHandler(async (req, res, next) => {
         let swaps = await Swap.find({ userThatGetsOffer: req.user.id })
             .populate({
-                path: 'userThatGetsOffer',
+                path: 'user',
             })
             .populate({
                 path: 'bookToOffer',
