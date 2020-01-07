@@ -10,7 +10,6 @@ class Reviews extends Component {
             radio: 4,
             title: '',
         };
-        console.log(this.props._id);
         axios
             .get('http://localhost:5000/api/books/' + this.props._id)
             .then(response => {
@@ -46,7 +45,6 @@ class Reviews extends Component {
                                             content: fields.content,
                                         })
                                         .then(function(response) {
-                                            console.log(response);
                                             alert('Review added');
                                         })
                                         .catch(function(error) {

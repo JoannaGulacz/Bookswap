@@ -18,9 +18,11 @@ export default class FormToOfferSwap extends Component {
         this.handleBookOnChange.bind(this);
         this.handleSubmit.bind(this);
         this.getSwaps.bind(this);
-        this.getSwaps();
     }
 
+    componentDidMount() {
+        this.getSwaps();
+    }
     getSwaps = async () => {
         await axios
             .get(`/swaps/sent`, { user: this.props.user.id })
@@ -71,9 +73,7 @@ export default class FormToOfferSwap extends Component {
             .post(`bookcases/${this.state.bookToGet}/swaps`, {
                 bookToOffer: this.state.bookToOffer,
             })
-            .then(function(response) {
-                console.log(response.data.data);
-            })
+            .then(function(response) {})
             .catch(function(error) {
                 console.log(error.response.data);
             });
@@ -82,7 +82,7 @@ export default class FormToOfferSwap extends Component {
     render() {
         if (this.props.booksToOffer.length > 0) {
             return (
-                <MDBCol md="6" className="mb-2" style={{ textAlignLast: 'center' }}>
+                <MDBCol md="9" className="mb-2" style={{ textAlignLast: 'center' }}>
                     <MDBCard>
                         <MDBCardBody>
                             <form onSubmit={this.handleSubmit} style={{ textAlignLast: 'center' }}>

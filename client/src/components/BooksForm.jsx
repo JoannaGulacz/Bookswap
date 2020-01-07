@@ -24,7 +24,6 @@ export default class BooksForm extends Component {
     };
     onSubmit = event => {
         event.preventDefault();
-        console.log(this.state.title);
         axios
             .get('http://localhost:5000/api/books/search/' + this.state.title)
             .then(data => this.setState({ books: data.data.data }));

@@ -8,7 +8,7 @@ const BookToSwap = props => {
         return (
             <div>
                 <MDBRow center>
-                    <MDBCol md="6" className="mb-4">
+                    <MDBCol md="9" className="mb-4">
                         <MDBCard>
                             <MDBCardBody>
                                 <MDBCardTitle>{props.book.title}</MDBCardTitle>
@@ -42,7 +42,7 @@ const BookToSwap = props => {
     }
     return (
         <MDBRow center>
-            <MDBCol md="6" className="mt-2" style={{ textAlign: 'center' }}>
+            <MDBCol className="mt-2" style={{ textAlign: 'center' }}>
                 Wait a sec for results to render.
             </MDBCol>
         </MDBRow>

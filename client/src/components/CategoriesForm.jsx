@@ -69,7 +69,6 @@ export default class CategoriesForm extends Component {
     };
     onSubmit = event => {
         event.preventDefault();
-        console.log(this.state.name);
         axios.get('http://localhost:5000/api/categories/search/' + this.state.name).then(data => {
             this.setState({
                 categories: data.data.data,
