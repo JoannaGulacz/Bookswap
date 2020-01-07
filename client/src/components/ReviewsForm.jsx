@@ -256,7 +256,7 @@ export default class ReviewsForm extends Component {
                                         className="browser-default custom-select"
                                         onChange={this.handleRatingChange}
                                     >
-                                        <option>Choose your option</option>
+                                        <option>Choose your grade</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>

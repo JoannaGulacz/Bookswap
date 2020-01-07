@@ -287,7 +287,7 @@ export default class BookcasesForm extends Component {
                     {ListOfBookcases()}
                     <MDBModal isOpen={this.state.modalEdit} toggle={this.toggleEdit} centered>
                         <MDBModalBody>
-                            <form style={{ display: 'flex', justifyContent: 'center' }}>
+                            <form>
                                 <p className="h4 text-center mb-4">Edit bookcase</p>
                                 <label className="grey-text">Title</label>
                                 <input type="text" value={this.state.title} className="form-control" disabled />

@@ -76,7 +76,7 @@ class Reviews extends Component {
                                             </label>
                                             <br />
                                             <Field as="select" name="rating">
-                                                <option>Choose your option</option>
+                                                <option>Choose your grade</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
