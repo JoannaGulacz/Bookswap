@@ -10,6 +10,11 @@
     font-weight: 500 !important;
 }
 
+.btn-cta{
+    background-color: #4285F4!important;
+}
+
+
 .card::after {
     content: '';
     position: absolute;
