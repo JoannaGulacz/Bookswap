@@ -19,16 +19,16 @@ User page
 ![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/user.jpg)
 
 Searching database
-![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/books.jpg)
+![Searching database](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/books.jpg)
 
 Books reviews
-![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/reviews.jpg)
+![Books reviews](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/reviews.jpg)
 
 Books swapping
-![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/booksToSwap.jpg)
+![Books swapping](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/booksToSwap.jpg)
 
 Database items cards
-![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/book.jpg)
+![Database items cards](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/book.jpg)
 
 Forms
-![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/forms.jpg)
+![Forms](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/forms.jpg)
