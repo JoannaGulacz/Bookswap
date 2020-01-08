@@ -17,7 +17,6 @@ class Bookcases extends Component {
             bookcaseId: '',
             userId: '',
         };
-
         this.confirmPopup = React.createRef();
         this.infoPopup = React.createRef();
         this.bookcaseEdit = React.createRef();
@@ -38,6 +37,7 @@ class Bookcases extends Component {
                 console.log(error.response.data);
             });
     };
+
     deleteF = id => {
         this.confirmPopup.current.toggle();
         this.setState({
@@ -49,7 +49,6 @@ class Bookcases extends Component {
         this.setState({
             bookcaseId: id,
         });
-        console.log('tuuuut ' + id);
         axios
             .get('http://localhost:5000/api/bookcases/' + id)
             .then(response => {
@@ -85,7 +84,7 @@ class Bookcases extends Component {
                 this.infoPopup.current.setState({
                     text: 'Bookcase deleted',
                     linkBack: '/bookcases',
-                    shouldPrevent: () => {},
+                    // shouldPrevent: () => {},
                 });
                 this.getLibrary();
             })
@@ -173,7 +172,6 @@ class Bookcases extends Component {
                     onSubmit={this.editBookcase}
                     linkBack={'/bookcases'}
                 />
-                {/* <BookcasesForm /> */}
             </div>
         );
     }

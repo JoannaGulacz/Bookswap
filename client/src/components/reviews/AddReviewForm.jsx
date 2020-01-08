@@ -13,12 +13,6 @@ class Reviews extends Component {
         };
     }
 
-    // onClick = nr => () => {
-    //     this.setState({
-    //         radio: nr,
-    //     });
-    // };
-
     componentDidMount() {
         axios
             .get('http://localhost:5000/api/books/' + this.props._id)
