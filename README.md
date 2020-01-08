@@ -13,7 +13,7 @@ BookSwap is unique web platform for books enthusiast. Main goal of the applicati
 
 ### Screenshots
 -   Login page:
-![Login page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/login.jpg)
+![Login page](/client/public/samples/login.jpg)
 
 -   User page:
 ![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/user.jpg)
