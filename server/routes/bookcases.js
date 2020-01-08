@@ -53,36 +53,40 @@ router.get(
     '/library',
     protect,
     asyncHandler(async (req, res, next) => {
-        const bookcases = await Bookcase.find({
-            owner: req.user.id,
-        })
-            .populate({
-                path: 'parentBook',
-                select: '-title -_id',
-                populate: [
-                    {
-                        path: 'author',
-                        select: 'name',
-                    },
-                    {
-                        path: 'category',
-                        select: 'name',
-                    },
-                    {
-                        path: 'publisher',
-                        select: 'name',
-                    },
-                ],
+        try {
+            const bookcases = await Bookcase.find({
+                owner: req.user.id,
             })
-            .populate({
-                path: 'swaps',
-                select: 'id',
-            });
+                .populate({
+                    path: 'parentBook',
+                    select: '-title -_id',
+                    populate: [
+                        {
+                            path: 'author',
+                            select: 'name',
+                        },
+                        {
+                            path: 'category',
+                            select: 'name',
+                        },
+                        {
+                            path: 'publisher',
+                            select: 'name',
+                        },
+                    ],
+                })
+                .populate({
+                    path: 'swaps',
+                    select: 'id',
+                });
 
-        res.status(200).json({
-            success: true,
-            data: bookcases,
-        });
+            res.status(200).json({
+                success: true,
+                data: bookcases,
+            });
+        } catch {
+            res.status(404).send('The book with the given id was not found.');
+        }
     })
 );
 
@@ -130,11 +134,13 @@ router.get(
 );
 
 router.get(
-    '/search/:title',
+    '/search/:title/:id',
+    protect,
     asyncHandler(async (req, res, next) => {
         try {
-            const bookcase = await Bookcase.find({
+            const bookcases = await Bookcase.find({
                 title: new RegExp(`.*${req.params.title}.*`, 'i'),
+                owner: req.params.id,
             })
                 .populate({
                     path: 'parentBook',
@@ -142,25 +148,26 @@ router.get(
                     populate: [
                         {
                             path: 'author',
-                            select: 'name -_id',
+                            select: 'name',
                         },
                         {
                             path: 'category',
-                            select: 'name -_id',
+                            select: 'name',
                         },
                         {
                             path: 'publisher',
-                            select: 'name -_id',
+                            select: 'name',
                         },
                     ],
                 })
                 .populate({
                     path: 'swaps',
+                    select: 'id',
                 });
 
             res.status(200).json({
                 success: true,
-                data: bookcase,
+                data: bookcases,
             });
         } catch {
             res.status(404).send('The book with the given id was not found.');
