@@ -7,7 +7,7 @@ BookSwap is unique web platform for books enthusiast. Main goal of the applicati
 -   searching related databases of Books, Author, Categories and Publishers
 -   writing and reading books reviews
 -   rating books and avarage rate
--   addin "physical copies" of books to users bookcase 
+-   adding "physical copies" of books to users bookcase 
 -   setting "physical copies" to swap
 -   searching for books to swap
 
