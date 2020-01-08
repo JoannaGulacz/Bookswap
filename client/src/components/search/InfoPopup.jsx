@@ -7,7 +7,7 @@ export default class InfoPopup extends Component {
         super(props);
         this.state = {
             isOpen: false,
-            text: 'Processing..',   
+            text: 'Processing..',
             buttonText: '',
             linkBack: '',
             shouldPrevent: e => e.preventDefault()
@@ -17,7 +17,7 @@ export default class InfoPopup extends Component {
         }
         if (this.props.linkBack) {
             this.state.linkBack = this.props.linkBack
-            this.state.shouldPrevent = () => {}
+            this.state.shouldPrevent = () => { }
         }
         if (this.props.buttonText) {
             this.state.buttonText = this.props.buttonText
@@ -38,7 +38,7 @@ export default class InfoPopup extends Component {
                 </MDBModalBody>
                 <MDBModalFooter>
                     <Link to={this.state.linkBack} onClick={this.state.shouldPrevent}>
-                        <MDBBtn color="success" onClick={this.toggle}>
+                        <MDBBtn color="primary" onClick={this.toggle}>
                             {this.state.buttonText}
                         </MDBBtn>
                     </Link>

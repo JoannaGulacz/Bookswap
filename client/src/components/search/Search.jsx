@@ -20,7 +20,7 @@ export default class Search extends Component {
             this.handleData = this.props.handleData
         }
     }
-    
+
     handleData = data => {
     }
 
@@ -28,9 +28,9 @@ export default class Search extends Component {
         event.preventDefault();
         axios
             .get(this.state.url + this.state.searchValue)
-            .then(data => this.handleData( data.data.data ))
+            .then(data => this.handleData(data.data.data))
     };
-    
+
     handleSearchValue = event => {
         const value = event.target.value;
         this.setState({

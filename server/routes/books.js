@@ -227,7 +227,6 @@ router.put(
 router.delete(
     '/:id',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             let bookcase = await Bookcase.findOne({

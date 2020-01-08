@@ -64,7 +64,6 @@ router.get(
     asyncHandler(async (req, res, next) => {
         try {
             const category = await Category.find({ name: new RegExp(`.*${req.params.name}.*`, 'i') }).populate({
-                // const category = await Category.findById(req.params.id).populate({
                 path: 'books',
                 select: 'author publisher title _id',
                 populate: [
@@ -109,7 +108,6 @@ router.post(
 router.put(
     '/:id',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const { error } = Category.validateCategory(req.body);
@@ -134,7 +132,6 @@ router.put(
 router.delete(
     '/:id',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             let book = await Book.findOne({

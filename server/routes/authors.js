@@ -37,7 +37,6 @@ router.get(
     '/:id',
     asyncHandler(async (req, res, next) => {
         try {
-            // validateAuthor(req, res, next);
             const author = await Author.find({ _id: req.params.id }).populate({
                 path: 'books',
                 select: 'title _rating category _id',
@@ -68,9 +67,7 @@ router.get(
     '/search/:name',
     asyncHandler(async (req, res, next) => {
         try {
-            // validateAuthor(req, res, next);
             const author = await Author.find({ name: new RegExp(`.*${req.params.name}.*`, 'i') }).populate({
-                // const author = await Author.find({ _id: req.params.id }).populate({
                 path: 'books',
                 select: 'title _rating category',
                 populate: {
@@ -147,7 +144,6 @@ router.put(
 router.delete(
     '/:id',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             let book = await Book.findOne({
