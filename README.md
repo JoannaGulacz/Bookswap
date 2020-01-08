@@ -12,23 +12,23 @@ BookSwap is unique web platform for books enthusiast. Main goal of the applicati
 -   searching for books to swap
 
 ### Screenshots
-Login page
+-   Login page:
 ![Login page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/login.jpg)
 
-User page
+-   User page:
 ![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/user.jpg)
 
-Searching database
+-   Searching database:
 ![Searching database](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/books.jpg)
 
-Books reviews
+-   Books reviews:
 ![Books reviews](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/reviews.jpg)
 
-Books swapping
+-   Books swapping:
 ![Books swapping](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/booksToSwap.jpg)
 
-Database items cards
+-   Database items cards:
 ![Database items cards](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/book.jpg)
 
-Forms
+-   Forms:
 ![Forms](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/forms.jpg)
