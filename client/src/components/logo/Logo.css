@@ -1,12 +1,12 @@
 .logo-container {
-  background-image: url("/papirus.jpg");
+  background-image: url("/leather.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100px;
 }
 
 .logo-title {
-  color: black;
+  color: #ccffff;
   height: 100%;
 }
 
