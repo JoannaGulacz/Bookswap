@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from '../utils/axios';
+import axios from '../../utils/axios';
 import { MDBBtn, MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdbreact';
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
@@ -18,9 +18,11 @@ export default class FormToOfferSwap extends Component {
         this.handleBookOnChange.bind(this);
         this.handleSubmit.bind(this);
         this.getSwaps.bind(this);
-        this.getSwaps();
     }
 
+    componentDidMount() {
+        this.getSwaps();
+    }
     getSwaps = async () => {
         await axios
             .get(`/swaps/sent`, { user: this.props.user.id })
@@ -82,7 +84,7 @@ export default class FormToOfferSwap extends Component {
     render() {
         if (this.props.booksToOffer.length > 0) {
             return (
-                <MDBCol md="6" className="mb-2" style={{ textAlignLast: 'center' }}>
+                <MDBCol md="9" className="mb-2" style={{ textAlignLast: 'center' }}>
                     <MDBCard>
                         <MDBCardBody>
                             <form onSubmit={this.handleSubmit} style={{ textAlignLast: 'center' }}>

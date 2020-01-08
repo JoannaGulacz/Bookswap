@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBCardText, MDBBtnGroup } from 'mdbreact';
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBBtn, MDBCardText, MDBBtnGroup, MDBIcon } from 'mdbreact';
 import { Link } from 'react-router-dom';
-import axios from '../utils/axios';
+import axios from '../../utils/axios';
 
 export default class NotificationSent extends Component {
     constructor(props) {
@@ -12,7 +12,9 @@ export default class NotificationSent extends Component {
 
         this.handleCancel.bind(this);
         this.getSwaps.bind(this);
+    }
 
+    componentDidMount() {
         this.getSwaps();
     }
 
@@ -32,52 +34,50 @@ export default class NotificationSent extends Component {
     handleCancel(ev, id) {
         axios.delete(`/swaps/${id}`).then(this.getSwaps());
         ev.target.disabled = true;
-        ev.target.innerHTML = 'Cancelled';
     }
     render() {
         if (this.state.swaps.length > 0) {
             return (
                 <MDBRow center className="mt-3">
-                    <MDBCol md="6">
-                        <h2 className="text-center">Swap offers sent:</h2>
-                        {this.state.swaps.map(el => {
-                            return (
-                                <MDBCard key={el._id} className="mt-3">
+                    <MDBCol md="9">
+                        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Swap offers sent:</h2>
+                    </MDBCol>
+                    {this.state.swaps.map((el, index) => {
+                        return (
+                            <MDBCol md="4" key={index}>
+                                <MDBCard className="mt-3 text-center">
                                     <MDBCardBody>
                                         <MDBCardText>
-                                            Give away
+                                            Give away: <br />"
                                             <Link to={`/books/${el.bookToOffer.parentBook}`}>
-                                                {' '}
-                                                '{el.bookToOffer.title}'{' '}
+                                                {el.bookToOffer.title}
                                             </Link>
-                                            <br /> and get
-                                            <Link to={`/books/${el.bookToGet.parentBook}`}>
-                                                {' '}
-                                                '{el.bookToGet.title}'{' '}
-                                            </Link>
+                                            "
+                                            <br /> and get: <br />"
+                                            <Link to={`/books/${el.bookToGet.parentBook}`}>{el.bookToGet.title}</Link>"
                                         </MDBCardText>
                                         <MDBCardText>Offer to {el.userThatGetsOffer.name}</MDBCardText>
-                                        <MDBBtnGroup className="d-block text-center">
+                                        <MDBBtnGroup>
                                             <MDBBtn
-                                                className="ml-3"
+                                                className="pl-3 pr-3"
                                                 color="danger"
                                                 onClick={ev => this.handleCancel(ev, el._id)}
                                                 disabled={false}
                                             >
-                                                Cancel
+                                                <MDBIcon far icon="times-circle" style={{ fontSize: '2rem' }} />
                                             </MDBBtn>
                                         </MDBBtnGroup>
                                     </MDBCardBody>
                                 </MDBCard>
-                            );
-                        })}
-                    </MDBCol>
+                            </MDBCol>
+                        );
+                    })}
                 </MDBRow>
             );
         }
         return (
             <MDBRow center className="mt-3">
-                <h2>No swaps offers sent.</h2>
+                <h2 style={{ textAlign: 'center', marginTop: '3rem', marginBottom: '3rem' }}>No swaps offers sent.</h2>
             </MDBRow>
         );
     }

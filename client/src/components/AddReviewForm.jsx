@@ -13,11 +13,11 @@ class Reviews extends Component {
         };
     }
 
-    onClick = nr => () => {
-        this.setState({
-            radio: nr,
-        });
-    };
+    // onClick = nr => () => {
+    //     this.setState({
+    //         radio: nr,
+    //     });
+    // };
 
     componentDidMount() {
         axios

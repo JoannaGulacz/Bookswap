@@ -173,7 +173,6 @@ router.post(
     protect,
     asyncHandler(async (req, res, next) => {
         let bookcase;
-        console.log('post bookcase...');
         const { error } = Bookcase.validateBookcase(req.body);
 
         if (error) {
@@ -185,7 +184,6 @@ router.post(
         });
 
         if (!parentBook) {
-            console.log('Create parent book first....');
             const { error_book } = Book.validateBook(req.body);
             if (error_book) {
                 return res.status(400).send('Title, author, publisher and category required');
@@ -235,7 +233,6 @@ router.post(
                 category: category,
             });
         }
-        console.log('Create bookcase....');
         bookcase = await Bookcase.create({
             owner: req.user.id,
             change: req.body.change,

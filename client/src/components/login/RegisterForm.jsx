@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { MDBCard } from 'mdbreact';
-import axios from '../utils/axios';
+import axios from '../../utils/axios';
 
 export default class RegisterForm extends Component {
-    constructor(props) {
-        super(props);
-        console.log(this.props);
-    }
     render() {
         return (
             <MDBCard>

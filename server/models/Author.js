@@ -12,7 +12,7 @@ const authorSchema = new mongoose.Schema(
             type: Date, // "YYYY-mm-dd"
         },
         died: Date,
-        rating: Number, // avarage users ratings (stars or nums)
+        rating: Number,
     },
     {
         toJSON: {
@@ -46,22 +46,6 @@ authorSchema.virtual('books', {
     foreignField: 'author',
     justOne: false,
 });
-
-/*
-  {
-    "_id": "5df02aa60fad54186ceff87b",
-    "name": "Terry Pratchett",
-    "born": "1948-04-28",
-    "died": "2015-03-12",
-    "rating": 9.8
-  },
-  {
-    "_id": "5df02aa60fad54186ceff87c",
-    "name": "Stephen King",
-    "born": "1947-09-21",
-    "rating": 7.8
-  }
-*/
 
 module.exports = mongoose.model('Author', authorSchema);
 module.exports.validateAuthor = validate;

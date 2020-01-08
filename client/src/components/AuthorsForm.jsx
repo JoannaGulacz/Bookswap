@@ -24,7 +24,6 @@ export default class AuthorsForm extends Component {
     };
     onSubmit = event => {
         event.preventDefault();
-        console.log(this.state.name);
         axios
             .get('http://localhost:5000/api/authors/search/' + this.state.name)
             .then(data => this.setState({ authors: data.data.data }));

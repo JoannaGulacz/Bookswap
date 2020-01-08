@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import BooksToSwap from '../components/BooksToSwap';
+import BooksToSwap from '../components/swaps/BooksToSwap';
 import axios from '../utils/axios';
-import ListOfSwaps from '../components/ListOfSwaps';
+import ListOfSwaps from '../components/swaps/ListOfSwaps';
 import { MDBRow } from 'mdbreact';
 
 export default class Swap extends Component {
@@ -11,6 +11,8 @@ export default class Swap extends Component {
             books: [],
             filter: '',
         };
+    }
+    componentDidMount() {
         axios
             .get('books')
             .then(response => {
@@ -24,7 +26,6 @@ export default class Swap extends Component {
                 console.log(error);
             });
     }
-
     updateBooks = title => {
         this.setState({ filter: title });
     };

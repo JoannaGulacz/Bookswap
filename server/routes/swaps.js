@@ -1,6 +1,5 @@
 const express = require('express');
 const asyncHandler = require('../middleware/async');
-const Bookcase = require('../models/Bookcase');
 const Swap = require('../models/Swap');
 const router = express.Router();
 const { protect } = require('../middleware/auth');
@@ -45,9 +44,22 @@ router.get(
     '/received',
     protect,
     asyncHandler(async (req, res, next) => {
-        let swaps = await Swap.find({ userThatGetsOffer: req.user.id }).populate({
-            path: 'user bookToOffer bookToGet',
-        });
+        let swaps = await Swap.find({ userThatGetsOffer: req.user.id })
+            .populate({
+                path: 'user',
+            })
+            .populate({
+                path: 'bookToOffer',
+                populate: {
+                    path: 'parentBook',
+                },
+            })
+            .populate({
+                path: 'bookToGet',
+                populate: {
+                    path: 'parentBook',
+                },
+            });
 
         res.status(200).json({
             success: true,
@@ -99,6 +111,20 @@ router.delete(
     protect,
     asyncHandler(async (req, res, next) => {
         await Swap.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({
+            success: true,
+            data: [],
+        });
+    })
+);
+
+router.delete(
+    '/bookcases/:id',
+    protect,
+    asyncHandler(async (req, res, next) => {
+        await Swap.deleteMany({ bookToGet: req.params.id });
+        await Swap.deleteMany({ bookToOffer: req.params.id });
 
         res.status(200).json({
             success: true,

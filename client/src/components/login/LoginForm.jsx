@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MDBCard } from 'mdbreact';
-import axios from '../utils/axios';
+import axios from '../../utils/axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 

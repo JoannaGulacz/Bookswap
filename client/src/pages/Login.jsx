@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginForm from '../components/LoginForm';
-import RegisterForm from '../components/RegisterForm';
+import LoginForm from '../components/login/LoginForm';
+import RegisterForm from '../components/login/RegisterForm';
 import { MDBContainer, MDBCol, MDBRow } from 'mdbreact';
 
 const Login = props => {
@@ -8,11 +8,11 @@ const Login = props => {
         <>
             <MDBContainer>
                 <MDBRow>
-                    <MDBCol size="6">
+                    <MDBCol md="6" className="mb-3">
                         <LoginForm {...props} />
                     </MDBCol>
 
-                    <MDBCol size="6">
+                    <MDBCol md="6">
                         <RegisterForm {...props} />
                     </MDBCol>
                 </MDBRow>

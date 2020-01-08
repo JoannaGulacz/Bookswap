@@ -18,7 +18,6 @@ const PasswordForm = props => {
                         newPassword: formik.values.newPassword,
                     })
                     .then(() => {
-                        console.log('Password changed successfully');
                         props.history.push('/users/me');
                         document.getElementById('password-msg').innerHTML =
                             "<span style='color: green'><b>Password changed successfully</b></span>";
@@ -30,7 +29,6 @@ const PasswordForm = props => {
                         ).innerHTML = `<span style='color: red'><b>${error.response.data}</b></span>`;
                     });
             } else {
-                console.log("Passwords don't match");
                 document.getElementById('password-msg').innerHTML =
                     "<span style='color: red'><b>Passwords don't match</b></span>";
             }

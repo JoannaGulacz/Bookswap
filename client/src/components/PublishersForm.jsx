@@ -69,7 +69,6 @@ export default class PublishersForm extends Component {
     };
     onSubmit = event => {
         event.preventDefault();
-        console.log(this.state.name);
         axios.get('http://localhost:5000/api/publishers/search/' + this.state.name).then(data => {
             this.setState({
                 publishers: data.data.data,
