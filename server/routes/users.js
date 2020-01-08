@@ -7,58 +7,53 @@ const asyncHandler = require('../middleware/async');
 const { protect, authorize } = require('../middleware/auth');
 
 router.post('/register', async (req, res) => {
-    // Validate req body
-    const { error } = User.validateUser(req.body);
-    if (error) {
-        return res.status(400).send(error.details[0].message);
-    }
+    try {
+        const { error } = User.validateUser(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
 
-    // Check if user already exists
-    let user = await User.findOne({
-        email: req.body.email,
-    });
-    if (user) {
-        return res.status(400).send('That user already exisits!');
-    } else {
-        const { name, email, password, role } = req.body;
-
-        // Create/Register new user
-        user = await User.create({
-            name,
-            email,
-            password,
-            role,
+        let user = await User.findOne({
+            email: req.body.email,
         });
+        if (user) {
+            return res.status(400).send('That user already exisits!');
+        } else {
+            const { name, email, password, role } = req.body;
 
-        sendTokenResponse(user, 200, res);
+            user = await User.create({
+                name,
+                email,
+                password,
+                role,
+            });
+
+            sendTokenResponse(user, 200, res);
+        }
+    } catch {
+        res.status(400).send('That user already exisits!');
     }
 });
 
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    // Validate email and password
-    if (!email || !password) {
-        return res.status(400).send('Please provide an email and password');
+        if (!email || !password) {
+            return res.status(400).send('Please provide an email and password');
+        }
+        const user = await User.findOne({
+            email,
+        }).select('+password');
+        const isMatch = await user.matchPassword(password);
+        if (!isMatch) {
+            return res.status(401).send('Invalid credentials');
+        }
+
+        sendTokenResponse(user, 200, res);
+    } catch {
+        res.status(401).send('Invalid credentials');
     }
-
-    // Check for user
-    const user = await User.findOne({
-        email,
-    }).select('+password');
-
-    if (!user) {
-        return res.status(401).send('Invalid credentials');
-    }
-
-    // Check if password matches
-    const isMatch = await user.matchPassword(password);
-
-    if (!isMatch) {
-        return res.status(401).send('Invalid credentials');
-    }
-
-    sendTokenResponse(user, 200, res);
 });
 
 router.get(
@@ -201,7 +196,6 @@ router.put(
     asyncHandler(async (req, res, next) => {
         const user = await User.findById(req.user.id).select('+password');
 
-        // Check current password
         if (!(await user.matchPassword(req.body.currentPassword))) {
             return res.status(401).send('Password is incorrect');
         }
@@ -229,7 +223,6 @@ router.delete(
     })
 );
 
-// Get token from model, create and send response
 const sendTokenResponse = (user, statusCode, res) => {
     console.log('Create token');
     const token = user.getSignedJWT();
