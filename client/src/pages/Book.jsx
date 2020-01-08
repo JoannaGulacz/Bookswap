@@ -25,7 +25,7 @@ export default class Book extends Component {
         this.confirmPopup = React.createRef();
         this.infoPopup = React.createRef();
     }
-    
+
     componentDidMount = () => {
         axios
             .get('http://localhost:5000/api/books/' + this.state._id)
@@ -41,7 +41,7 @@ export default class Book extends Component {
                 this.infoPopup.current.setState({
                     text: 'Book deleted',
                     linkBack: '/books',
-                    shouldPrevent: () => {},
+                    shouldPrevent: () => { },
                 });
             } else {
                 this.infoPopup.current.setState({
@@ -59,63 +59,62 @@ export default class Book extends Component {
         } else {
             return (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <MDBCol md="8">
-                    <MDBCard>
-                        <MDBCardImage top src="/book.jpg" overlay="white-slight" hover waves alt="MDBCard image cap" />
-                        <MDBCardBody>
-                            <MDBCardTitle>{this.state.book.title}</MDBCardTitle>
-                            <hr />
-                            <MDBCardText>
-                                author:{' '}
-                                <Link to={`/authors/${this.state.book.author._id}`}>{this.state.book.author.name}</Link>{' '}
-                                <br />
-                                publisher:{' '}
-                                <Link to={`/publishers/${this.state.book.publisher._id}`}>
-                                    {this.state.book.publisher.name}
-                                </Link>{' '}
-                                <br />
-                                category:{' '}
-                                <Link to={`/categories/${this.state.book.category._id}`}>
-                                    {this.state.book.category.name}
-                                </Link>{' '}
-                                <br />
-                                rating: {this.state.book._rating}
-                            </MDBCardText>
-                            <Link to={`/addreview/${this.state._id}`}>
-                                <div style={{ cursor: 'pointer' }} className="black-text d-flex justify-content-end">
-                                    <h5>
-                                        Write new review
+                    <MDBCol md="8">
+                        <MDBCard>
+                            <MDBCardImage top src="/book.jpg" overlay="white-slight" hover waves alt="MDBCard image cap" />
+                            <MDBCardBody>
+                                <MDBCardTitle>{this.state.book.title}</MDBCardTitle>
+                                <hr />
+                                <MDBCardText>
+                                    author:{' '}
+                                    <Link to={`/authors/${this.state.book.author._id}`}>{this.state.book.author.name}</Link>{' '}
+                                    <br />
+                                    publisher:{' '}
+                                    <Link to={`/publishers/${this.state.book.publisher._id}`}>
+                                        {this.state.book.publisher.name}
+                                    </Link>{' '}
+                                    <br />
+                                    category:{' '}
+                                    <Link to={`/categories/${this.state.book.category._id}`}>
+                                        {this.state.book.category.name}
+                                    </Link>{' '}
+                                    <br />
+                                    rating: {this.state.book._rating}
+                                </MDBCardText>
+                                <Link to={`/addreview/${this.state._id}`}>
+                                    <div style={{ cursor: 'pointer' }} className="black-text d-flex justify-content-end">
+                                        <h5>
+                                            Write new review
                                         <MDBIcon icon="pen-fancy" className="ml-2" />
+                                        </h5>
+                                    </div>
+                                </Link>
+                                <ReviewList ref={this.reviewList} reviews={this.state.book.reviews} />
+                                <div
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => this.confirmPopup.current.toggle()}
+                                    className="black-text d-flex justify-content-end"
+                                >
+                                    <h5>
+                                        Delete book
+                                    <MDBIcon icon="trash-alt" className="ml-2" />
                                     </h5>
                                 </div>
-                            </Link>
-                            <ReviewList ref={this.reviewList} reviews={this.state.book.reviews}/>
-                            <br />
-                            <div
-                                style={{ cursor: 'pointer' }}
-                                onClick={()=>this.confirmPopup.current.toggle()}
-                                className="black-text d-flex justify-content-end"
-                            >
-                                <h5>
-                                    Delete book
-                                    <MDBIcon icon="trash-alt" className="ml-2" />
-                                </h5>
-                            </div>
-                        </MDBCardBody>
-                    </MDBCard>
+                            </MDBCardBody>
+                        </MDBCard>
 
-                    <ConfirmPopup ref={this.confirmPopup} 
-                        text='Are you sure you want to delete this book?' 
-                        handleAction={this.deleteBook}
+                        <ConfirmPopup ref={this.confirmPopup}
+                            text='Are you sure you want to delete this book?'
+                            handleAction={this.deleteBook}
                         />
 
-                    <InfoPopup ref={this.infoPopup} 
-                        buttonText="Close" 
-                        linkBack={this.state.modalHref}
-                        text={this.state.modalText}
+                        <InfoPopup ref={this.infoPopup}
+                            buttonText="Close"
+                            linkBack={this.state.modalHref}
+                            text={this.state.modalText}
                         />
-                </MDBCol>
-        </div>
+                    </MDBCol>
+                </div>
             );
         }
     }

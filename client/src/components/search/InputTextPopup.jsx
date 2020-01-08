@@ -25,10 +25,10 @@ export default class InputTextPopup extends Component {
         if (this.props.onSubmit) {
             this.onSubmitParent = this.props.onSubmit
         }
-        
+
         this.Schema = Yup.object().shape({
-            value: Yup.string().required('This field is required').min(5, 'Too Short!').max(20, 'Too Big!')
-          });
+            value: Yup.string().required('This field is required').min(3, 'Too Short!').max(100, 'Too Big!')
+        });
     }
 
     propsUpdate = () => {
@@ -79,22 +79,22 @@ export default class InputTextPopup extends Component {
                         this.onSubmit(values.value)
                     }}>
                     {({ errors, touched }) => (
-                        <MDBModal isOpen={this.state.isOpen}  toggle={this.toggle} centered>
+                        <MDBModal isOpen={this.state.isOpen} toggle={this.toggle} centered>
                             <MDBModalBody>
                                 <Form>
                                     <p className="h4 text-center mb-4">{this.state.text}</p>
                                     <label className="grey-text">Name</label>
                                     <Field name="value"
                                         type="text"
-                                        className="form-control" 
+                                        className="form-control"
                                         required
                                     />
                                     {errors.value && touched.value ? (
                                         <MDBCardText>{errors.value}</MDBCardText>
                                     ) : null}
                                     <MDBModalFooter>
-                                        <MDBBtn onClick={this.toggle}>Cancel</MDBBtn>
-                                        <MDBBtn type="submit">Save</MDBBtn>
+                                        <MDBBtn color="primary" onClick={this.toggle}>Cancel</MDBBtn>
+                                        <MDBBtn color="primary" type="submit">Save</MDBBtn>
                                     </MDBModalFooter>
                                 </Form>
                             </MDBModalBody>

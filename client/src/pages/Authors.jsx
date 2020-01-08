@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCol, MDBBtn } from 'mdbreact';
+import { MDBCol, MDBBtn, MDBRow } from 'mdbreact';
 import Search from '../components/search/Search';
 import UniversalCard from '../components/search/UniversalCard';
 
@@ -22,36 +22,40 @@ export default class Authors extends Component {
     handleData = (data) => {
         this.setState({
             authors: data,
-        }); 
+        });
     }
 
     render() {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <MDBCol md="6">
+            <div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Link to={`/addauthor`}>
-                    <MDBBtn color="primary" rounded>
-                        Add new author
+                        <MDBBtn color="primary" rounded>
+                            Add new author
                     </MDBBtn>
                     </Link>
                 </div>
-                <hr />
-                <Search 
-                    url='http://localhost:5000/api/authors/search/' 
-                    placeholderText="Search author"
-                    handleData={this.handleData}
-                />
-                {this.state.authors.map((e) => {
-                    return (
-                        <div key={e._id}>
-                            <UniversalCard description={e} link={`/authors/${e._id}`}/>
-                            <br />
-                        </div>
-                    );
-                })}
-            </MDBCol>
-        </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <MDBCol md="10">
+                        <hr />
+                        <Search
+                            url='http://localhost:5000/api/authors/search/'
+                            placeholderText="Search author"
+                            handleData={this.handleData}
+                        />
+                    </MDBCol>
+                </div>
+                <MDBRow md="12">
+                    {this.state.authors.map((e) => {
+                        return (
+                            <MDBCol md="6" lg="4" key={e._id}>
+                                <UniversalCard description={e} link={`/authors/${e._id}`} />
+                                <br />
+                            </MDBCol>
+                        );
+                    })}
+                </MDBRow>
+            </div>
         );
     }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCol } from 'mdbreact';
+import { MDBCol, MDBRow } from 'mdbreact';
 import Search from '../components/search/Search';
 import UniversalCard from '../components/search/UniversalCard';
 import InputTextPopup from '../components/search/InputTextPopup';
@@ -14,7 +14,7 @@ export default class Categories extends Component {
             name: '',
             categories: [],
             newname: '',
-            shouldPrevent: () => {},
+            shouldPrevent: () => { },
         };
         this.infoPopup = React.createRef();
     }
@@ -26,7 +26,7 @@ export default class Categories extends Component {
     handleData = (data) => {
         this.setState({
             categories: data,
-        }); 
+        });
     }
 
     handleValue = (value) => {
@@ -37,8 +37,9 @@ export default class Categories extends Component {
             .then(() => {
                 this.infoPopup.current.setState({
                     text: 'A new category has been added successfully.',
-                    shouldPrevent: () => {}
+                    shouldPrevent: () => { }
                 })
+                this.componentDidMount()
             })
             .catch(() => {
                 this.infoPopup.current.setState({
@@ -51,27 +52,32 @@ export default class Categories extends Component {
 
     render() {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <MDBCol md="6">
-                <InputTextPopup buttonText="Add new category" text="Add category" onSubmit={this.handleValue}/>
-                <InfoPopup ref={this.infoPopup} buttonText="Close" linkBack="/categories"></InfoPopup>
-
-                <hr />
-                <Search 
-                    url='http://localhost:5000/api/categories/search/' 
-                    placeholderText="Search category"
-                    handleData={this.handleData}
-                />
-                {this.state.categories.map((e) => {
-                    return (
-                        <div key={e._id}>
-                            <UniversalCard description={e} link={`/categories/${e._id}`}/>
-                            <br />
-                        </div>
-                    );
-                })}
-            </MDBCol>
-        </div>
+            <div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <InputTextPopup buttonText="Add new category" text="Add category" onSubmit={this.handleValue} />
+                    <InfoPopup ref={this.infoPopup} buttonText="Close" linkBack="/categories"></InfoPopup>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <MDBCol md="10">
+                        <hr />
+                        <Search
+                            url='http://localhost:5000/api/categories/search/'
+                            placeholderText="Search category"
+                            handleData={this.handleData}
+                        />
+                    </MDBCol>
+                </div>
+                <MDBRow md="12">
+                    {this.state.categories.map((e) => {
+                        return (
+                            <MDBCol md="6" lg="4" key={e._id}>
+                                <UniversalCard description={e} link={`/categories/${e._id}`} />
+                                <br />
+                            </MDBCol>
+                        );
+                    })}
+                </MDBRow>
+            </div>
         );
     }
 }

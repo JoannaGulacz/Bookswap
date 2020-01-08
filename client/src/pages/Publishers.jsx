@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBCol } from 'mdbreact';
+import { MDBCol, MDBRow } from 'mdbreact';
 import Search from '../components/search/Search';
 import UniversalCard from '../components/search/UniversalCard';
 import InputTextPopup from '../components/search/InputTextPopup';
@@ -13,7 +13,7 @@ export default class Publishers extends Component {
             name: '',
             publishers: [],
             newname: '',
-            shouldPrevent: () => {},
+            shouldPrevent: () => { },
         };
         this.infoPopup = React.createRef();
     }
@@ -25,7 +25,7 @@ export default class Publishers extends Component {
     handleData = (data) => {
         this.setState({
             publishers: data,
-        }); 
+        });
     }
 
     handleValue = (value) => {
@@ -36,8 +36,10 @@ export default class Publishers extends Component {
             .then(() => {
                 this.infoPopup.current.setState({
                     text: 'A new publisher has been added successfully.',
-                    shouldPrevent: () => {},
+                    shouldPrevent: () => { },
                 });
+
+                this.componentDidMount()
             })
             .catch(() => {
                 this.infoPopup.current.setState({
@@ -50,26 +52,32 @@ export default class Publishers extends Component {
 
     render() {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <MDBCol md="6">
-                <InputTextPopup buttonText="Add new publisher" text="Add publisher" onSubmit={this.handleValue}/>
-                <InfoPopup ref={this.infoPopup} buttonText="Close" linkBack="/publishers"></InfoPopup>
-                <hr />
-                <Search 
-                    url='http://localhost:5000/api/publishers/search/' 
-                    placeholderText="Search publisher"
-                    handleData={this.handleData}
-                />
-                {this.state.publishers.map((e) => {
-                    return (
-                        <div key={e._id}>
-                            <UniversalCard description={e} link={`/publishers/${e._id}`}/>
-                            <br />
-                        </div>
-                    );
-                })}
-            </MDBCol>
-        </div>
+            <div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <InputTextPopup buttonText="Add new publisher" text="Add publisher" onSubmit={this.handleValue} />
+                    <InfoPopup ref={this.infoPopup} buttonText="Close" linkBack="/publishers"></InfoPopup>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <MDBCol md="10">
+                        <hr />
+                        <Search
+                            url='http://localhost:5000/api/publishers/search/'
+                            placeholderText="Search publisher"
+                            handleData={this.handleData}
+                        />
+                    </MDBCol>
+                </div>
+                <MDBRow md="12">
+                    {this.state.publishers.map((e) => {
+                        return (
+                            <MDBCol md="6" lg="4" key={e._id}>
+                                <UniversalCard description={e} link={`/publishers/${e._id}`} />
+                                <br />
+                            </MDBCol>
+                        );
+                    })}
+                </MDBRow>
+            </div>
         );
     }
 }

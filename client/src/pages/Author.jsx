@@ -53,7 +53,7 @@ export default class Author extends Component {
                     this.setState({
                         infoText:
                             this.state.infoText +
-                            'died: ' +this.state.author.died +
+                            'died: ' + this.state.author.died +
                             '<br />',
                     });
                 }
@@ -84,16 +84,16 @@ export default class Author extends Component {
                 }
                 this.bookList.current.propsUpdate()
             })
-            .catch(err => {});
+            .catch(err => { });
     }
 
     deleteAuthor = () => {
         axios.delete('http://localhost:5000/api/authors/' + this.state.author._id).then(data => {
             if (data.data.success === true) {
                 this.infoPopup.current.setState({
-                    text:  'Author deleted',
+                    text: 'Author deleted',
                     linkBack: '/authors',
-                    shouldPrevent: () => {}
+                    shouldPrevent: () => { }
                 })
             } else {
                 this.infoPopup.current.setState({
@@ -101,22 +101,22 @@ export default class Author extends Component {
                     shouldPrevent: e => e.preventDefault(),
                 })
             }
-        }).catch(err => {});
+        }).catch(err => { });
         this.infoPopup.current.toggle();
     };
 
     editAuthor = (values) => {
         axios
             .put('http://localhost:5000/api/authors/' + this.state.author._id, {
-                    name: values.name,
-                    born: values.born,
-                    died: values.died,
-                    rating: parseFloat(values.rating),
+                name: values.name,
+                born: values.born,
+                died: values.died,
+                rating: parseFloat(values.rating),
             })
             .then(data => {
                 this.infoPopup.current.setState({
                     text: 'Author edited',
-                    shouldPrevent: () => {},
+                    shouldPrevent: () => { },
                 })
                 this.componentDidMount()
             })
@@ -132,67 +132,67 @@ export default class Author extends Component {
     render() {
         return (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <MDBCol md="8">
-                <MDBCard>
-                    <MDBCardImage
-                        top
-                        src="/author.jpg"
-                        overlay="white-slight"
-                        hover
-                        waves
-                        alt="MDBCard image cap"
-                    />
-                    <MDBCardBody>
-                        <MDBCardTitle>{this.state.author.name}</MDBCardTitle>
-                        <hr />
-                        {<div className="card-text" dangerouslySetInnerHTML={{ __html: this.state.infoText }} />}
-                        <MDBCardText></MDBCardText>
-                        <TitleList ref={this.bookList} books={this.state.author.books}/>
-                        <br />
-                        <div
-                            style={{ cursor: 'pointer' }}
-                            onClick={()=>{this.authorEdit.current.propsUpdate();this.authorEdit.current.toggle()}}
-                            className="black-text d-flex justify-content-end"
-                        >
-                            <h5>
-                                Edit author
+                <MDBCol md="8">
+                    <MDBCard>
+                        <MDBCardImage
+                            top
+                            src="/author.jpg"
+                            overlay="white-slight"
+                            hover
+                            waves
+                            alt="MDBCard image cap"
+                        />
+                        <MDBCardBody>
+                            <MDBCardTitle>{this.state.author.name}</MDBCardTitle>
+                            <hr />
+                            {<div className="card-text" dangerouslySetInnerHTML={{ __html: this.state.infoText }} />}
+                            <MDBCardText></MDBCardText>
+                            <TitleList ref={this.bookList} books={this.state.author.books} />
+                            <br />
+                            <div
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => { this.authorEdit.current.propsUpdate(); this.authorEdit.current.toggle() }}
+                                className="black-text d-flex justify-content-end"
+                            >
+                                <h5>
+                                    Edit author
                                 <MDBIcon icon="edit" className="ml-2" />
-                            </h5>
-                        </div>
-                        <div
-                            style={{ cursor: 'pointer' }}
-                            onClick={()=>this.confirmPopup.current.toggle()}
-                            className="black-text d-flex justify-content-end"
-                        >
-                            <h5>
-                                Delete author
+                                </h5>
+                            </div>
+                            <div
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => this.confirmPopup.current.toggle()}
+                                className="black-text d-flex justify-content-end"
+                            >
+                                <h5>
+                                    Delete author
                                 <MDBIcon icon="trash-alt" className="ml-2" />
-                            </h5>
-                        </div>
-                    </MDBCardBody>
-                </MDBCard>
+                                </h5>
+                            </div>
+                        </MDBCardBody>
+                    </MDBCard>
 
-                <ConfirmPopup ref={this.confirmPopup} 
-                    text='Are you sure you want to delete this author?' 
-                    handleAction={this.deleteAuthor}
+                    <ConfirmPopup ref={this.confirmPopup}
+                        text='Are you sure you want to delete this author?'
+                        handleAction={this.deleteAuthor}
                     />
 
-                <InfoPopup ref={this.infoPopup} 
-                    buttonText="Close" 
-                    linkBack={`/authors/${this.state._id}`}
-                    text={this.state.modalText}
+                    <InfoPopup ref={this.infoPopup}
+                        buttonText="Close"
+                        linkBack={`/authors/${this.state._id}`}
+                        text={this.state.modalText}
                     />
 
-                <AuthorEdit ref={this.authorEdit}
-                    name={this.state.name}
-                    born={this.state.born}
-                    died={this.state.died}
-                    rating={this.state.rating}
-                    onSubmit={this.editAuthor}
-                    linkBack={`/authors/${this.state._id}`}
-                />
-            </MDBCol>
-        </div>
+                    <AuthorEdit ref={this.authorEdit}
+                        name={this.state.name}
+                        born={this.state.born}
+                        died={this.state.died}
+                        rating={this.state.rating}
+                        onSubmit={this.editAuthor}
+                        linkBack={`/authors/${this.state._id}`}
+                    />
+                </MDBCol>
+            </div>
         );
     }
 }

@@ -62,7 +62,6 @@ router.get(
     '/search/:name',
     asyncHandler(async (req, res, next) => {
         try {
-            // const publisher = await Publisher.findById(req.params.id).populate({
             const publisher = await Publisher.find({ name: new RegExp(`.*${req.params.name}.*`, 'i') }).populate({
                 path: 'books',
                 select: 'title author category _id',
@@ -91,7 +90,6 @@ router.get(
 router.post(
     '/',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         const { error } = Publisher.validatePublisher(req.body);
         if (error) {
@@ -108,7 +106,6 @@ router.post(
 router.put(
     '/:id',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const { error } = Publisher.validatePublisher(req.body);
@@ -133,7 +130,6 @@ router.put(
 router.delete(
     '/:id',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             let book = await Book.findOne({

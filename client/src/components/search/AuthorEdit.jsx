@@ -8,16 +8,16 @@ export default class AuthorEdit extends Component {
         super(props);
         this.state = {
             isOpen: false,
-            name: '', 
-            born: '', 
-            died: '', 
+            name: '',
+            born: '',
+            died: '',
             rating: '',
-            linkBack: '', 
+            linkBack: '',
             yes: 'Save',
             no: 'Cancel',
             shouldPrevent: e => e.preventDefault()
         };
-        
+
         if (this.props.text) {
             this.state.text = this.props.text
         }
@@ -32,17 +32,17 @@ export default class AuthorEdit extends Component {
         }
         if (this.props.linkBack) {
             this.state.linkBack = this.props.linkBack
-            this.state.shouldPrevent = () => {}
+            this.state.shouldPrevent = () => { }
         }
 
         this.Schema = Yup.object().shape({
-            name: Yup.string().required('This field is required').min(5, 'Too Short!').max(20, 'Too Big!'),
+            name: Yup.string().required('This field is required').min(3, 'Too Short!').max(100, 'Too Big!'),
             born: Yup.string(),
             died: Yup.string(),
             rating: Yup.number().min(1, 'From 1 to 10!').max(10, 'From 1 to 10!'),
-          });
+        });
     }
-    
+
     componentDidMount = () => {
         this.propsUpdate()
     }
@@ -85,28 +85,28 @@ export default class AuthorEdit extends Component {
     };
 
     render() {
-        return(
-                <Formik enableReinitialize={true}
-                    validationSchema={this.Schema}
-                    initialValues={{
-                        name: this.state.name,
-                        born: (this.state.born),
-                        died: (this.state.died),
-                        rating: this.state.rating
-                    }}
-                    onSubmit={values => {
-                        this.setState({
-                            name: (values.name),
-                            born: (values.born),
-                            died: (values.died),
-                            rating: (values.rating),
-                        })
-                        this.onSubmit(values)
-                    }}
-                >
-                    {({ errors, touched }) => (
-                        <MDBModal isOpen={this.state.isOpen} toggle={this.toggle} centered>
-                            <MDBModalBody>
+        return (
+            <Formik enableReinitialize={true}
+                validationSchema={this.Schema}
+                initialValues={{
+                    name: this.state.name,
+                    born: (this.state.born),
+                    died: (this.state.died),
+                    rating: this.state.rating
+                }}
+                onSubmit={values => {
+                    this.setState({
+                        name: (values.name),
+                        born: (values.born),
+                        died: (values.died),
+                        rating: (values.rating),
+                    })
+                    this.onSubmit(values)
+                }}
+            >
+                {({ errors, touched }) => (
+                    <MDBModal isOpen={this.state.isOpen} toggle={this.toggle} centered>
+                        <MDBModalBody>
                             <Form>
                                 <p className="h4 text-center mb-4">Edit author</p>
                                 <label className="grey-text">Name</label>
@@ -156,8 +156,8 @@ export default class AuthorEdit extends Component {
                             </Form>
                         </MDBModalBody>
                     </MDBModal>
-                    )}
-                </Formik>
+                )}
+            </Formik>
         )
     }
 }

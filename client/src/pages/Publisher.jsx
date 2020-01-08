@@ -47,7 +47,7 @@ export default class Publisher extends Component {
                 this.infoPopup.current.setState({
                     text: 'Publisher deleted',
                     linkBack: '/publishers',
-                    shouldPrevent: () => {},
+                    shouldPrevent: () => { },
                 });
             })
             .catch(err => {
@@ -56,7 +56,7 @@ export default class Publisher extends Component {
                     shouldPrevent: e => e.preventDefault(),
                 });
             });
-            this.infoPopup.current.toggle();
+        this.infoPopup.current.toggle();
     };
 
     editPublisher = (value) => {
@@ -67,7 +67,7 @@ export default class Publisher extends Component {
             .then(data => {
                 this.infoPopup.current.setState({
                     text: 'Publisher edited',
-                    shouldPrevent: () => {},
+                    shouldPrevent: () => { },
                 })
                 this.componentDidMount()
             })
@@ -86,63 +86,63 @@ export default class Publisher extends Component {
         } else {
             return (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <MDBCol md="8">
-                    <MDBCard>
-                        <MDBCardImage
-                            top
-                            src="/publisher.jpg"
-                            overlay="white-slight"
-                            hover
-                            waves
-                            alt="MDBCard image cap"
-                        />
-                        <MDBCardBody>
-                            <MDBCardTitle>{this.state.publisher.name}</MDBCardTitle>
-                            <hr />
-                            {<div className="card-text" dangerouslySetInnerHTML={{ __html: this.state.infoText }} />}
-                            <MDBCardText></MDBCardText>
-                            <BookList ref={this.bookList} books={this.state.publisher.books}/>
-                            <br />
-                            <div
-                                style={{ cursor: 'pointer' }}
-                                onClick={()=>{this.inputTextPopup.current.propsUpdate();this.inputTextPopup.current.toggle()}}
-                                className="black-text d-flex justify-content-end"
-                            >
-                                <h5>
-                                    Edit publisher
+                    <MDBCol md="8">
+                        <MDBCard>
+                            <MDBCardImage
+                                top
+                                src="/publisher.jpg"
+                                overlay="white-slight"
+                                hover
+                                waves
+                                alt="MDBCard image cap"
+                            />
+                            <MDBCardBody>
+                                <MDBCardTitle>{this.state.publisher.name}</MDBCardTitle>
+                                <hr />
+                                {<div className="card-text" dangerouslySetInnerHTML={{ __html: this.state.infoText }} />}
+                                <MDBCardText></MDBCardText>
+                                <BookList ref={this.bookList} books={this.state.publisher.books} />
+                                <br />
+                                <div
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => { this.inputTextPopup.current.propsUpdate(); this.inputTextPopup.current.toggle() }}
+                                    className="black-text d-flex justify-content-end"
+                                >
+                                    <h5>
+                                        Edit publisher
                                     <MDBIcon icon="edit" className="ml-2" />
-                                </h5>
-                            </div>
-                            <div
-                                style={{ cursor: 'pointer' }}
-                                onClick={()=>this.confirmPopup.current.toggle()}
-                                className="black-text d-flex justify-content-end"
-                            >
-                                <h5>
-                                    Delete publisher
+                                    </h5>
+                                </div>
+                                <div
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => this.confirmPopup.current.toggle()}
+                                    className="black-text d-flex justify-content-end"
+                                >
+                                    <h5>
+                                        Delete publisher
                                     <MDBIcon icon="trash-alt" className="ml-2" />
-                                </h5>
-                            </div>
-                        </MDBCardBody>
-                    </MDBCard>
+                                    </h5>
+                                </div>
+                            </MDBCardBody>
+                        </MDBCard>
 
-                    <ConfirmPopup ref={this.confirmPopup} 
-                        text='Are you sure you want to delete this publisher?' 
-                        handleAction={this.deletePublisher}
+                        <ConfirmPopup ref={this.confirmPopup}
+                            text='Are you sure you want to delete this publisher?'
+                            handleAction={this.deletePublisher}
                         />
 
-                    <InfoPopup ref={this.infoPopup} 
-                        buttonText="Close"
-                        linkBack={`/publishers/${this.state._id}`}
+                        <InfoPopup ref={this.infoPopup}
+                            buttonText="Close"
+                            linkBack={`/publishers/${this.state._id}`}
                         />
 
-                    <InputTextPopup ref={this.inputTextPopup} 
-                        text="Edit category" 
-                        value={this.state.name}
-                        onSubmit={this.editPublisher} 
-                        buttonDisplay='none'/>
-                </MDBCol>
-        </div>
+                        <InputTextPopup ref={this.inputTextPopup}
+                            text="Edit category"
+                            value={this.state.name}
+                            onSubmit={this.editPublisher}
+                            buttonDisplay='none' />
+                    </MDBCol>
+                </div>
             );
         }
     }
