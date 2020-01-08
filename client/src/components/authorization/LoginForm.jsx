@@ -30,7 +30,6 @@ export default class LoginForm extends Component {
                                     password: fields.password,
                                 })
                                 .then(response => {
-                                    console.log(response.data.success);
                                     const token = response.data.token;
                                     fields.props.loginHandler(token);
                                     fields.props.history.push('/');

@@ -33,12 +33,10 @@ export default class NotificationReceived extends Component {
     }
 
     handleAccept(ev, el) {
-        ev.target.disabled = true;
-        ev.target.nextElementSibling.disabled = true;
         axios.delete(`/swaps/bookcases/${el.bookToOffer._id}`).then(this.getSwaps());
         axios.delete(`/swaps/bookcases/${el.bookToGet._id}`).then(this.getSwaps());
-        axios.put(`/bookcases/${el.bookToOffer._id}`, { user: el.userThatGetsOffer });
-        axios.put(`/bookcases/${el.bookToGet._id}`, { user: el.user });
+        axios.put(`/bookcases/${el.bookToOffer._id}`, { user: el.userThatGetsOffer, change: false });
+        axios.put(`/bookcases/${el.bookToGet._id}`, { user: el.user, change: false });
     }
 
     handleRefuse(ev, id) {
