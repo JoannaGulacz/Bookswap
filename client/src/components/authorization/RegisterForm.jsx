@@ -23,7 +23,7 @@ export default class RegisterForm extends Component {
                                 .email('Email is invalid')
                                 .required('Email is required'),
                             password: Yup.string()
-                                .min(5, 'Password must be at least 6 characters')
+                                .min(5, 'Password must be at least 5 characters')
                                 .required('Password is required'),
                             confirmPassword: Yup.string()
                                 .oneOf([Yup.ref('password'), null], 'Passwords must match')
@@ -43,12 +43,16 @@ export default class RegisterForm extends Component {
                                     fields.props.history.push('/users/me');
                                 })
                                 .catch(function(error) {
-                                    console.log(error);
+                                    document.getElementById('registerError').innerHTML = `${error.response.data}`;
                                 });
+                        }}
+                        onReset={() => {
+                            document.getElementById('registerError').innerHTML = ``;
                         }}
                         render={({ errors, status, touched }) => (
                             <Form className="pl-4 pr-4 pt-4">
                                 <h4 className="text-center">Sign up</h4>
+                                <p id="registerError" className="red-text" />
                                 <div className="form-group">
                                     <label htmlFor="name">Name</label>
                                     <Field
