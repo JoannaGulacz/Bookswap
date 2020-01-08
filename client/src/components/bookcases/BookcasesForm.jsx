@@ -31,7 +31,13 @@ export default class BookcasesForm extends Component {
             modalInfo: false,
             modalEditText: '',
             modalText: '',
+            userId: '',
         };
+
+        if (this.props.bookcases) {
+            this.state.bookcases = this.props.bookcases;
+            console.log('udalosie');
+        }
 
         this.toggle.bind(this);
         this.toggleEdit.bind(this);
@@ -53,7 +59,8 @@ export default class BookcasesForm extends Component {
         axios
             .get('http://localhost:5000/api/bookcases/library')
             .then(data => {
-                this.setState({ bookcases: data.data.data });
+                console.log(data.data.data[0].owner);
+                this.setState({ bookcases: data.data.data, userId: data.data.data[0].owner });
             })
             .catch(function(error) {
                 console.log(error.response.data);
@@ -185,8 +192,9 @@ export default class BookcasesForm extends Component {
     onSubmit = event => {
         event.preventDefault();
         axios
-            .get('http://localhost:5000/api/bookcases/search/' + this.state.title)
-            .then(data => this.setState({ bookcases: data.data.data }));
+            .get('http://localhost:5000/api/bookcases/search/' + this.state.title + '/' + this.state.userId)
+            .then(data => this.setState({ bookcases: data.data.data }))
+            .catch(response => console.log(response));
     };
 
     render() {
