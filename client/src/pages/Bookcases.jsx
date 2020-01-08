@@ -34,7 +34,7 @@ class Bookcases extends Component {
                 this.setState({ bookcases: data.data.data, userId: data.data.data[0].owner });
             })
             .catch(function(error) {
-                console.log(error.response.data);
+                console.log(error.response);
             });
     };
 
