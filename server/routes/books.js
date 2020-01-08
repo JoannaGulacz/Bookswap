@@ -77,6 +77,11 @@ router.get(
                 .populate({
                     path: 'reviews',
                     select: 'rating title content -_id',
+                    populate:
+                        {
+                            path: 'owner',
+                            select: 'name email _id',
+                        }
                 });
 
             const rates = await Review.find({ book: book.id });

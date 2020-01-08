@@ -3,49 +3,28 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { MDBContainer } from 'mdbreact';
 import axios from '../utils/axios';
 
-//nawigacja
 import Menu from '../components/navigation/Menu';
 import FooterPage from '../components/navigation/FooterPage';
-
-//użytkownik
 import UserMenu from '../components/user_profile/UserMenu';
 import UserProfile from './UserProfile';
-
-//formularze rejestracji i logowania
 import Login from './Login';
-
-//zbiór ksiązek
+import Main from './Home/Main';
 import Books from './Books';
 import Book from './Book';
 import AddBook from './AddBook';
-
-//zbiór autorów
 import Authors from './Authors';
 import Author from './Author';
 import AddAuthor from './AddAuthor';
-
-//zbiór wydawnictw
 import Publishers from './Publishers';
 import Publisher from './Publisher';
-
-//zbiór kategorii
 import Categories from './Categories';
 import Category from './Category';
-
 import Swap from './Swap';
 import SwapDetails from './SwapDetails';
-
-import Main from './Home/Main';
-
-// zbiór posiadanych książek
 import Bookcases from './Bookcases';
 import AddBookcase from './AddBookcase';
-
-//zbiór recenzji
 import Reviews from './Reviews';
 import AddReview from './AddReview';
-
-//Powiadomienia
 import Notification from './Notification';
 
 class Root extends React.Component {
@@ -95,8 +74,19 @@ class Root extends React.Component {
                         <Route path="/" exact component={Main} />
                         <Route path="/swap" exact component={Swap} />
                         <Route path="/swap/:id" component={SwapDetails} />
-                        <Route path="/notifications" component={Notification} />
-                        <Route path="/login" render={props => <Login {...props} loginHandler={this.loginHandler} />} />
+                        <Route path="/notifications">
+                            {this.state.isLogged ? <Notification /> : <Redirect to="/login" />}
+                        </Route>
+                        <Route
+                            path="/login"
+                            render={props =>
+                                !this.state.isLogged ? (
+                                    <Login {...props} loginHandler={this.loginHandler} />
+                                ) : (
+                                    <Redirect to="/" />
+                                )
+                            }
+                        />
                         <Route path="/books" exact component={Books} />
                         <Route path="/books/:_id" component={Book} />
                         <Route path="/authors" exact component={Authors} />
@@ -107,9 +97,15 @@ class Root extends React.Component {
                         <Route path="/categories" exact component={Categories} />
                         <Route path="/categories/:_id" component={Category} />
                         <Route path="/addbook/" component={AddBook} />
-                        <Route path="/bookcases" exact component={Bookcases} />
-                        <Route path="/addbookcase" component={AddBookcase} />
-                        <Route path="/reviews" exact component={Reviews} />
+                        <Route path="/bookcases" exact>
+                            {this.state.isLogged ? <Bookcases /> : <Redirect to="/login" />}
+                        </Route>
+                        <Route path="/addbookcase">
+                            {this.state.isLogged ? <AddBookcase /> : <Redirect to="/login" />}
+                        </Route>
+                        <Route path="/reviews" exact>
+                            {this.state.isLogged ? <Reviews /> : <Redirect to="/login" />}
+                        </Route>
                         <Route path="/addreview/:_id" component={AddReview} />
                         <Route path="/users/me">
                             {this.state.isLogged ? (
@@ -130,9 +126,3 @@ class Root extends React.Component {
     }
 }
 export default Root;
-
-/* MATERIAŁY:
-
-https://www.youtube.com/watch?v=Law7wfdg_ls bardzo prosty tutorial 30' (dynamic routing => ~19' przykład API linki do itemów w sklepie)
-
-*/

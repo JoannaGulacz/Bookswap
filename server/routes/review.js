@@ -63,18 +63,14 @@ router.get(
     protect,
     asyncHandler(async (req, res, next) => {
         const review = await Review.findById(req.params.id)
-            // .populate({
-            //     path: 'author',
-            //     select: 'name -_id',
-            // })
-            .populate({
-                path: 'book',
-                select: 'title author -_id',
-                populate: {
-                    path: 'author',
-                    select: 'name -_id',
-                },
-            });
+        .populate({
+            path: 'book',
+            select: 'title author -_id',
+            populate: {
+                path: 'author',
+                select: 'name -_id',
+            },
+        });
 
         if (!review) return res.status(404).send('There is no review with given ID in database');
 

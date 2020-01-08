@@ -102,7 +102,7 @@ router.post(
     asyncHandler(async (req, res, next) => {
         // Validate request with Joi
         const { error } = validateAuthor(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+        if (error) return res.status(400);
 
         const author = await Author.create(req.body);
 
@@ -118,7 +118,7 @@ router.post(
 // @access  Private (admin)
 router.put(
     '/:id',
-    protect,
+    // protect,
     // authorize('admin'), // || 'moderator'
     asyncHandler(async (req, res, next) => {
         try {

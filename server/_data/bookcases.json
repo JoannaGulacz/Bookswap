@@ -2,28 +2,28 @@
     "_id": "5d7a514b5d2c12c7449be020",
     "owner": "5d7a514b5d2c12c7449be125",
     "change": true,
-    "title": "Mężczyźni, którzy nienawidzą kobiet",
+    "title": "Men Who Hate Women",
     "parentBook": "5d713995b721c3bb38c1f5d0"
   },
   {
     "_id": "5d7a514b5d2c12c7449be023",
     "owner": "5d7a514b5d2c12c7449be124",
     "change": true,
-    "title": "Mężczyźni, którzy nienawidzą kobiet",
+    "title": "Men Who Hate Women",
     "parentBook": "5d713995b721c3bb38c1f5d0"
   },
   {
     "_id": "5d7a514b5d2c12c7449be021",
     "owner": "5d7a514b5d2c12c7449be123",
     "change": false,
-    "title": "Harry Potter i Kamień Filozoficzny",
+    "title": "Harry Potter and the Philosopher's Stone",
     "parentBook": "5d713a66ec8f2b88b8f830b8"
   },
   {
     "_id": "5d7a514b5d2c12c7449be022",
     "owner": "5d7a514b5d2c12c7449be122",
     "change": true,
-    "title": "Harry Potter i Komnata Tajemnic",
+    "title": "Harry Potter and the Chamber of Secrets",
     "parentBook": "5d725a037b292f5f8ceff787"
   }
 ]

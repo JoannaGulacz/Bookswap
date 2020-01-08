@@ -29,21 +29,6 @@ const reviewSchema = new mongoose.Schema({
     },
 });
 
-// const Review = mongoose.model('Review', reviewSchema);
-
-// async function createReview(title, content, rating) {
-//     const review = new Review({
-//         title,
-//         content,
-//         rating,
-//         author,
-//         book,
-//     });
-
-//     const result = await review.save();
-//     console.log(result);
-// }
-
 function validateReview(review) {
     const schema = Joi.object({
         title: Joi.string()
