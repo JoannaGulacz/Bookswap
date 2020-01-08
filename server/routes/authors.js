@@ -115,8 +115,7 @@ router.post(
 // @access  Private (admin)
 router.put(
     '/:id',
-    // protect,
-    // authorize('admin'), // || 'moderator'
+    protect,
     asyncHandler(async (req, res, next) => {
         try {
             // Validate request with Joi
