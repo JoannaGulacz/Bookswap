@@ -1,55 +1,55 @@
 [{
     "_id": "5d713995b721c3bb38c1f5d0",
-    "title": "Mężczyźni, którzy nienawidzą kobiet",
+    "title": "Men Who Hate Women",
     "author": "5df02aa60fad54186ceff87a",
     "publisher": "5df002a32f49b02c8c84152a",
     "category": "5deff118c426854752e9b62d"
   },
   {
     "_id": "5d713a66ec8f2b88b8f830b8",
-    "title": "Harry Potter i Kamień Filozoficzny",
+    "title": "Harry Potter and the Philosopher's Stone",
     "author": "5df02aa60fad54186ceff878",
     "publisher": "5df002a32f49b02c8c841528",
     "category": "5deff118c426854752e9b64d"
   },
   {
     "_id": "5d725a037b292f5f8ceff787",
-    "title": "Harry Potter i Komnata Tajemnic",
+    "title": "Harry Potter and the Chamber of Secrets",
     "author": "5df02aa60fad54186ceff878",
     "publisher": "5df002a32f49b02c8c841528",
     "category": "5deff118c426854752e9b64d"
   },
   {
     "_id": "5d725a037b292f5f8ceff788",
-    "title": "Harry Potter i Więzień Azkabanu",
+    "title": "Harry Potter and the Prisoner of Azkaban",
     "author": "5df02aa60fad54186ceff878",
     "publisher": "5df002a32f49b02c8c841528",
     "category": "5deff118c426854752e9b64d"
   },
   {
     "_id": "5d725a037b292f5f8ceff789",
-    "title": "Harry Potter i Czara Ognia",
+    "title": "Harry potter and goblet of fire",
     "author": "5df02aa60fad54186ceff878",
     "publisher": "5df002a32f49b02c8c841528",
     "category": "5deff118c426854752e9b64d"
   },
   {
     "_id": "5d725a037b292f5f8ceff790",
-    "title": "Harry Potter i Zakon Feniksa",
+    "title": "Harry Potter And Order of Phoenix",
     "author": "5df02aa60fad54186ceff878",
     "publisher": "5df002a32f49b02c8c841528",
     "category": "5deff118c426854752e9b64d"
   },
   {
     "_id": "5d725a037b292f5f8ceff791",
-    "title": "Harry Potter i Książę Półkrwi",
+    "title": "Harry Potter And The Half-Blood Prince",
     "author": "5df02aa60fad54186ceff878",
     "publisher": "5df002a32f49b02c8c841528",
     "category": "5deff118c426854752e9b64d"
   },
   {
     "_id": "5d725a037b292f5f8ceff792",
-    "title": "Harry Potter i Insygnia Śmierci",
+    "title": "Harry Potter and the Deathly Hallows",
     "author": "5df02aa60fad54186ceff878",
     "publisher": "5df002a32f49b02c8c841528",
     "category": "5deff118c426854752e9b64d"
@@ -98,7 +98,7 @@
   },
   {
     "_id": "5d725a1b7b292f5f8ceff794",
-    "title": "Władca pierścieni",
+    "title": "Lord Of The Rings",
     "author": "5df02aa60fad54186ceff879",
     "publisher": "5df002a32f49b02c8c841529",
     "category": "5deff118c426854752e9b61d"

@@ -1,10 +1,10 @@
 [{
     "_id": "5deff118c426854752e9b61d",
-    "name": "Fantastyka/S.F."
+    "name": "Fantasy/Sci-Fi"
   },
   {
     "_id": "5deff118c426854752e9b62d",
-    "name": "Kryminał/Thriller"
+    "name": "Thriller"
   },
   {
     "_id": "5deff118c426854752e9b63d",
@@ -12,10 +12,10 @@
   },
   {
     "_id": "5deff118c426854752e9b64d",
-    "name": "Literatura młodzieżowa"
+    "name": "Youth Literature"
   },
   {
     "_id": "5deff118c426854752e9b65d",
-    "name": "Powieść Historyczna"
+    "name": "Historical Fiction"
   }
 ]
