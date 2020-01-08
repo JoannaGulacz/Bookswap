@@ -11,6 +11,12 @@ BookSwap is unique web platform for books enthusiast. Main goal of the applicati
 -   setting "physical copies" to swap
 -   searching for books to swap
 
+### Development perspectives
+-   community aspects (making friends with users, private correspondance, comments section)
+-   implementation od roles and theirs aspects (publisher sites, marked critic reviews, etc.)
+-   journal aspect (articles, news section)
+
+
 ### Screenshots
 #### Login page:
 ![Login page](/client/public/samples/login.jpg)
