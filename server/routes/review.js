@@ -62,8 +62,7 @@ router.get(
     '/:id',
     protect,
     asyncHandler(async (req, res, next) => {
-        const review = await Review.findById(req.params.id)
-        .populate({
+        const review = await Review.findById(req.params.id).populate({
             path: 'book',
             select: 'title author -_id',
             populate: {
@@ -84,7 +83,6 @@ router.get(
 router.delete(
     '/:id',
     protect,
-    authorize('admin'),
     asyncHandler(async (req, res, next) => {
         const review = await Review.findByIdAndDelete(req.params.id);
 
