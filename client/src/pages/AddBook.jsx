@@ -112,7 +112,7 @@ export default class Book extends Component {
                         </MDBCardBody>
                     </MDBCard>
 
-                    <InfoPopup ref={this.infoPopup} buttonText="Close"></InfoPopup>
+                    <InfoPopup ref={this.infoPopup} linkBack="/books" buttonText="Close"></InfoPopup>
                 </MDBCol>
             </div>
         );
