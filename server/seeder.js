@@ -33,6 +33,7 @@ const authors = JSON.parse(fs.readFileSync(`${__dirname}/_data/authors.json`, 'u
 const categories = JSON.parse(fs.readFileSync(`${__dirname}/_data/categories.json`, 'utf-8'));
 const reviews = JSON.parse(fs.readFileSync(`${__dirname}/_data/reviews.json`, 'utf-8'));
 const users = JSON.parse(fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8'));
+const swaps = JSON.parse(fs.readFileSync(`${__dirname}/_data/swaps.json`, 'utf-8'));
 
 // Import into DB
 const importData = async () => {
@@ -44,7 +45,7 @@ const importData = async () => {
         await Category.create(categories);
         await Review.create(reviews);
         await User.create(users);
-        console.log('Data Imported...');
+        //await Swap.create(swaps);
         process.exit();
     } catch (err) {
         console.error(err);

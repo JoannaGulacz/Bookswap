@@ -282,7 +282,6 @@ router.delete(
     asyncHandler(async (req, res, next) => {
         try {
             const bookcase = await Bookcase.findById(req.params.id);
-            console.log(bookcase);
             if (bookcase.owner == req.user.id) {
                 const result = await Bookcase.deleteOne({
                     _id: req.params.id,
