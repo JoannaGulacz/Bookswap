@@ -1,34 +1,3 @@
 [
-    {
-        "_id": "11161025c4f326078471903b",
-        "createdAt": "2020-01-08T17:10:48.684+00:00",
-        "bookToOffer": "5d7a514b5d2c12c7449be022",
-        "user": "5d7a514b5d2c12c7449be111",
-        "bookToGet": "5d7a514b5d2c12c7449be323",
-        "userThatGetsOffer": "5d7a514b5d2c12c7449be122"
-    },
-    {
-        "_id": "11161025c4f706988471903b",
-        "createdAt": "2020-01-08T17:10:48.684+00:00",
-        "bookToOffer": "5d725a1b7b292f5f8ceff234",
-        "user": "5d7a514b5d2c12c7449be111",
-        "bookToGet": "5d7a514b5d2c12c7449be323",
-        "userThatGetsOffer": "5d7a514b5d2c12c7449be121"
-    },
-    {
-        "_id": "19861025c4f706078471903b",
-        "createdAt": "2020-01-08T17:10:48.684+00:00",
-        "bookToOffer": "5d7a514b5d2c12c7449be534",
-        "user": "5d7a514b5d2c12c7449be121",
-        "bookToGet": "5d7a514b5d2c12c7449be111",
-        "userThatGetsOffer": "5d7a514b5d2c12c7449be111"
-    },
-    {
-        "_id": "11198025c4f706078471903b",
-        "createdAt": "2020-01-08T17:10:48.684+00:00",
-        "bookToOffer": "5d7a514b5d2c12c7449beed9",
-        "user": "5d7a514b5d2c12c7449be111",
-        "bookToGet": "5d7a514b5d2c12c7449be123",
-        "userThatGetsOffer": "5d7a514b5d2c12c7449be999"
-    }
+    
 ]

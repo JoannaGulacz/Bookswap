@@ -46,6 +46,7 @@ const importData = async () => {
         await Review.create(reviews);
         await User.create(users);
         //await Swap.create(swaps);
+        console.log('Data Imported...');
         process.exit();
     } catch (err) {
         console.error(err);
