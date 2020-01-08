@@ -1,31 +1,34 @@
-## BookSwap - website for searching, reviewing and exchanging books (CodersCamp project)
+﻿## BookSwap - website for searching, reviewing and exchanging books (CodersCamp project)
 
-### Opis projektu
+### Project desciption
+BookSwap is unique web platform for books enthusiast. Main goal of the application is to create a community as well as the tool for searching, reviewing and exchanging books between community members.
 
-Aplikacja zrzeszająca fascynatów książek, która umożliwia wyszukiwanie ocen oraz recenzji książek znajdujących się w bazie.
-Zarejestrowani użytkownicy, poza możliwością wystawiania ocen zyskują dostęp do własnej biblioteki książek. Pochwal się swoją kolekcję lub wymieniaj książkami z innymi użytkownikami!
+### Main functions
+-   searching related databases of Books, Author, Categories and Publishers
+-   writing and reading books reviews
+-   rating books and avarage rate
+-   addin "physical copies" of books to users bookcase 
+-   setting "physical copies" to swap
+-   searching for books to swap
 
-### Funkcjonalności
+### Screenshots
+Login page
+![Login page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/login.jpg)
 
--   baza książek: zbiór tytułów
--   baza gatunków: zbiór kategorii literackich
--   baza autorów: zbiór pisarzy
--   baza wydawnictw: zbiór przedsiębiorstw
--   system oceniania książek: ocena książki w skali gwiazdkowej, wyświetlanie średniej oceny użytkowników
--   system recencji użytkowników: dodawanie recenzji według określonego schematu (konto Recenzenta)
--   zakładanie konta użytkownika
--   biblioteka książek: kolekcja przeczytanych książek (odnośnik do recenzji/oceny użytkownika)
--   system wymiany książek: zaoferowanie książek z biblioteki do wymiany, szukanie ofert wymiany
+User page
+![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/user.jpg)
 
-### Info dla zespołu
+Searching database
+![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/books.jpg)
 
-Info dla osoby zakładającej repo:
+Books reviews
+![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/reviews.jpg)
 
-```
-przed wykonaniem polecenia yarn || npm install konieczenie git init, bez tego husky nie zadziała
-```
+Books swapping
+![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/booksToSwap.jpg)
 
-```
-node seeder.js -i // import danych
-node seeder.js -d // usuwanie danych
-```
+Database items cards
+![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/book.jpg)
+
+Forms
+![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/forms.jpg)
