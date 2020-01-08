@@ -6,7 +6,7 @@ const SearchDropdown = props => {
         <MDBNavItem>
             <MDBDropdown>
                 <MDBDropdownToggle nav caret>
-                    <span className="mr-2">Search</span>
+                    <span className="mr-2 text-dark font-weight-bold">Search</span>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>{props.children}</MDBDropdownMenu>
             </MDBDropdown>

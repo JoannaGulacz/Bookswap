@@ -1,9 +1,13 @@
 .logo-container {
 
+  background-image: url("/leather.jpg");
+
+
   /* background-image from: "https://media.freestocktextures.com/cache/75/e4/75e41ef1aebfb7bcff008e9450481371.jpg" */
   /*background-image: url("../../../public/papirus.jpg");*/
   /* background-image: url("https://media.freestocktextures.com/cache/75/e4/75e41ef1aebfb7bcff008e9450481371.jpg"); */
-  background-image: url("https://media.freestocktextures.com/cache/3c/a7/3ca72fff5edce936c0559af183d7ed57.jpg");
+  /*background-image: url("https://media.freestocktextures.com/cache/3c/a7/3ca72fff5edce936c0559af183d7ed57.jpg");*/
+
 
 
 
@@ -13,7 +17,11 @@
 }
 
 .logo-title {
-  color: white;
+
+  color: #ccffff;
+
+  /*color: white;*/
+
   height: 100%;
 }
 
