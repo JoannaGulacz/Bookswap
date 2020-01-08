@@ -3,7 +3,7 @@ import { MDBCol, MDBRow, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact
 import axios from 'axios';
 import { useFormik } from 'formik';
 
-const AddBookcase = () => {
+const AddBookcaseForm = () => {
     const formik = useFormik({
         initialValues: {
             title: '',
@@ -29,6 +29,7 @@ const AddBookcase = () => {
                 });
         },
     });
+
     return (
         <div className="d-flex justify-content-center">
             <MDBCol md="6">
@@ -104,4 +105,4 @@ const AddBookcase = () => {
     );
 };
 
-export default AddBookcase;
+export default AddBookcaseForm;

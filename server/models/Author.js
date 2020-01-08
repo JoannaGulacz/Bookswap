@@ -9,9 +9,9 @@ const authorSchema = new mongoose.Schema(
             unique: true,
         },
         born: {
-            type: Date, // "YYYY-mm-dd"
+            type: String, // "YYYY-mm-dd"
         },
-        died: Date,
+        died: String,
         rating: Number,
     },
     {
@@ -30,8 +30,8 @@ function validate(authorData) {
             .min(3)
             .max(250)
             .required(),
-        born: Joi.date().required(),
-        died: Joi.date(),
+        born: Joi.string(),
+        died: Joi.string(),
         rating: Joi.number()
             .min(0)
             .max(10),

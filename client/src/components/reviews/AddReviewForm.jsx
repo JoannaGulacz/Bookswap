@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-import axios from '../utils/axios';
+import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { withRouter } from 'react-router-dom';
 
 class Reviews extends Component {
     constructor(props) {
@@ -10,6 +11,15 @@ class Reviews extends Component {
             radio: 4,
             title: '',
         };
+    }
+
+    // onClick = nr => () => {
+    //     this.setState({
+    //         radio: nr,
+    //     });
+    // };
+
+    componentDidMount() {
         axios
             .get('http://localhost:5000/api/books/' + this.props._id)
             .then(response => {
@@ -20,11 +30,6 @@ class Reviews extends Component {
             });
     }
 
-    onClick = nr => () => {
-        this.setState({
-            radio: nr,
-        });
-    };
     render() {
         return (
             <div className="d-flex justify-content-center">
@@ -48,7 +53,7 @@ class Reviews extends Component {
                                             alert('Review added');
                                         })
                                         .catch(function(error) {
-                                            console.log(error.response.data);
+                                            console.log(error.response);
                                             alert('Review not added');
                                         });
                                 }}
@@ -111,4 +116,4 @@ class Reviews extends Component {
         );
     }
 }
-export default Reviews;
+export default withRouter(Reviews);

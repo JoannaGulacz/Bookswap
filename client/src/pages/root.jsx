@@ -82,6 +82,9 @@ class Root extends React.Component {
     render() {
         return (
             <Router>
+                <style>{
+                    'body {background: #83a4d4; background: -webkit-linear-gradient(to right, #cceeff, #99ddff); background: linear-gradient(to right, #cceeff, #99ddff);}'
+                }</style>
                 <MDBContainer>
                     <Menu>
                         <UserMenu

@@ -104,7 +104,7 @@ UserSchema.virtual('bookcases', {
 UserSchema.virtual('reviews', {
     ref: 'Review',
     localField: '_id',
-    foreignField: 'author',
+    foreignField: 'owner',
     justOne: false,
 });
 
