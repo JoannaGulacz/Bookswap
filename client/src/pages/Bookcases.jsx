@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import AddBookcaseButton from '../components/bookcases/AddBookcaseButton';
 import ListOfBookcases from '../components/bookcases/ListOfBookcases';
-import ConfirmPopup from '../components/ConfirmPopup';
-import InfoPopup from '../components/InfoPopup';
+import ConfirmPopup from '../components/search/ConfirmPopup';
+import InfoPopup from '../components/search/InfoPopup';
 import BookcaseEdit from '../components/bookcases/BookcaseEdit';
 import { MDBIcon, MDBCol } from 'mdbreact';
 
