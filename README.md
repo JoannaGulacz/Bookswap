@@ -28,7 +28,7 @@ BookSwap is unique web platform for books enthusiast. Main goal of the applicati
 ![Books swapping](/client/public/samples/booksToSwap.jpg)
 
 #### Database items cards:
-![Database items cards](r/client/public/samples/book.jpg)
+![Database items cards](/client/public/samples/book.jpg)
 
 #### Forms:
 ![Forms](/client/public/samples/forms.jpg)
