@@ -108,7 +108,6 @@ router.post(
 router.put(
     '/:id',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             const { error } = Publisher.validatePublisher(req.body);
@@ -133,7 +132,6 @@ router.put(
 router.delete(
     '/:id',
     protect,
-    // authorize('admin'),
     asyncHandler(async (req, res, next) => {
         try {
             let book = await Book.findOne({

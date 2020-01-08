@@ -29,11 +29,6 @@ function validatePublisher(publisher) {
     return schema.validate(publisher);
 }
 
-// publisherSchema.pre('save', function(next) {
-//     this.publisher = this.publisher.toLowerCase()
-//     next();
-// });
-
 publisherSchema.virtual('books', {
     ref: 'Book',
     localField: '_id',
