@@ -61,10 +61,13 @@ export default class NotificationReceived extends Component {
                                     <MDBCardBody>
                                         <MDBCardText>
                                             Give away: <br />"
-                                            <Link to={`/books/${el.bookToGet.parentBook}`}>{el.bookToGet.title}</Link>"
+                                            <Link to={`/books/${el.bookToGet.parentBook.id}`}>
+                                                {el.bookToGet.title}
+                                            </Link>
+                                            "
                                             <br /> and get:
                                             <br />"
-                                            <Link to={`/books/${el.bookToOffer.parentBook}`}>
+                                            <Link to={`/books/${el.bookToOffer.parentBook.id}`}>
                                                 {el.bookToOffer.title}
                                             </Link>
                                             "
