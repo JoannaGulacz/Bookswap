@@ -1,6 +1,6 @@
 import React from 'react';
-import BookcasesForm from '../components/BookcasesForm';
-import AddBookcaseButton from '../components/AddBookcaseButton';
+import BookcasesForm from '../components/bookcases/BookcasesForm';
+import AddBookcaseButton from '../components/bookcases/AddBookcaseButton';
 
 const Bookcases = () => {
     return (

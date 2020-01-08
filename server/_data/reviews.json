@@ -1,6 +1,7 @@
 [
     {
         "_id": "5df11db8cad51e0f78793278",
+        "title": "Mężczyźni, którzy nienawidzą kobiet",
         "content": "Człowiek potrafi być bestią ! To pomyślałam po przeczytaniu książki. Zostawia w nas pięto i zadaje pytanie co sprawia że nad człowieczeństwo przekładamy przemoc i okrucieństwo? Książka jest też wykładem z psychologii. Pokazuje jak nasze dzieciństwo mocno wpływa na dorosłość i powielanie błędów , uczynków naszych rodziców. Bardzo dobrze stworzona postać dziennikarza który jest taki jak my. Ma swoje problemy, pije i trudno jest mu rzucić palenie. Silniejsi rządzą światem i on mając dobre chęci tak jak i my ponosi porażkę w walce z nimi. Ale ale... sprawiedliwość wraca . I w tym wypadku też tak jest. Skrzywdzenie niewinnej istoty pozostawia piętno w sprawcy i nigdy nie uchodzi mu na sucho nie ważne ile minęło lat . Opowieść i rozwiązanie przerażające, budzące dreszcz... Jednak warto podjąć wysiłek i razem z dziennikarzem iść niczym hart za tropem do końca.",
         "rating": "5",
         "book": "5d713995b721c3bb38c1f5d0",
@@ -8,6 +9,7 @@
     },
     {
         "_id": "5df11db8cad51e0f78793279",
+        "title": "Harry Potter i Kamień Filozoficzny",
         "content": "Po latach wielu od premiery... w końcu podeszłam do Harry'ego. Nieco infantylna, ale czy zwycięzców się ocenia negatywnie? Książka, która porwała miliony, zachęciła dzieci do czytania, rozwinęła w wielu pasję i pobudziła wyobraźnię. Może czytam ją za późno, ale doceniam i tak :)",
         "rating": "4",
         "book": "5d713a66ec8f2b88b8f830b8",
@@ -15,13 +17,15 @@
     },
     {
         "_id": "5df11db8cad51e0f7879327a",
+        "title": "Żmijowisko",
         "content": "Bardzo zła i nudna książka",
         "rating": "1",
-        "book": "5d713a66ec8f2b88b8f830b8",
+        "book": "5d725a037b292f5f8ceff793",
         "owner": "5d7a514b5d2c12c7449be999"
     },
     {
         "_id": "5df11db8cad51e0f7879327b",
+        "title": "Harry Potter i Kamień Filozoficzny",
         "content": "Kiedy potrzeba mi w życiu czegoś czystego, nie skażonego piętnem butalnego świata, gdy poszukuję nadziei, podczas łapania głębszego wdechu- wtedy powracam do Władcy Pierścieni.",
         "rating": "5",
         "book": "5d713a66ec8f2b88b8f830b8",

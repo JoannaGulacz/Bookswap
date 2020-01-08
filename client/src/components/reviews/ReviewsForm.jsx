@@ -28,14 +28,20 @@ export default class ReviewsForm extends Component {
         this.toggleEditConfirm.bind(this);
         this.toggleEditLast.bind(this);
         this.toggleLast.bind(this);
+    }
 
+    componentDidMount() {
+        this.getReviews();
+    }
+
+    getReviews = () => {
         axios
             .get('reviews/myReviews')
             .then(data => this.setState({ reviews: data.data.data }))
             .catch(function(error) {
                 console.log(error.response.data);
             });
-    }
+    };
 
     handleDelete = id => {
         this.toggle();
@@ -129,12 +135,14 @@ export default class ReviewsForm extends Component {
         this.setState({
             modalEditInfo: !this.state.modalEditInfo,
         });
+        this.getReviews();
     };
 
     toggleLast = () => {
         this.setState({
             modalInfo: !this.state.modalInfo,
         });
+        this.getReviews();
     };
 
     handleContentChange = event => {
@@ -207,11 +215,9 @@ export default class ReviewsForm extends Component {
                                             <MDBModal isOpen={this.state.modalInfo} toggle={this.toggleLast} centered>
                                                 <MDBModalBody>{this.state.modalText}</MDBModalBody>
                                                 <MDBModalFooter>
-                                                    <a href={'http://localhost:3000/reviews'}>
-                                                        <MDBBtn color="success" onClick={this.toggleLast}>
-                                                            Close
-                                                        </MDBBtn>
-                                                    </a>
+                                                    <MDBBtn color="success" onClick={this.toggleLast}>
+                                                        Close
+                                                    </MDBBtn>
                                                 </MDBModalFooter>
                                             </MDBModal>
                                         </MDBCardBody>
@@ -278,11 +284,9 @@ export default class ReviewsForm extends Component {
                     <MDBModal isOpen={this.state.modalEditInfo} toggle={this.toggleEditLast} centered>
                         <MDBModalBody>{this.state.modalEditText}</MDBModalBody>
                         <MDBModalFooter>
-                            <a href={'http://localhost:3000/reviews'}>
-                                <MDBBtn color="success" onClick={this.toggleEditLast}>
-                                    Close
-                                </MDBBtn>
-                            </a>
+                            <MDBBtn color="success" onClick={this.toggleEditLast}>
+                                Close
+                            </MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
                 </MDBCol>
