@@ -2,8 +2,10 @@ import React from 'react';
 import { MDBCol, MDBRow, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
 import axios from 'axios';
 import { useFormik } from 'formik';
+import InfoPopup from '../search/InfoPopup';
 
 const AddBookcaseForm = () => {
+    const infoPopup = React.createRef();
     const formik = useFormik({
         initialValues: {
             title: '',
@@ -22,11 +24,16 @@ const AddBookcaseForm = () => {
                     change: formik.values.change,
                 })
                 .then(function(response) {
-                    alert('Bookcase added');
+                    infoPopup.current.setState({
+                        text: 'Bookcase added',
+                    });
                 })
                 .catch(function(error) {
-                    alert('Bookcase not added');
+                    infoPopup.current.setState({
+                        text: 'The bookcase has not been added',
+                    });
                 });
+            infoPopup.current.toggle();
         },
     });
 
@@ -101,6 +108,7 @@ const AddBookcaseForm = () => {
                     </MDBCardBody>
                 </MDBCard>
             </MDBCol>
+            <InfoPopup ref={infoPopup} buttonText="Close" linkBack={'/bookcases'} />
         </div>
     );
 };
