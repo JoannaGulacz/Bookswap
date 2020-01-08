@@ -11,24 +11,30 @@ BookSwap is unique web platform for books enthusiast. Main goal of the applicati
 -   setting "physical copies" to swap
 -   searching for books to swap
 
+### Development perspectives
+-   community aspects (making friends with users, private correspondance, comments section)
+-   implementation of roles and theirs aspects (publisher sites, marked critic reviews, etc.)
+-   journal aspect (articles, news section)
+
+
 ### Screenshots
--   Login page:
-![Login page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/login.jpg)
+#### Login page:
+![Login page](/client/public/samples/login.jpg)
 
--   User page:
-![User page](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/user.jpg)
+#### User page:
+![User page](/client/public/samples/user.jpg)
 
--   Searching database:
-![Searching database](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/books.jpg)
+#### Searching database:
+![Searching database](/client/public/samples/books.jpg)
 
--   Books reviews:
-![Books reviews](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/reviews.jpg)
+#### Books reviews:
+![Books reviews](/client/public/samples/reviews.jpg)
 
--   Books swapping:
-![Books swapping](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/booksToSwap.jpg)
+#### Books swapping:
+![Books swapping](/client/public/samples/booksToSwap.jpg)
 
--   Database items cards:
-![Database items cards](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/book.jpg)
+#### Database items cards:
+![Database items cards](/client/public/samples/book.jpg)
 
--   Forms:
-![Forms](https://github.com/JoannaGulacz/Bookswap/tree/master/client/public/samples/forms.jpg)
+#### Forms:
+![Forms](/client/public/samples/forms.jpg)
