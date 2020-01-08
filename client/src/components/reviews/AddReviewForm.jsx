@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-import axios from '../utils/axios';
+import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { withRouter } from 'react-router-dom';
 

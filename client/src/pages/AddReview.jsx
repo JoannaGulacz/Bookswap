@@ -1,5 +1,5 @@
 import React from 'react';
-import AddReviewForm from '../components/AddReviewForm';
+import AddReviewForm from '../components/reviews/AddReviewForm';
 
 const Review = ({ match: { params } }) => {
     return (
