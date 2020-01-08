@@ -47,7 +47,7 @@ export default class CategoryForm extends Component {
                 this.infoPopup.current.setState({
                     text: 'Category deleted',
                     linkBack: '/categories',
-                    shouldPrevent: () => {},
+                    shouldPrevent: () => { },
                 });
             })
             .catch(err => {
@@ -67,7 +67,7 @@ export default class CategoryForm extends Component {
             .then(data => {
                 this.infoPopup.current.setState({
                     text: 'Category edited',
-                    shouldPrevent: () => {},
+                    shouldPrevent: () => { },
                 })
                 this.componentDidMount()
             })
@@ -86,65 +86,65 @@ export default class CategoryForm extends Component {
         } else {
             return (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <MDBCol md="8">
-                    <MDBCard>
-                        <MDBCardImage
-                            top
-                            src="/category.jpg"
-                            overlay="white-slight"
-                            hover
-                            waves
-                            alt="MDBCard image cap"
-                        />
-                        <MDBCardBody>
-                            <MDBCardTitle>{this.state.category.name}</MDBCardTitle>
-                            <hr />
-                            {<div className="card-text" dangerouslySetInnerHTML={{ __html: this.state.infoText }} />}
-                            <MDBCardText></MDBCardText>
-                            <BookList ref={this.bookList} books={this.state.category.books}/>
-                            <br />
-                            <div
-                                style={{ cursor: 'pointer' }}
-                                onClick={()=>{this.inputTextPopup.current.propsUpdate();this.inputTextPopup.current.toggle()}}
-                                className="black-text d-flex justify-content-end"
-                            >
-                                <h5>
-                                    Edit category
+                    <MDBCol md="8">
+                        <MDBCard>
+                            <MDBCardImage
+                                top
+                                src="/category.jpg"
+                                overlay="white-slight"
+                                hover
+                                waves
+                                alt="MDBCard image cap"
+                            />
+                            <MDBCardBody>
+                                <MDBCardTitle>{this.state.category.name}</MDBCardTitle>
+                                <hr />
+                                {<div className="card-text" dangerouslySetInnerHTML={{ __html: this.state.infoText }} />}
+                                <MDBCardText></MDBCardText>
+                                <BookList ref={this.bookList} books={this.state.category.books} />
+                                <br />
+                                <div
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => { this.inputTextPopup.current.propsUpdate(); this.inputTextPopup.current.toggle() }}
+                                    className="black-text d-flex justify-content-end"
+                                >
+                                    <h5>
+                                        Edit category
                                     <MDBIcon icon="edit" className="ml-2" />
-                                </h5>
-                            </div>
-                            <div
-                                style={{ cursor: 'pointer' }}
-                                onClick={()=>this.confirmPopup.current.toggle()}
-                                className="black-text d-flex justify-content-end"
-                            >
-                                <h5>
-                                    Delete category
+                                    </h5>
+                                </div>
+                                <div
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => this.confirmPopup.current.toggle()}
+                                    className="black-text d-flex justify-content-end"
+                                >
+                                    <h5>
+                                        Delete category
                                     <MDBIcon icon="trash-alt" className="ml-2" />
-                                </h5>
-                            </div>
-                        </MDBCardBody>
-                    </MDBCard>
+                                    </h5>
+                                </div>
+                            </MDBCardBody>
+                        </MDBCard>
 
 
-                    <ConfirmPopup ref={this.confirmPopup} 
-                        text='Are you sure you want to delete this category?' 
-                        handleAction={this.deleteCategory}
+                        <ConfirmPopup ref={this.confirmPopup}
+                            text='Are you sure you want to delete this category?'
+                            handleAction={this.deleteCategory}
                         />
 
-                    <InfoPopup ref={this.infoPopup} 
-                        buttonText="Close"
-                        linkBack={`/categories/${this.state._id}`}
-                        text={this.state.modalText}
+                        <InfoPopup ref={this.infoPopup}
+                            buttonText="Close"
+                            linkBack={`/categories/${this.state._id}`}
+                            text={this.state.modalText}
                         />
 
-                    <InputTextPopup ref={this.inputTextPopup} 
-                        text="Edit category" 
-                        value={this.state.name}
-                        onSubmit={this.editCategory} 
-                        buttonDisplay='none'/>
-                </MDBCol>
-        </div>
+                        <InputTextPopup ref={this.inputTextPopup}
+                            text="Edit category"
+                            value={this.state.name}
+                            onSubmit={this.editCategory}
+                            buttonDisplay='none' />
+                    </MDBCol>
+                </div>
             );
         }
     }

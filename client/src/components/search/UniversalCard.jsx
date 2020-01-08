@@ -23,7 +23,7 @@ export default class BookCard extends Component {
         return (
             <MDBCard>
                 <MDBCardBody>
-                    <MDBCardTitle>{this.state.description.name}</MDBCardTitle>
+                    <MDBCardTitle style={{ textAlign: "left" }}>{this.state.description.name}</MDBCardTitle>
                     <hr />
                     <Link to={this.state.link} className="black-text d-flex justify-content-end">
                         <h5>

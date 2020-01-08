@@ -33,31 +33,19 @@ const bookcaseSchema = new mongoose.Schema(
 
 function validateBookcase(bookcaseData) {
     const schema = Joi.object({
-        // owner: Joi.string()
-        //     .min(3)
-        //     .max(250)
-        //     .required(),
         change: Joi.boolean(),
         title: Joi.string()
             .min(3)
             .max(250),
-        // .required(),
         author: Joi.string()
             .min(3)
             .max(250),
-        // .required(),
         publisher: Joi.string()
             .min(3)
             .max(250),
-        // .required(),
         category: Joi.string()
             .min(3)
             .max(250),
-        // .required(),
-        // parentBook: Joi.string()
-        //     .min(3)
-        //     .max(250)
-        //     .required(),
     });
 
     return schema.validate(bookcaseData);

@@ -13,7 +13,7 @@ export default class BookList extends Component {
     componentDidMount = () => {
         this.propsUpdate()
     }
-    
+
     propsUpdate = () => {
         if (this.props.books) {
             this.setState({
