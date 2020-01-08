@@ -75,7 +75,7 @@ class Root extends React.Component {
                         <Route path="/swap" exact component={Swap} />
                         <Route path="/swap/:id" component={SwapDetails} />
                         <Route path="/notifications">
-                            {this.state.isLogged ? <Notification /> : <Redirect to="/" />}
+                            {this.state.isLogged ? <Notification /> : <Redirect to="/login" />}
                         </Route>
                         <Route
                             path="/login"
@@ -98,15 +98,15 @@ class Root extends React.Component {
                         <Route path="/categories/:_id" component={Category} />
                         <Route path="/addbook/" component={AddBook} />
                         <Route path="/bookcases" exact>
-                            {this.state.isLogged ? <Bookcases /> : <Redirect to="/" />}
+                            {this.state.isLogged ? <Bookcases /> : <Redirect to="/login" />}
                         </Route>
-                        <Route path="/addbookcase">{this.state.isLogged ? <AddBookcase /> : <Redirect to="/" />}</Route>
+                        <Route path="/addbookcase">
+                            {this.state.isLogged ? <AddBookcase /> : <Redirect to="/login" />}
+                        </Route>
                         <Route path="/reviews" exact>
-                            {this.state.isLogged ? <Reviews /> : <Redirect to="/" />}
+                            {this.state.isLogged ? <Reviews /> : <Redirect to="/login" />}
                         </Route>
-                        <Route path="/addreview/:_id">
-                            {this.state.isLogged ? <AddReview /> : <Redirect to="/" />}
-                        </Route>
+                        <Route path="/addreview/:_id" component={AddReview} />
                         <Route path="/users/me">
                             {this.state.isLogged ? (
                                 <UserProfile
