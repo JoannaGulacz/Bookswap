@@ -20,7 +20,7 @@ export default class LoginForm extends Component {
                                 .email('Email is invalid')
                                 .required('Email is required'),
                             password: Yup.string()
-                                .min(5, 'Password must be at least 6 characters')
+                                .min(5, 'Password must be at least 5 characters')
                                 .required('Password is required'),
                         })}
                         onSubmit={fields => {
@@ -29,18 +29,23 @@ export default class LoginForm extends Component {
                                     email: fields.email,
                                     password: fields.password,
                                 })
-                                .then(function(response) {
+                                .then(response => {
+                                    console.log(response.data.success);
                                     const token = response.data.token;
                                     fields.props.loginHandler(token);
                                     fields.props.history.push('/');
                                 })
-                                .catch(function(error) {
-                                    console.log(error);
+                                .catch(error => {
+                                    document.getElementById('loginError').innerHTML = `${error.response.data}`;
                                 });
+                        }}
+                        onReset={() => {
+                            document.getElementById('loginError').innerHTML = ``;
                         }}
                         render={({ errors, status, touched }) => (
                             <Form className="pl-4 pr-4 pt-4">
                                 <h4 className="text-center">Sign in</h4>
+                                <p id="loginError" className="red-text" />
                                 <div className="form-group">
                                     <label htmlFor="email">Email</label>
                                     <Field
