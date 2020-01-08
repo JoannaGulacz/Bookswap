@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginForm from '../components/login/LoginForm';
-import RegisterForm from '../components/login/RegisterForm';
+import LoginForm from '../components/authorization/LoginForm';
+import RegisterForm from '../components/authorization/RegisterForm';
 import { MDBContainer, MDBCol, MDBRow } from 'mdbreact';
 
 const Login = props => {
