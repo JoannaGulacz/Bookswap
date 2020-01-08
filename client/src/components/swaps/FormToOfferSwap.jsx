@@ -12,6 +12,7 @@ export default class FormToOfferSwap extends Component {
             bookToOffer: this.props.booksToOffer.length > 0 ? this.props.booksToOffer[0]._id : '',
             buttonText: 'send offer',
             isDisabled: this.props.bookcases.length === 0 ? true : false,
+            isSelectDisabled: this.props.bookcases.length === 0 ? true : false,
             swaps: [],
         };
         this.handleUserOnChange.bind(this);
@@ -38,9 +39,9 @@ export default class FormToOfferSwap extends Component {
 
     updateButton = () => {
         if (this.state.bookToGet.length === 0) {
-            this.setState({ isDisabled: true, buttonText: 'invalid' });
+            this.setState({ isDisabled: true, isSelectDisabled: true, buttonText: 'invalid' });
         } else {
-            this.setState({ isDisabled: false, buttonText: 'send offer' });
+            this.setState({ isDisabled: false, isSelectDisabled: false, buttonText: 'send offer' });
             this.props.bookcases.map(el => {
                 if (el.id === this.state.bookToOffer) {
                     if (el.parentBook === this.props.book.id)
@@ -114,6 +115,7 @@ export default class FormToOfferSwap extends Component {
                                 </label>
                                 <br />
                                 <select
+                                    disabled={this.state.isSelectDisabled}
                                     width="50"
                                     name="bookToOffer"
                                     onChange={this.handleBookOnChange}
