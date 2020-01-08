@@ -1,92 +1,109 @@
 import React from 'react';
-import { MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBCard } from 'mdbreact';
 import axios from '../../utils/axios';
-import { useFormik } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-const PasswordForm = props => {
-    const formik = useFormik({
-        initialValues: {
-            currentPassword: '',
-            newPassword: '',
-            confirmPassword: '',
-        },
-        onSubmit: () => {
-            if (formik.values.newPassword === formik.values.confirmPassword) {
-                axios
-                    .put(`users/me/updatepassword`, {
-                        currentPassword: formik.values.currentPassword,
-                        newPassword: formik.values.newPassword,
-                    })
-                    .then(() => {
-                        props.history.push('/users/me');
-                        document.getElementById('password-msg').innerHTML =
-                            "<span style='color: green'><b>Password changed successfully</b></span>";
-                    })
-                    .catch(error => {
-                        console.log(error.response.data);
-                        document.getElementById(
-                            'password-msg'
-                        ).innerHTML = `<span style='color: red'><b>${error.response.data}</b></span>`;
-                    });
-            } else {
-                document.getElementById('password-msg').innerHTML =
-                    "<span style='color: red'><b>Passwords don't match</b></span>";
-            }
-        },
-    });
-
-    return (
-        <MDBCard>
-            <MDBCardBody>
-                <form onSubmit={formik.handleSubmit}>
-                    <p className="h4 text-center mb-4">Change your password</p>
-                    <label htmlFor="currentPassword" className="grey-text">
-                        Old password
-                    </label>
-                    <input
-                        type="password"
-                        name="currentPassword"
-                        id="currentPassword"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.currentPassword}
-                        required
+export default class PasswordForm extends React.Component {
+    render() {
+        return (
+            <MDBCard>
+                <Formik>
+                    <Formik
+                        initialValues={{
+                            currentPassword: '',
+                            newPassword: '',
+                            confirmPassword: '',
+                            props: this.props,
+                        }}
+                        validationSchema={Yup.object().shape({
+                            currentPassword: Yup.string()
+                                .min(5, 'Password must be at least 6 characters')
+                                .required('Password is required'),
+                            newPassword: Yup.string()
+                                .min(5, 'Password must be at least 6 characters')
+                                .required('Password is required'),
+                            confirmPassword: Yup.string()
+                                .min(5, 'Password must be at least 6 characters')
+                                .required('Password is required'),
+                        })}
+                        onSubmit={fields => {
+                            if (fields.newPassword === fields.confirmPassword) {
+                                axios
+                                    .put(`users/me/updatepassword`, {
+                                        currentPassword: fields.currentPassword,
+                                        newPassword: fields.newPassword,
+                                    })
+                                    .then(() => {
+                                        fields.props.history.push('/users/me');
+                                        document.getElementById('password-msg').innerHTML =
+                                            "<span style='color: green'><b>Password changed successfully</b></span>";
+                                    })
+                                    .catch(error => {
+                                        document.getElementById(
+                                            'password-msg'
+                                        ).innerHTML = `<span style='color: red'><b>${error.response.data}</b></span>`;
+                                    });
+                            } else {
+                                document.getElementById('password-msg').innerHTML =
+                                    "<span style='color: red'><b>Passwords don't match</b></span>";
+                            }
+                        }}
+                        render={({ errors, status, touched }) => (
+                            <Form className="pl-4 pr-4 pt-4">
+                                <h4 className="text-center">Change your password</h4>
+                                <div className="form-group">
+                                    <label htmlFor="currentPassword" className="grey-text">
+                                        Old password
+                                    </label>
+                                    <Field
+                                        name="currentPassword"
+                                        type="password"
+                                        className={
+                                            'form-control' +
+                                            (errors.currentPassword && touched.currentPassword ? ' is-invalid' : '')
+                                        }
+                                    />
+                                    <ErrorMessage name="currentPassword" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="currentPassword" className="grey-text">
+                                        New password
+                                    </label>
+                                    <Field
+                                        name="newPassword"
+                                        type="text"
+                                        className={
+                                            'form-control' +
+                                            (errors.newPassword && touched.newPassword ? ' is-invalid' : '')
+                                        }
+                                    />
+                                    <ErrorMessage name="currentPassword" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="currentPassword" className="grey-text">
+                                        Confirm new password
+                                    </label>
+                                    <Field
+                                        name="confirmPassword"
+                                        type="text"
+                                        className={
+                                            'form-control' +
+                                            (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')
+                                        }
+                                    />
+                                    <ErrorMessage name="currentPassword" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <button type="submit" className="btn btn-primary mr-2">
+                                        Confirm change
+                                    </button>
+                                </div>
+                            </Form>
+                        )}
                     />
-                    <br />
-                    <label htmlFor="newPassword" className="grey-text">
-                        New password
-                    </label>
-                    <input
-                        type="text"
-                        name="newPassword"
-                        id="newPassword"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.newPassword}
-                        required
-                    />
-                    <br />
-                    <label htmlFor="confirmPassword" className="grey-text">
-                        Confirm new password
-                    </label>
-                    <input
-                        type="text"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        className="form-control"
-                        onChange={formik.handleChange}
-                        value={formik.values.confirmPassword}
-                        required
-                    />
-                    <div className="text-center mt-4">
-                        <MDBBtn color="indigo" type="submit">
-                            Confirm change
-                        </MDBBtn>
-                    </div>
-                </form>
-            </MDBCardBody>
-        </MDBCard>
-    );
-};
-
-export default PasswordForm;
+                </Formik>
+            </MDBCard>
+        );
+    }
+}
