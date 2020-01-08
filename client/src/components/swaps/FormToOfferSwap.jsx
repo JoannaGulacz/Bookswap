@@ -8,11 +8,11 @@ export default class FormToOfferSwap extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            bookToGet: this.props.bookcases.length > 0 ? this.props.bookcases[0]._id : '',
+            bookToGet: this.props.bookcases[0]._id,
             bookToOffer: this.props.booksToOffer.length > 0 ? this.props.booksToOffer[0]._id : '',
             buttonText: 'send offer',
-            isDisabled: this.props.bookcases.length === 0 ? true : false,
-            isSelectDisabled: this.props.bookcases.length === 0 ? true : false,
+            isDisabled: true,
+            isSelectDisabled: true,
             swaps: [],
         };
         this.handleUserOnChange.bind(this);
@@ -41,17 +41,21 @@ export default class FormToOfferSwap extends Component {
         if (this.state.bookToGet.length === 0) {
             this.setState({ isDisabled: true, isSelectDisabled: true, buttonText: 'invalid' });
         } else {
-            this.setState({ isDisabled: false, isSelectDisabled: false, buttonText: 'send offer' });
-            this.props.bookcases.map(el => {
-                if (el.id === this.state.bookToOffer) {
-                    if (el.parentBook === this.props.book.id)
-                        this.setState({ isDisabled: true, buttonText: 'invalid' });
-                }
-            });
-            this.state.swaps.filter(el => {
-                if (el.bookToGet._id === this.state.bookToGet && el.bookToOffer._id === this.state.bookToOffer)
-                    this.setState({ isDisabled: true, buttonText: 'offer sent' });
-            });
+            if (this.props.bookcases[0].owner.name === this.props.user.name) {
+                this.setState({ isDisabled: true, isSelectDisabled: true, buttonText: 'invalid' });
+            } else {
+                this.setState({ isDisabled: false, isSelectDisabled: false, buttonText: 'send offer' });
+                this.props.bookcases.forEach(el => {
+                    if (el.id === this.state.bookToOffer) {
+                        if (el.parentBook === this.props.book.id)
+                            this.setState({ isDisabled: true, buttonText: 'invalid' });
+                    }
+                });
+                this.state.swaps.forEach(el => {
+                    if (el.bookToGet._id === this.state.bookToGet && el.bookToOffer._id === this.state.bookToOffer)
+                        this.setState({ isDisabled: true, buttonText: 'offer sent' });
+                });
+            }
         }
     };
 
