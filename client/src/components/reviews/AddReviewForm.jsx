@@ -3,6 +3,7 @@ import { MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { withRouter } from 'react-router-dom';
+import InfoPopup from '../search/InfoPopup';
 
 class Reviews extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class Reviews extends Component {
             radio: 4,
             title: '',
         };
+        this.infoPopup = React.createRef();
     }
 
     componentDidMount() {
@@ -43,13 +45,18 @@ class Reviews extends Component {
                                             rating: fields.rating,
                                             content: fields.content,
                                         })
-                                        .then(function(response) {
-                                            alert('Review added');
+                                        .then(response => {
+                                            this.infoPopup.current.setState({
+                                                text: 'Review added',
+                                            });
                                         })
-                                        .catch(function(error) {
+                                        .catch(error => {
                                             console.log(error.response);
-                                            alert('Review not added');
+                                            this.infoPopup.current.setState({
+                                                text: 'The review has not been added',
+                                            });
                                         });
+                                    this.infoPopup.current.toggle();
                                 }}
                                 render={({ errors, touched }) => (
                                     <Form>
@@ -106,6 +113,7 @@ class Reviews extends Component {
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
+                <InfoPopup ref={this.infoPopup} buttonText="Close" linkBack={'/reviews'} />
             </div>
         );
     }
