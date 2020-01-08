@@ -32,16 +32,14 @@ export default class NotificationReceived extends Component {
             });
     }
 
-    handleAccept(ev, el) {
+    handleAccept(el) {
         axios.delete(`/swaps/bookcases/${el.bookToOffer._id}`).then(this.getSwaps());
         axios.delete(`/swaps/bookcases/${el.bookToGet._id}`).then(this.getSwaps());
         axios.put(`/bookcases/${el.bookToOffer._id}`, { user: el.userThatGetsOffer, change: false });
         axios.put(`/bookcases/${el.bookToGet._id}`, { user: el.user, change: false });
     }
 
-    handleRefuse(ev, id) {
-        ev.target.disabled = true;
-        ev.target.previousElementSibling.disabled = true;
+    handleRefuse(id) {
         axios.delete(`/swaps/${id}`).then(this.getSwaps());
     }
 
@@ -75,14 +73,14 @@ export default class NotificationReceived extends Component {
                                             <MDBBtn
                                                 className="ml-1 pl-3 pr-3"
                                                 color="success"
-                                                onClick={ev => this.handleAccept(ev, el)}
+                                                onClick={() => this.handleAccept(el)}
                                             >
                                                 <MDBIcon far icon="check-circle" style={{ fontSize: '2rem' }} />
                                             </MDBBtn>
                                             <MDBBtn
                                                 className="ml-1 pl-3 pr-3"
                                                 color="danger"
-                                                onClick={ev => this.handleRefuse(ev, el._id)}
+                                                onClick={() => this.handleRefuse(el._id)}
                                             >
                                                 <MDBIcon far icon="times-circle" style={{ fontSize: '2rem' }} />
                                             </MDBBtn>
